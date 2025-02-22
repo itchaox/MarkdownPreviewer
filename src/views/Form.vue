@@ -919,6 +919,7 @@
     position: relative;
     overflow-y: auto;
     margin-top: 8px;
+    scroll-behavior: smooth;
   }
 
   .tag {
