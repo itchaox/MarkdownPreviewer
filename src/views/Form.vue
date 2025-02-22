@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-22 22:38
+ * @LastTime   : 2025-02-22 22:43
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -581,7 +581,7 @@
         <span class="field-label">{{ $t('preview.ai_chat.question_field') }}</span>
         <el-select
           v-model="questionFieldId"
-          :placeholder="$t('preview.ai_chat.question_field')"
+          :placeholder="$t('preview.ai_chat.question_field_placeholder')"
           class="field-selector"
           style="min-width: 100px"
         >
@@ -597,7 +597,7 @@
         <span class="field-label">{{ $t('preview.ai_chat.answer_field') }}</span>
         <el-select
           v-model="answerFieldId"
-          :placeholder="$t('preview.ai_chat.answer_field')"
+          :placeholder="$t('preview.ai_chat.answer_field_placeholder')"
           class="field-selector"
           style="min-width: 100px"
         >

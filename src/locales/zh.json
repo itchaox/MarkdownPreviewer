@@ -14,7 +14,9 @@
     },
     "ai_chat": {
       "question_field": "问题字段",
-      "answer_field": "回答字段"
+      "question_field_placeholder": "请选择问题字段",
+      "answer_field": "回答字段",
+      "answer_field_placeholder": "请选择回答字段"
     }
   }
 }

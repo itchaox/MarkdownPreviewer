@@ -14,7 +14,9 @@
     },
     "ai_chat": {
       "question_field": "Question Field",
-      "answer_field": "Answer Field"
+      "question_field_placeholder": "Please select question Field",
+      "answer_field": "Answer Field",
+      "answer_field_placeholder": "Please select answer Field"
     }
   }
 }
