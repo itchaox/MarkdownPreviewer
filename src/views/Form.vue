@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-22 22:43
+ * @LastTime   : 2025-02-22 23:02
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -127,9 +127,15 @@
     }
 
     // 重置预览区域的滚动位置到顶部
-    const previewContent = document.querySelector('.cell-preview');
-    if (previewContent) {
-      previewContent.scrollTop = 0;
+    const previewContentDom = document.querySelector('.cell-preview');
+    const questionContentDom = document.querySelector('.question-content');
+    const answerContentDom = document.querySelector('.answer-content');
+
+    if (previewMode.value === 'ai') {
+      if (questionContentDom) questionContentDom.scrollTop = 0;
+      if (answerContentDom) answerContentDom.scrollTop = 0;
+    } else if (previewContentDom) {
+      previewContentDom.scrollTop = 0;
     }
   }
 
