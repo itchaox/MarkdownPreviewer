@@ -1,0 +1,22 @@
+{
+  "title": "标题",
+  "preview": {
+    "empty_state1": "请选择一个",
+    "empty_state2": "单元格",
+    "empty_state3": "以预览 Markdown 内容",
+    "current_field": "当前字段",
+    "current_row": "当前行号",
+    "navigation": {
+      "prev": "上一个",
+      "next": "下一个"
+    },
+    "mode": {
+      "normal": "普通预览",
+      "ai": "AI 问答"
+    },
+    "ai_chat": {
+      "question_field": "问题字段",
+      "answer_field": "回答字段"
+    }
+  }
+}

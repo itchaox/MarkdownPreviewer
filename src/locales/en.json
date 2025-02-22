@@ -1,0 +1,22 @@
+{
+  "title": "Title",
+  "preview": {
+    "empty_state1": "Please select a",
+    "empty_state2": "cell",
+    "empty_state3": "to preview Markdown content",
+    "current_field": "Current Field",
+    "current_row": "Current Row",
+    "navigation": {
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "mode": {
+      "normal": "Normal Preview",
+      "ai": "AI Chat"
+    },
+    "ai_chat": {
+      "question_field": "Question Field",
+      "answer_field": "Answer Field"
+    }
+  }
+}
