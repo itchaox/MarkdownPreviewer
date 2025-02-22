@@ -1,6 +1,8 @@
 {
   "title": "Title",
   "preview": {
+    "question": "Question",
+    "answer": "Answer",
     "empty_state": "Please select  cell to preview Markdown content",
     "current_field": "Current Field",
     "current_row": "Current Row",
@@ -17,6 +19,13 @@
       "question_field_placeholder": "Please select question Field",
       "answer_field": "Answer Field",
       "answer_field_placeholder": "Please select answer Field"
+    },
+    "sponsor": {
+      "me": "Sponsor Me",
+      "tip1": "If this plugin is helpful to you, feel free to buy me a coffee",
+      "tip2": "Thank you for your support. The QR code is for voluntary sponsorship only and does not involve any goods or services transactions",
+      "tip3": "Please scan the QR code below to sponsor",
+      "follow": "Follow Me"
     }
   }
 }

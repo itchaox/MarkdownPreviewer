@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-22 23:02
+ * @LastTime   : 2025-02-22 23:15
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -241,7 +241,7 @@
           // 获取当前字段名称
           const field = await table.getFieldById(currentFieldId.value);
           const fieldMeta = await field.getMeta();
-          currentFieldName.value = fieldMeta.name || '未知字段';
+          currentFieldName.value = fieldMeta.name;
 
           // 更新当前行号
           const currentIndex = recordIds.value.findIndex((id) => id === recordId.value);
@@ -253,7 +253,7 @@
           // 获取字段名称
           const field = await table.getFieldById(currentFieldId.value);
           const fieldMeta = await field.getMeta();
-          currentFieldName.value = fieldMeta.name || '未知字段';
+          currentFieldName.value = fieldMeta.name;
 
           // 修改当前数据
           let data = await table.getCellValue(currentFieldId.value, recordId.value);
@@ -271,7 +271,7 @@
         }
       } catch (error) {
         console.error('获取字段信息失败:', error);
-        currentFieldName.value = '未知字段';
+        currentFieldName.value = '';
         currentValue.value = '';
         parsedContent.value = '';
       }
@@ -284,99 +284,6 @@
     // 更新记录ID列表
     await updateRecordIds();
   });
-
-  async function confirm() {
-    isLoading.value = true;
-    if (selectModel.value === 'cell') {
-      if (currentFieldId.value && recordId.value) {
-        await cellModel();
-      } else {
-        ElMessage({
-          type: 'error',
-          message: '请选择需要转换的单元格!',
-          duration: 1500,
-          showClose: true,
-        });
-      }
-    } else if (selectModel.value === 'field') {
-      if (fieldId.value) {
-        await fieldModel();
-      } else {
-        ElMessage({
-          type: 'error',
-          message: '请选择需要转换的字段!',
-          duration: 1500,
-          showClose: true,
-        });
-      }
-    } else {
-      await databaseModel();
-    }
-    isLoading.value = false;
-  }
-
-  async function cellModel() {
-    ElMessage({
-      message: '开始转换数据~',
-      type: 'success',
-      duration: 1500,
-    });
-
-    const table = await base.getActiveTable();
-    let newValue = getNewValue(currentValue.value);
-
-    if (currentFieldId.value && recordId.value) {
-      await table.setCellValue(currentFieldId.value, recordId.value, newValue);
-    }
-
-    ElMessage({
-      message: '数据转换结束!',
-      type: 'success',
-      duration: 1500,
-    });
-  }
-
-  async function fieldModel() {
-    ElMessage({
-      message: '开始转换数据~',
-      type: 'success',
-      duration: 1500,
-    });
-
-    const table = await bitable.base.getTable(databaseId.value);
-
-    await getAllRecordList();
-    await getAllRecordIdList();
-
-    let _list = [];
-
-    for (let index = 0; index < recordList.length; index++) {
-      const field = await table.getFieldById(fieldId.value);
-      const cell = await field.getCell(recordIds.value[index]);
-      const val = await cell.getValue();
-
-      if (!val) continue;
-
-      let newValue = getNewValue(val[0]?.text);
-
-      // FIXME 处理数据
-      _list.push({
-        recordId: recordIds.value[index],
-        fields: {
-          [fieldId.value]: newValue,
-        },
-      });
-    }
-
-    // FIXME 此处一次性全部替换
-    await table.setRecords(_list);
-
-    ElMessage({
-      message: '数据转换结束!',
-      type: 'success',
-      duration: 1500,
-    });
-  }
 
   async function getAllRecordIdList(_pageToken = 0) {
     const table = await bitable.base.getTable(databaseId.value);
@@ -398,53 +305,6 @@
     if (hasMore) {
       await getAllRecordList(pageToken);
     }
-  }
-
-  async function databaseModel() {
-    ElMessage({
-      message: '开始转换数据~',
-      type: 'success',
-      duration: 1500,
-    });
-
-    const table = await bitable.base.getTable(databaseId.value);
-    const _fieldList = await table.getFieldMetaList();
-
-    await getAllRecordList();
-    await getAllRecordIdList();
-
-    const filterFieldList = _fieldList.filter((item) => item.type === 1);
-
-    for (const item of filterFieldList) {
-      let _list = [];
-      for (let index = 0; index < recordList.length; index++) {
-        // 只遍历文本列
-        const field = await table.getFieldById(item.id);
-        const cell = await field.getCell(recordIds[index]);
-        const val = await cell.getValue();
-
-        if (val) {
-          let newValue = getNewValue(val[0]?.text);
-
-          // FIXME 处理数据
-          _list.push({
-            recordId: recordIds[index],
-            fields: {
-              [item.id]: newValue,
-            },
-          });
-        }
-      }
-
-      // FIXME 此处一次性全部替换
-      await table.setRecords(_list);
-    }
-
-    ElMessage({
-      message: '数据转换结束!',
-      type: 'success',
-      duration: 1500,
-    });
   }
 
   function getNewValue(value) {
@@ -505,11 +365,9 @@
     width="95%"
   >
     <div class="sponsor-content">
-      <p>如果这个插件对你有帮助,欢迎赞助我一杯咖啡 ☕️</p>
-      <p>感谢支持,二维码仅用于自愿赞助,不涉及任何商品或服务交易</p>
-
-      <p>请扫描下方二维码进行赞助：</p>
-      <!-- 这里需要替换成实际的赞助二维码图片 -->
+      <p>{{ $t('preview.sponsor.tip1') }} ☕️</p>
+      <p>{{ $t('preview.sponsor.tip2') }}️</p>
+      <p>{{ $t('preview.sponsor.tip3') }}️</p>
       <div class="qr-placeholder">
         <img
           src="@/assets/wx.png"
@@ -553,7 +411,7 @@
               />
             </svg>
           </el-icon>
-          <span style="color: #020"> 赞助我 </span>
+          <span style="color: #020"> {{ $t('preview.sponsor.me') }} </span>
         </el-button>
         <el-button
           type="primary"
@@ -574,7 +432,7 @@
                 clip-rule="evenodd"
               /></svg
           ></el-icon>
-          关注我
+          {{ $t('preview.sponsor.follow') }}
         </el-button>
       </div>
     </div>
@@ -667,11 +525,11 @@
           class="question-content"
           :title="questionContent"
         >
-          <span class="tag question-tag">问题</span>
+          <span class="tag question-tag">{{ $t('preview.question') }}</span>
           <p>{{ questionContent }}</p>
         </div>
         <div class="answer-content">
-          <span class="tag answer-tag">回答</span>
+          <span class="tag answer-tag">{{ $t('preview.answer') }}</span>
           <div v-html="parsedAnswerContent"></div>
         </div>
       </div>
@@ -1013,7 +871,7 @@
   }
 
   .sponsor-button {
-    width: 85px;
+    width: 90px;
     margin-right: -5px;
     color: #ec5f59 !important;
     transition: transform 0.2s ease;
