@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-23 13:19
+ * @LastTime   : 2025-02-23 13:50
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -594,8 +594,9 @@
           class="question-content"
           :title="questionContent"
         >
-          <div class="preview-header" v-if="questionContent">
+          <div class="ai-info">
             <el-button
+              v-if="questionContent"
               size="small"
               @click="copyQuestionContent"
               type="primary"
@@ -605,13 +606,15 @@
               <el-icon style="margin-right: 4px"><DocumentCopy /></el-icon>
               {{ $t('preview.copy.button') }}
             </el-button>
+
+            <span class="tag question-tag">{{ $t('preview.question') }}</span>
           </div>
-          <span class="tag question-tag">{{ $t('preview.question') }}</span>
           <p>{{ questionContent }}</p>
         </div>
         <div class="answer-content">
-          <div class="preview-header" v-if="parsedAnswerContent">
+          <div class="ai-info">
             <el-button
+              v-if="parsedAnswerContent"
               size="small"
               @click="copyAnswerContent"
               type="primary"
@@ -621,8 +624,8 @@
               <el-icon style="margin-right: 4px"><DocumentCopy /></el-icon>
               {{ $t('preview.copy.button') }}
             </el-button>
+            <span class="tag answer-tag">{{ $t('preview.answer') }}</span>
           </div>
-          <span class="tag answer-tag">{{ $t('preview.answer') }}</span>
           <div v-html="parsedAnswerContent"></div>
         </div>
       </div>
@@ -885,12 +888,14 @@
 
   .question-content,
   .answer-content {
-    padding: 24px 16px 16px;
+    padding: 16px;
+    padding-top: 8px;
     border-radius: 8px;
     position: relative;
     overflow-y: auto;
     margin-top: 8px;
     scroll-behavior: smooth;
+    min-height: 30px;
   }
 
   .tag {
@@ -928,6 +933,14 @@
     background-color: #fff;
     max-height: 50vh;
     border: 1px solid #e5e6eb;
+  }
+
+  .ai-info {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .question-content p {
