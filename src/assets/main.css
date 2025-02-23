@@ -1,5 +1,166 @@
 @import 'reset-css';
 
+/* 基础样式 */
+.preview-content {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  font-size: 14px;
+  line-height: 1.74;
+  color: #1f2329;
+}
+
+/* 标题样式 */
+.preview-content h1,
+.preview-content h2,
+.preview-content h3,
+.preview-content h4,
+.preview-content h5,
+.preview-content h6 {
+  margin: 24px 0 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.preview-content h1 {
+  font-size: 28px;
+  margin-top: 32px;
+}
+
+.preview-content h2 {
+  font-size: 24px;
+}
+
+.preview-content h3 {
+  font-size: 20px;
+}
+
+.preview-content h4 {
+  font-size: 16px;
+}
+
+.preview-content h5 {
+  font-size: 14px;
+}
+
+.preview-content h6 {
+  font-size: 14px;
+  color: #646a73;
+}
+
+/* 段落样式 */
+.preview-content p {
+  margin: 16px 0;
+  line-height: 1.74;
+}
+
+/* 列表样式 */
+.preview-content ul,
+.preview-content ol {
+  padding-left: 2em;
+  margin: 16px 0;
+}
+
+.preview-content ul {
+  list-style: disc;
+}
+
+.preview-content ol {
+  list-style: decimal;
+}
+
+.preview-content ul ul,
+.preview-content ol ul {
+  list-style: circle;
+}
+
+.preview-content ul ul ul,
+.preview-content ol ul ul,
+.preview-content ul ol ul,
+.preview-content ol ol ul {
+  list-style: square;
+}
+
+.preview-content li {
+  margin: 8px 0;
+  line-height: 1.74;
+}
+
+.preview-content li::marker {
+  color: #3370ff;
+}
+
+/* 代码块样式 */
+.preview-content pre {
+  margin: 16px 0;
+  padding: 16px;
+  background-color: #f5f6f7;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.preview-content code {
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  padding: 2px 4px;
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 3px;
+}
+
+.preview-content pre code {
+  padding: 0;
+  background-color: transparent;
+}
+
+/* 引用块样式 */
+.preview-content blockquote {
+  margin: 16px 0;
+  padding: 0 16px;
+  color: #646a73;
+  border-left: 4px solid #e5e6eb;
+}
+
+/* 表格样式 */
+.preview-content table {
+  margin: 16px 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.preview-content th,
+.preview-content td {
+  padding: 8px 16px;
+  border: 1px solid #e5e6eb;
+}
+
+.preview-content th {
+  background-color: #f5f6f7;
+  font-weight: 500;
+}
+
+/* 链接样式 */
+.preview-content a {
+  color: #3370ff;
+  text-decoration: none;
+}
+
+.preview-content a:hover {
+  text-decoration: underline;
+}
+
+/* 分割线样式 */
+.preview-content hr {
+  margin: 16px 0;
+  border: none;
+  border-top: 1px solid #e5e6eb;
+}
+
+/* 图片样式 */
+.preview-content img {
+  max-width: 100%;
+  margin: 16px 0;
+}
+
 /* 设置有序列表和无序列表的标记颜色 */
 ol {
   list-style: decimal;
