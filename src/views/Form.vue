@@ -24,6 +24,7 @@
 
   // 返回顶部按钮显示控制
   const showBackToTop = ref(false);
+  const showBackToTopAnswer = ref(false);
 
   // 监听滚动事件
   function handleScroll(event) {
@@ -31,10 +32,18 @@
     const scrollHeight = target.scrollHeight; // 内容总高度
     const clientHeight = target.clientHeight; // 可视区域高度
     const scrollTop = target.scrollTop; // 已滚动高度
-
-    // 当滚动超过一定距离时显示按钮（这里设置为200px）
-    // showBackToTop.value = scrollTop > 200;
+  
+    // 当滚动超过一定距离时显示按钮（这里设置为500px）
     showBackToTop.value = scrollTop > 500;
+  }
+
+  // 监听回答区域滚动事件
+  function handleAnswerScroll(event) {
+    const target = event.target;
+    const scrollTop = target.scrollTop; // 已滚动高度
+  
+    // 当滚动超过一定距离时显示按钮（这里设置为500px）
+    showBackToTopAnswer.value = scrollTop > 500;
   }
 
   // 返回顶部
@@ -42,6 +51,14 @@
     const previewContent = document.querySelector('.cell-preview');
     if (previewContent) {
       previewContent.scrollTop = 0;
+    }
+  }
+
+  // 回答区域返回顶部
+  function scrollAnswerToTop() {
+    const answerContent = document.querySelector('.answer-content');
+    if (answerContent) {
+      answerContent.scrollTop = 0;
     }
   }
 
@@ -640,12 +657,14 @@
               <el-icon style="margin-right: 4px"><DocumentCopy /></el-icon>
               {{ $t('preview.copy.button') }}
             </el-button>
-
             <span class="tag question-tag">{{ $t('preview.question') }}</span>
           </div>
           <p>{{ questionContent }}</p>
         </div>
-        <div class="answer-content">
+        <div 
+          class="answer-content"
+          @scroll="handleAnswerScroll"
+        >
           <div class="ai-info">
             <el-button
               v-if="parsedAnswerContent"
@@ -660,6 +679,15 @@
             </el-button>
             <span class="tag answer-tag">{{ $t('preview.answer') }}</span>
           </div>
+          <el-button
+            v-show="showBackToTopAnswer"
+            size="small"
+            type="primary"
+            class="back-to-top-button"
+            @click="scrollAnswerToTop"
+          >
+            <el-icon size="16"><ArrowUp /></el-icon>
+          </el-button>
           <div v-html="parsedAnswerContent"></div>
         </div>
       </div>
