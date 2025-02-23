@@ -148,6 +148,9 @@
   const currentFieldId = ref();
   const recordId = ref();
 
+  // 保存最后一次选中的字段ID和记录ID
+  const lastSelectedFieldId = ref();
+  const lastSelectedRecordId = ref();
   const currentValue = ref();
   const currentRecordIndex = ref(0);
   const recordIds = ref([]);
@@ -191,44 +194,48 @@
   }
 
   async function switchRecord(direction) {
-    if (!currentFieldId.value || recordIds.value.length === 0) return;
-
-    const currentIndex = recordIds.value.findIndex((id) => id === recordId.value);
+    // 使用当前字段ID或最后一次选中的字段ID
+    const fieldIdToUse = currentFieldId.value || lastSelectedFieldId.value;
+    const recordIdToUse = recordId.value || lastSelectedRecordId.value;
+  
+    if (!fieldIdToUse || recordIds.value.length === 0) return;
+  
+    const currentIndex = recordIds.value.findIndex((id) => id === recordIdToUse);
     if (currentIndex === -1) return;
-
+  
     let newIndex;
     if (direction === 'prev') {
       newIndex = currentIndex > 0 ? currentIndex - 1 : recordIds.value.length - 1;
     } else {
       newIndex = currentIndex < recordIds.value.length - 1 ? currentIndex + 1 : 0;
     }
-
+  
     recordId.value = recordIds.value[newIndex];
     currentRecordIndex.value = newIndex;
-
+  
     const table = await base.getActiveTable();
-
+  
     if (previewMode.value === 'ai' && questionFieldId.value && answerFieldId.value) {
       // AI 问答模式：获取问题和回答内容
       const questionData = await table.getCellValue(questionFieldId.value, recordId.value);
       const answerData = await table.getCellValue(answerFieldId.value, recordId.value);
-
+  
       questionContent.value = questionData?.[0]?.text || '';
       parsedAnswerContent.value = md.render(answerData?.[0]?.text || '');
     } else {
       // 普通预览模式
-      const data = await table.getCellValue(currentFieldId.value, recordId.value);
+      const data = await table.getCellValue(fieldIdToUse, recordId.value);
       if (data && data[0]) {
         currentValue.value = data[0].text;
         parsedContent.value = md.render(data[0].text || '');
       }
     }
-
+  
     // 重置预览区域的滚动位置到顶部
     const previewContentDom = document.querySelector('.cell-preview');
     const questionContentDom = document.querySelector('.question-content');
     const answerContentDom = document.querySelector('.answer-content');
-
+  
     if (previewMode.value === 'ai') {
       if (questionContentDom) questionContentDom.scrollTop = 0;
       if (answerContentDom) answerContentDom.scrollTop = 0;
@@ -326,6 +333,10 @@
 
     const table = await base.getActiveTable();
     if (currentFieldId.value && recordId.value) {
+      // 更新最后一次选中的ID
+      lastSelectedFieldId.value = currentFieldId.value;
+      lastSelectedRecordId.value = recordId.value;
+
       try {
         if (previewMode.value === 'ai' && questionFieldId.value && answerFieldId.value) {
           // AI 问答模式：获取问题和回答内容
@@ -373,10 +384,11 @@
         currentValue.value = '';
         parsedContent.value = '';
       }
-    } else {
-      currentFieldName.value = '';
-      currentValue.value = '';
-      parsedContent.value = '';
+    } else if (!event.data.fieldId && !event.data.recordId) {
+      // 失去焦点时不清空内容，保持当前状态
+      // 只更新记录 ID 列表
+      await updateRecordIds();
+      return;
     }
 
     // 更新记录ID列表
