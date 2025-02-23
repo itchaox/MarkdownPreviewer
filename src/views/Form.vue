@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-23 14:07
+ * @LastTime   : 2025-02-23 14:09
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -34,7 +34,7 @@
 
     // 当滚动超过一定距离时显示按钮（这里设置为200px）
     // showBackToTop.value = scrollTop > 200;
-    showBackToTop.value = scrollTop > 200;
+    showBackToTop.value = scrollTop > 500;
   }
 
   // 返回顶部
