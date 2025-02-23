@@ -1,0 +1,31 @@
+{
+  "title": "タイトル",
+  "preview": {
+    "question": "質問",
+    "answer": "回答",
+    "empty_state": "セルを選択して Markdown コンテンツをプレビューしてください",
+    "current_field": "現在のフィールド",
+    "current_row": "現在の行番号",
+    "navigation": {
+      "prev": "前へ",
+      "next": "次へ"
+    },
+    "mode": {
+      "normal": "通常プレビュー",
+      "ai": "AI Q&A"
+    },
+    "ai_chat": {
+      "question_field": "質問フィールド",
+      "question_field_placeholder": "質問フィールドを選択してください",
+      "answer_field": "回答フィールド",
+      "answer_field_placeholder": "回答フィールドを選択してください"
+    },
+    "sponsor": {
+      "me": "サポートする",
+      "tip1": "このプラグインが役立った場合は、コーヒー1杯分のご支援をお願いします",
+      "tip2": "ご支援ありがとうございます。QRコードは任意の寄付のみに使用され、商品やサービスの取引は含まれません",
+      "tip3": "以下のQRコードをスキャンしてサポートしてください",
+      "follow": "フォローする"
+    }
+  }
+}
