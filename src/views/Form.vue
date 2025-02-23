@@ -40,6 +40,44 @@
     }
   }
 
+  // 复制问题内容
+  function copyQuestionContent() {
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = questionContent.value;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      ElMessage.success({
+        message: t('preview.copy.success'),
+        offset: 120,
+        duration: 1500,
+      });
+    } catch (err) {
+      ElMessage.error(t('preview.copy.error'));
+    }
+  }
+
+  // 复制回答内容
+  function copyAnswerContent() {
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = currentValue.value;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      ElMessage.success({
+        message: t('preview.copy.success'),
+        offset: 120,
+        duration: 1500,
+      });
+    } catch (err) {
+      ElMessage.error(t('preview.copy.error'));
+    }
+  }
+
   // 关注我函数
   function followAuthor() {
     window.open('https://space.bilibili.com/521041866', '_blank');
@@ -556,10 +594,34 @@
           class="question-content"
           :title="questionContent"
         >
+          <div class="preview-header">
+            <el-button
+              size="small"
+              @click="copyQuestionContent"
+              type="primary"
+              plain
+              class="copy-button"
+            >
+              <el-icon style="margin-right: 4px"><DocumentCopy /></el-icon>
+              {{ $t('preview.copy.button') }}
+            </el-button>
+          </div>
           <span class="tag question-tag">{{ $t('preview.question') }}</span>
           <p>{{ questionContent }}</p>
         </div>
         <div class="answer-content">
+          <div class="preview-header">
+            <el-button
+              size="small"
+              @click="copyAnswerContent"
+              type="primary"
+              plain
+              class="copy-button"
+            >
+              <el-icon style="margin-right: 4px"><DocumentCopy /></el-icon>
+              {{ $t('preview.copy.button') }}
+            </el-button>
+          </div>
           <span class="tag answer-tag">{{ $t('preview.answer') }}</span>
           <div v-html="parsedAnswerContent"></div>
         </div>
