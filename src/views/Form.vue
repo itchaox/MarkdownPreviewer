@@ -3,11 +3,12 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-23 13:50
+ * @LastTime   : 2025-02-23 14:07
  * @desc       : Markdown 预览插件
 -->
 <script setup>
   import { onMounted, watch, ref, watchEffect } from 'vue';
+  import { ArrowUp } from '@element-plus/icons-vue';
   import { bitable } from '@lark-base-open/js-sdk';
 
   import opencc from 'node-opencc';
@@ -20,6 +21,29 @@
 
   // 赞助我弹窗控制
   const sponsorDialogVisible = ref(false);
+
+  // 返回顶部按钮显示控制
+  const showBackToTop = ref(false);
+
+  // 监听滚动事件
+  function handleScroll(event) {
+    const target = event.target;
+    const scrollHeight = target.scrollHeight; // 内容总高度
+    const clientHeight = target.clientHeight; // 可视区域高度
+    const scrollTop = target.scrollTop; // 已滚动高度
+
+    // 当滚动超过一定距离时显示按钮（这里设置为200px）
+    // showBackToTop.value = scrollTop > 200;
+    showBackToTop.value = scrollTop > 200;
+  }
+
+  // 返回顶部
+  function scrollToTop() {
+    const previewContent = document.querySelector('.cell-preview');
+    if (previewContent) {
+      previewContent.scrollTop = 0;
+    }
+  }
 
   // 复制内容函数
   function copyContent() {
@@ -567,6 +591,7 @@
     <div v-if="currentValue">
       <div
         class="cell-preview"
+        @scroll="handleScroll"
         v-if="previewMode === 'normal'"
       >
         <div class="preview-header">
@@ -581,6 +606,15 @@
             {{ $t('preview.copy.button') }}
           </el-button>
         </div>
+        <el-button
+          v-show="showBackToTop"
+          size="small"
+          type="primary"
+          class="back-to-top-button"
+          @click="scrollToTop"
+        >
+          <el-icon size="16"><ArrowUp /></el-icon>
+        </el-button>
         <div
           class="preview-content"
           v-html="parsedContent"
@@ -742,6 +776,7 @@
     min-height: 50px;
     scroll-behavior: smooth;
     max-height: 75vh;
+    scroll-behavior: smooth;
   }
 
   .empty-state {
@@ -1027,5 +1062,97 @@
     animation: heartbeat 1s infinite;
     transform-origin: center;
     display: inline-flex;
+  }
+
+  .back-to-top-button {
+    position: fixed;
+    bottom: 60px;
+    right: 30px;
+    width: 45px;
+    height: 35px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    background-color: #2955e7 !important;
+    border-color: #2955e7 !important;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .back-to-top-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .ai-chat {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .question-content,
+  .answer-content {
+    padding: 16px;
+    padding-top: 8px;
+    border-radius: 8px;
+    position: relative;
+    overflow-y: auto;
+    margin-top: 8px;
+    scroll-behavior: smooth;
+    min-height: 30px;
+  }
+
+  .tag {
+    position: absolute;
+    top: 0px;
+    left: 16px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid;
+    margin: 0;
+  }
+
+  .question-tag {
+    background-color: #f2f3f5;
+    color: #1f2329;
+    border-color: #e5e6eb;
+  }
+
+  .answer-tag {
+    background-color: #e8f3ff;
+    color: #2955e7;
+    border-color: #bedaff;
+  }
+
+  .question-content {
+    background-color: #f5f6f7;
+    max-height: 6vh;
+    font-size: 14px;
+  }
+
+  .answer-content {
+    /* background-color: #f0f7ff; */
+    background-color: #fff;
+    max-height: 50vh;
+    border: 1px solid #e5e6eb;
+  }
+
+  .ai-info {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .question-content p {
+    margin: 0;
+    color: #4e5969;
+    line-height: 1.6;
   }
 </style>
