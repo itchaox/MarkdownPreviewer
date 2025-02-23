@@ -594,7 +594,7 @@
           class="question-content"
           :title="questionContent"
         >
-          <div class="preview-header">
+          <div class="preview-header" v-if="questionContent">
             <el-button
               size="small"
               @click="copyQuestionContent"
@@ -610,7 +610,7 @@
           <p>{{ questionContent }}</p>
         </div>
         <div class="answer-content">
-          <div class="preview-header">
+          <div class="preview-header" v-if="parsedAnswerContent">
             <el-button
               size="small"
               @click="copyAnswerContent"
