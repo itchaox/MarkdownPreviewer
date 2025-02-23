@@ -9,6 +9,30 @@ ul {
   list-style: disc;
 }
 
+ol ul {
+  list-style: circle;
+}
+
+ul ul {
+  list-style: circle;
+}
+
+ul ul ul {
+  list-style: square;
+}
+
+ul ul ul ul {
+  list-style: disc;
+}
+
+ul ul ul ul ul {
+  list-style: circle;
+}
+
+ul ul ul ul ul ul {
+  list-style: square;
+}
+
 /* 保持列表项内容为默认颜色 */
 ol li,
 ul li {
