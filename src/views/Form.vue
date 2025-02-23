@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-22 23:15
+ * @LastTime   : 2025-02-23 13:08
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -495,8 +495,12 @@
     >
       <div class="header-content">
         <div class="cell-info">
-          <span>{{ $t('preview.current_field') }}：<strong style="color: #2955e7">{{ currentFieldName }}</strong></span>
-          <span>{{ $t('preview.current_row') }}：<strong style="color: #2955e7">{{ currentRecordIndex + 1 }}</strong></span>
+          <span
+            >{{ $t('preview.current_field') }}：<strong style="color: #2955e7">{{ currentFieldName }}</strong></span
+          >
+          <span
+            >{{ $t('preview.current_row') }}：<strong style="color: #2955e7">{{ currentRecordIndex + 1 }}</strong></span
+          >
         </div>
         <div class="navigation-buttons">
           <el-button
@@ -660,7 +664,7 @@
   .cell-preview {
     border: 1px solid #e5e6eb;
     border-radius: 4px;
-    padding: 12px;
+    padding: 8px 12px;
     margin-top: 6px;
     flex: 1;
     overflow-y: auto;
@@ -786,14 +790,23 @@
   }
 
   .preview-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 8px;
   }
 
   .copy-button {
     display: flex;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  .copy-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   }
 
   .ai-chat {
