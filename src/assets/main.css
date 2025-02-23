@@ -1,1 +1,21 @@
 @import 'reset-css';
+
+/* 设置有序列表和无序列表的标记颜色 */
+ol {
+  list-style: decimal;
+}
+
+ul {
+  list-style: disc;
+}
+
+/* 保持列表项内容为默认颜色 */
+ol li,
+ul li {
+  color: inherit;
+}
+
+ol li::marker,
+ul li::marker {
+  color: #2955e7;
+}

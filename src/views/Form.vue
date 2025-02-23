@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-23 14:09
+ * @LastTime   : 2025-02-23 21:10
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -32,7 +32,7 @@
     const scrollHeight = target.scrollHeight; // 内容总高度
     const clientHeight = target.clientHeight; // 可视区域高度
     const scrollTop = target.scrollTop; // 已滚动高度
-  
+
     // 当滚动超过一定距离时显示按钮（这里设置为500px）
     showBackToTop.value = scrollTop > 500;
   }
@@ -41,7 +41,7 @@
   function handleAnswerScroll(event) {
     const target = event.target;
     const scrollTop = target.scrollTop; // 已滚动高度
-  
+
     // 当滚动超过一定距离时显示按钮（这里设置为500px）
     showBackToTopAnswer.value = scrollTop > 500;
   }
@@ -383,59 +383,6 @@
     await updateRecordIds();
   });
 
-  async function getAllRecordIdList(_pageToken = 0) {
-    const table = await bitable.base.getTable(databaseId.value);
-    const data = await table.getRecordIdListByPage({ pageSize: 200, pageToken: _pageToken }); // 获取所有记录 id
-    const { total, hasMore, recordIds: recordIdsData, pageToken } = data;
-    recordIds.value.push(...recordIdsData);
-    if (hasMore) {
-      await getAllRecordIdList(pageToken);
-    }
-  }
-
-  const recordList = [];
-  async function getAllRecordList(_pageToken = 0) {
-    const table = await bitable.base.getTable(databaseId.value);
-    const data = await table.getRecordListByPage({ pageSize: 200, pageToken: _pageToken });
-    const { total, hasMore, records: recordsData, pageToken } = data;
-    recordList.push(...recordsData);
-
-    if (hasMore) {
-      await getAllRecordList(pageToken);
-    }
-  }
-
-  function getNewValue(value) {
-    let newValue;
-    if (target.value === 's') {
-      // 简体
-      newValue = opencc.taiwanToSimplifiedWithPhrases(value);
-    } else {
-      // 繁体
-
-      switch (traditionalModel.value) {
-        case '1':
-          // 正体繁体
-          newValue = opencc.simplifiedToTraditional(value);
-          break;
-        case '2':
-          // 台湾繁体
-          if (localModel.value === '1') {
-            newValue = opencc.simplifiedToTaiwan(value);
-          } else {
-            // 台湾地域
-            newValue = opencc.simplifiedToTaiwanWithPhrases(value);
-          }
-          break;
-        default:
-          // 香港繁体
-          newValue = opencc.simplifiedToHongKong(value);
-      }
-    }
-
-    return newValue;
-  }
-
   // 获取字段名称
   async function getFieldName(fieldId) {
     if (!fieldId) return '';
@@ -661,7 +608,7 @@
           </div>
           <p>{{ questionContent }}</p>
         </div>
-        <div 
+        <div
           class="answer-content"
           @scroll="handleAnswerScroll"
         >
