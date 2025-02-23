@@ -12,7 +12,7 @@
 
   import opencc from 'node-opencc';
   import { ElMessage, ElButton, ElDialog } from 'element-plus';
-  import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue';
+  import { ArrowLeft, ArrowRight, DocumentCopy } from '@element-plus/icons-vue';
   import MarkdownIt from 'markdown-it';
 
   import { useI18n } from 'vue-i18n';
@@ -20,6 +20,21 @@
 
   // 赞助我弹窗控制
   const sponsorDialogVisible = ref(false);
+
+  // 复制内容函数
+  function copyContent() {
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = currentValue.value;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      ElMessage.success(t('preview.copy.success'));
+    } catch (err) {
+      ElMessage.error(t('preview.copy.error'));
+    }
+  }
 
   // 关注我函数
   function followAuthor() {
@@ -480,12 +495,8 @@
     >
       <div class="header-content">
         <div class="cell-info">
-          <span
-            >{{ $t('preview.current_field') }}：<strong style="color: #2955e7">{{ currentFieldName }}</strong></span
-          >
-          <span
-            >{{ $t('preview.current_row') }}：<strong style="color: #2955e7">{{ currentRecordIndex + 1 }}</strong></span
-          >
+          <span>{{ $t('preview.current_field') }}：<strong style="color: #2955e7">{{ currentFieldName }}</strong></span>
+          <span>{{ $t('preview.current_row') }}：<strong style="color: #2955e7">{{ currentRecordIndex + 1 }}</strong></span>
         </div>
         <div class="navigation-buttons">
           <el-button
@@ -512,6 +523,16 @@
         class="cell-preview"
         v-if="previewMode === 'normal'"
       >
+        <div class="preview-header">
+          <el-button
+            size="small"
+            @click="copyContent"
+            class="copy-button"
+          >
+            <el-icon style="margin-right: 4px"><DocumentCopy /></el-icon>
+            {{ $t('preview.copy.button') }}
+          </el-button>
+        </div>
         <div
           class="preview-content"
           v-html="parsedContent"
@@ -762,6 +783,17 @@
   .preview-content :deep(p) {
     margin: 0.6em 0;
     line-height: 1.6;
+  }
+
+  .preview-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+  }
+
+  .copy-button {
+    display: flex;
+    align-items: center;
   }
 
   .ai-chat {

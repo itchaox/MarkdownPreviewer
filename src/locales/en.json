@@ -26,6 +26,11 @@
       "tip2": "Thank you for your support. The QR code is for voluntary sponsorship only and does not involve any goods or services transactions",
       "tip3": "Please scan the QR code below to sponsor",
       "follow": "Follow Me"
+    },
+    "copy": {
+      "button": "Copy",
+      "success": "Copied successfully",
+      "error": "Copy failed"
     }
   }
 }
