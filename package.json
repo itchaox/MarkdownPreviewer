@@ -7,6 +7,7 @@
     "build": "vite build",
     "preview": "vite preview --port 4173"
   },
+  "output": "dist",
   "dependencies": {
     "@lark-base-open/js-sdk": "https://lf3-static.bytednsdoc.com/obj/eden-cn/jjjpceh7nulojvhj/@lark-base-open-js-sdk-0.4.1-rc.7.tgz",
     "@mapbox/node-pre-gyp": "^1.0.11",
