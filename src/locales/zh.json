@@ -28,7 +28,7 @@
       "follow": "关注我"
     },
     "copy": {
-      "button": "复制",
+      "button": "复制文本",
       "success": "复制成功",
       "error": "复制失败"
     }

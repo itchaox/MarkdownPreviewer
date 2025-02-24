@@ -28,7 +28,7 @@
       "follow": "Follow Me"
     },
     "copy": {
-      "button": "Copy",
+      "button": "Copy text",
       "success": "Copied successfully",
       "error": "Copy failed"
     }

@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-24 23:22
+ * @LastTime   : 2025-02-25 06:42
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -13,7 +13,8 @@
 
   import opencc from 'node-opencc';
   import { ElMessage, ElButton, ElDialog } from 'element-plus';
-  import { ArrowLeft, ArrowRight, DocumentCopy } from '@element-plus/icons-vue';
+  import { ArrowLeft, ArrowRight, DocumentCopy, Download, Picture } from '@element-plus/icons-vue';
+
   import MarkdownIt from 'markdown-it';
 
   import { useI18n } from 'vue-i18n';
@@ -579,11 +580,31 @@
           <div>
             <el-icon
               @click="copyContent"
-              style="margin-right: 4px"
+              style="margin-right: 12px"
               class="copy-button"
               size="20"
               :title="$t('preview.copy.button')"
               ><DocumentCopy
+            /></el-icon>
+          </div>
+          <div>
+            <el-icon
+              @click="copyContent"
+              style="margin-right: 12px"
+              class="copy-button"
+              size="20"
+              title="复制图片"
+              ><Picture
+            /></el-icon>
+          </div>
+          <div>
+            <el-icon
+              @click="copyContent"
+              style="margin-right: 12px"
+              class="copy-button"
+              size="20"
+              title="导出图片"
+              ><Download
             /></el-icon>
           </div>
         </div>
