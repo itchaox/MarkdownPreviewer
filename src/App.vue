@@ -3,7 +3,7 @@
  * @Author     : Wang Chao
  * @Date       : 2025-02-21 13:44
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-22 12:37
+ * @LastTime   : 2025-02-24 16:33
  * @desc       : 
 -->
 <script setup>
@@ -20,14 +20,6 @@
   main {
     padding: 0.5rem;
     padding-top: 0.1rem;
-  }
-  h4 {
-    font-size: calc(1.275rem + 0.3vw);
-    margin-bottom: 1rem;
-  }
-  code {
-    font-size: 0.875em;
-    color: #d63384;
-    word-wrap: break-word;
+    padding-bottom: 0.1rem;
   }
 </style>

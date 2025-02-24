@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-23 21:10
+ * @LastTime   : 2025-02-24 16:41
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -197,29 +197,29 @@
     // 使用当前字段ID或最后一次选中的字段ID
     const fieldIdToUse = currentFieldId.value || lastSelectedFieldId.value;
     const recordIdToUse = recordId.value || lastSelectedRecordId.value;
-  
+
     if (!fieldIdToUse || recordIds.value.length === 0) return;
-  
+
     const currentIndex = recordIds.value.findIndex((id) => id === recordIdToUse);
     if (currentIndex === -1) return;
-  
+
     let newIndex;
     if (direction === 'prev') {
       newIndex = currentIndex > 0 ? currentIndex - 1 : recordIds.value.length - 1;
     } else {
       newIndex = currentIndex < recordIds.value.length - 1 ? currentIndex + 1 : 0;
     }
-  
+
     recordId.value = recordIds.value[newIndex];
     currentRecordIndex.value = newIndex;
-  
+
     const table = await base.getActiveTable();
-  
+
     if (previewMode.value === 'ai' && questionFieldId.value && answerFieldId.value) {
       // AI 问答模式：获取问题和回答内容
       const questionData = await table.getCellValue(questionFieldId.value, recordId.value);
       const answerData = await table.getCellValue(answerFieldId.value, recordId.value);
-  
+
       questionContent.value = questionData?.[0]?.text || '';
       parsedAnswerContent.value = md.render(answerData?.[0]?.text || '');
     } else {
@@ -230,12 +230,12 @@
         parsedContent.value = md.render(data[0].text || '');
       }
     }
-  
+
     // 重置预览区域的滚动位置到顶部
     const previewContentDom = document.querySelector('.cell-preview');
     const questionContentDom = document.querySelector('.question-content');
     const answerContentDom = document.querySelector('.answer-content');
-  
+
     if (previewMode.value === 'ai') {
       if (questionContentDom) questionContentDom.scrollTop = 0;
       if (answerContentDom) answerContentDom.scrollTop = 0;
@@ -714,7 +714,7 @@
   .markdown-preview {
     font-weight: 400;
     padding: 4px;
-    height: 96vh;
+    height: 98vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -750,19 +750,20 @@
   }
 
   .navigation-buttons {
-    margin: 6px 0;
+    margin-top: 4px;
   }
 
   .cell-preview {
     border: 1px solid #e5e6eb;
     border-radius: 4px;
-    padding: 8px 12px;
+    padding: 4px 12px;
     margin-top: 6px;
     flex: 1;
     overflow-y: auto;
     min-height: 50px;
     scroll-behavior: smooth;
-    max-height: 75vh;
+    max-height: 81vh;
+
     scroll-behavior: smooth;
   }
 
