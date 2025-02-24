@@ -3,13 +3,14 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-25 06:42
+ * @LastTime   : 2025-02-25 07:16
  * @desc       : Markdown 预览插件
 -->
 <script setup>
   import { onMounted, watch, ref, watchEffect } from 'vue';
   import { ArrowUp } from '@element-plus/icons-vue';
   import { bitable } from '@lark-base-open/js-sdk';
+  import html2canvas from 'html2canvas';
 
   import opencc from 'node-opencc';
   import { ElMessage, ElButton, ElDialog } from 'element-plus';
@@ -79,6 +80,236 @@
       });
     } catch (err) {
       ElMessage.error(t('preview.copy.error'));
+    }
+  }
+
+  // 下载为图片
+  async function downloadAsImage() {
+    try {
+      const previewContent = document.querySelector('.preview-content');
+      if (!previewContent) return;
+
+      // 确保所有样式都被正确应用
+      const canvas = await html2canvas(previewContent, {
+        useCORS: true,
+        scale: 2,
+        backgroundColor: '#ffffff',
+        onclone: (clonedDoc) => {
+          const clonedContent = clonedDoc.querySelector('.preview-content');
+          if (clonedContent) {
+            // 添加所有必要的样式
+            const style = document.createElement('style');
+            style.textContent = `
+              .preview-content {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+                  'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+                font-size: 14px;
+                line-height: 1.6;
+                color: #1f2329;
+              }
+
+              .preview-content h1,
+              .preview-content h2,
+              .preview-content h3,
+              .preview-content h4,
+              .preview-content h5,
+              .preview-content h6 {
+                margin: 20px 0 12px;
+                font-weight: 600;
+                line-height: 1.4;
+                color: #1f2329;
+              }
+
+              .preview-content h1 {
+                font-size: 26px;
+                margin-top: 28px;
+              }
+
+              .preview-content h2 {
+                font-size: 22px;
+              }
+
+              .preview-content h3 {
+                font-size: 18px;
+              }
+
+              .preview-content h4 {
+                font-size: 16px;
+              }
+
+              .preview-content h5 {
+                font-size: 14px;
+              }
+
+              .preview-content h6 {
+                font-size: 14px;
+                color: #646a73;
+              }
+
+              .preview-content p {
+                margin: 12px 0;
+                line-height: 1.6;
+              }
+
+              .preview-content ul,
+              .preview-content ol {
+                padding-left: 1.5em;
+                margin: 12px 0;
+              }
+
+              .preview-content ul {
+                list-style: disc;
+              }
+
+              .preview-content ol {
+                list-style: decimal;
+              }
+
+              .preview-content ul ul,
+              .preview-content ol ul {
+                list-style: circle;
+              }
+
+              .preview-content ul ul ul,
+              .preview-content ol ul ul,
+              .preview-content ul ol ul,
+              .preview-content ol ol ul {
+                list-style: square;
+              }
+
+              .preview-content li {
+                margin: 6px 0;
+                line-height: 1.6;
+              }
+
+              .preview-content li::marker {
+                color: #2955e7;
+              }
+
+              .preview-content pre {
+                margin: 16px 0;
+                padding: 16px;
+                background-color: #f5f6f7;
+                border-radius: 4px;
+                overflow-x: auto;
+              }
+
+              .preview-content code {
+                font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+                font-size: 12px;
+                padding: 2px 4px;
+                background-color: rgba(0, 0, 0, 0.06);
+                border-radius: 3px;
+              }
+
+              .preview-content pre code {
+                padding: 0;
+                background-color: transparent;
+              }
+
+              .preview-content blockquote {
+                margin: 16px 0;
+                padding: 0 16px;
+                color: #646a73;
+                border-left: 4px solid #e5e6eb;
+              }
+
+              .preview-content table {
+                margin: 16px 0;
+                border-collapse: collapse;
+                width: 100%;
+              }
+
+              .preview-content th,
+              .preview-content td {
+                padding: 8px 16px;
+                border: 1px solid #e5e6eb;
+              }
+
+              .preview-content th {
+                background-color: #f5f6f7;
+                font-weight: 500;
+              }
+
+              .preview-content a {
+                color: #3370ff;
+                text-decoration: none;
+              }
+
+              .preview-content a:hover {
+                text-decoration: underline;
+              }
+
+              .preview-content hr {
+                margin: 16px 0;
+                border: none;
+                border-top: 1px solid #e5e6eb;
+              }
+
+              .preview-content img {
+                max-width: 100%;
+                margin: 16px 0;
+              }
+
+              ol {
+                list-style: decimal;
+              }
+
+              ul {
+                list-style: disc;
+              }
+
+              ol ul {
+                list-style: circle;
+              }
+
+              ul ul {
+                list-style: circle;
+              }
+
+              ul ul ul {
+                list-style: square;
+              }
+
+              ul ul ul ul {
+                list-style: disc;
+              }
+
+              ul ul ul ul ul {
+                list-style: circle;
+              }
+
+              ul ul ul ul ul ul {
+                list-style: square;
+              }
+
+              ol li,
+              ul li {
+                color: inherit;
+              }
+
+              ol li::marker,
+              ul li::marker {
+                color: #2955e7;
+              }
+            `;
+            clonedDoc.head.appendChild(style);
+          }
+        }
+      });
+      const link = document.createElement('a');
+      // 设置文件名为"当前字段-当前行数"的格式
+      const fileName = `${currentFieldName.value}-${currentRecordIndex.value + 1}.png`;
+      link.download = fileName;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      ElMessage.success({
+        message: t('preview.download.success'),
+        offset: 120,
+        duration: 1500,
+      });
+    } catch (err) {
+      ElMessage.error(t('preview.download.error'));
     }
   }
 
@@ -589,21 +820,11 @@
           </div>
           <div>
             <el-icon
-              @click="copyContent"
+              @click="downloadAsImage"
               style="margin-right: 12px"
               class="copy-button"
               size="20"
-              title="复制图片"
-              ><Picture
-            /></el-icon>
-          </div>
-          <div>
-            <el-icon
-              @click="copyContent"
-              style="margin-right: 12px"
-              class="copy-button"
-              size="20"
-              title="导出图片"
+              :title="$t('preview.downloadImage.button')"
               ><Download
             /></el-icon>
           </div>
@@ -988,6 +1209,7 @@
     z-index: 100;
     display: flex;
     justify-content: flex-end;
+    height: 22px;
   }
 
   .question-content p {
