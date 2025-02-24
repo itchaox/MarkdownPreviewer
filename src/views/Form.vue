@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-24 17:02
+ * @LastTime   : 2025-02-24 17:10
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -301,9 +301,9 @@
     viewList.value = await table.getViewMetaList();
   });
 
-  // 初始化 markdown-it
+  // 初始化 markdown-it，配置安全选项
   const md = new MarkdownIt({
-    html: true,
+    html: false, // 禁用 HTML 标签渲染以防止 XSS
     linkify: true,
     typographer: true,
     breaks: true,
