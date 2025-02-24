@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-24 16:41
+ * @LastTime   : 2025-02-24 16:54
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -912,11 +912,12 @@
   .question-content,
   .answer-content {
     padding: 16px;
-    padding-top: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     border-radius: 8px;
     position: relative;
     overflow-y: auto;
-    margin-top: 8px;
+    margin-top: 6px;
     scroll-behavior: smooth;
     min-height: 30px;
   }
@@ -952,9 +953,8 @@
   }
 
   .answer-content {
-    /* background-color: #f0f7ff; */
     background-color: #fff;
-    max-height: 50vh;
+    max-height: 61.5vh !important;
     border: 1px solid #e5e6eb;
   }
 
@@ -986,14 +986,14 @@
   .field-selectors {
     /* display: flex; */
     /* gap: 8px; */
-    margin-top: 8px;
+    /* margin-top: 8px; */
   }
 
   .field-selector-group {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   .field-label {
@@ -1088,7 +1088,7 @@
     border-radius: 8px;
     position: relative;
     overflow-y: auto;
-    margin-top: 8px;
+    margin-top: 6px;
     scroll-behavior: smooth;
     min-height: 30px;
   }
@@ -1119,14 +1119,12 @@
 
   .question-content {
     background-color: #f5f6f7;
-    max-height: 6vh;
     font-size: 14px;
   }
 
   .answer-content {
     /* background-color: #f0f7ff; */
     background-color: #fff;
-    max-height: 50vh;
     border: 1px solid #e5e6eb;
   }
 
