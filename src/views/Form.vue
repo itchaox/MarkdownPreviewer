@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-24 17:10
+ * @LastTime   : 2025-02-24 23:22
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -220,13 +220,16 @@
       const questionData = await table.getCellValue(questionFieldId.value, recordId.value);
       const answerData = await table.getCellValue(answerFieldId.value, recordId.value);
 
-      questionContent.value = questionData && questionData.length ? questionData.map(item => item.text.replace(/\n$/, '')).join('\n') : '';
-      parsedAnswerContent.value = md.render(answerData && answerData.length ? answerData.map(item => item.text.replace(/\n$/, '')).join('\n') : '');
+      questionContent.value =
+        questionData && questionData.length ? questionData.map((item) => item.text.replace(/\n$/, '')).join('\n') : '';
+      parsedAnswerContent.value = md.render(
+        answerData && answerData.length ? answerData.map((item) => item.text.replace(/\n$/, '')).join('\n') : '',
+      );
     } else {
       // 普通预览模式
       const data = await table.getCellValue(fieldIdToUse, recordId.value);
       if (data && data.length) {
-        currentValue.value = data.map(item => item.text.replace(/\n$/, '')).join('\n');
+        currentValue.value = data.map((item) => item.text.replace(/\n$/, '')).join('\n');
         parsedContent.value = md.render(currentValue.value || '');
       }
     }
@@ -343,9 +346,11 @@
           const questionData = await table.getCellValue(questionFieldId.value, recordId.value);
           const answerData = await table.getCellValue(answerFieldId.value, recordId.value);
 
-          questionContent.value = questionData?.map(item => item.text.replace(/\n$/, '')).join('\n') || '';
-          parsedAnswerContent.value = md.render(answerData?.map(item => item.text.replace(/\n$/, '')).join('\n') || '');
-          currentValue.value = answerData?.map(item => item.text.replace(/\n$/, '')).join('\n') || '';
+          questionContent.value = questionData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '';
+          parsedAnswerContent.value = md.render(
+            answerData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '',
+          );
+          currentValue.value = answerData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '';
 
           // 获取当前字段名称
           const field = await table.getFieldById(currentFieldId.value);
@@ -367,7 +372,7 @@
           // 修改当前数据
           let data = await table.getCellValue(currentFieldId.value, recordId.value);
           if (data && data.length) {
-            currentValue.value = data.map(item => item.text.replace(/\n$/, '')).join('\n');
+            currentValue.value = data.map((item) => item.text.replace(/\n$/, '')).join('\n');
             // 解析 Markdown 内容
             parsedContent.value = md.render(currentValue.value || '');
           }
@@ -571,16 +576,16 @@
         v-if="previewMode === 'normal'"
       >
         <div class="preview-header">
-          <el-button
-            size="small"
-            @click="copyContent"
-            type="primary"
-            plain
-            class="copy-button"
-          >
-            <el-icon style="margin-right: 4px"><DocumentCopy /></el-icon>
-            {{ $t('preview.copy.button') }}
-          </el-button>
+          <div>
+            <el-icon
+              @click="copyContent"
+              style="margin-right: 4px"
+              class="copy-button"
+              size="20"
+              :title="$t('preview.copy.button')"
+              ><DocumentCopy
+            /></el-icon>
+          </div>
         </div>
         <el-button
           v-show="showBackToTop"
@@ -605,17 +610,17 @@
           :title="questionContent"
         >
           <div class="ai-info">
-            <el-button
-              v-if="questionContent"
-              size="small"
-              @click="copyQuestionContent"
-              type="primary"
-              plain
-              class="copy-button"
-            >
-              <el-icon style="margin-right: 4px"><DocumentCopy /></el-icon>
-              {{ $t('preview.copy.button') }}
-            </el-button>
+            <div>
+              <el-icon
+                v-if="questionContent"
+                @click="copyQuestionContent"
+                class="copy-button"
+                style="margin-right: 4px"
+                :title="$t('preview.copy.button')"
+                size="20"
+                ><DocumentCopy
+              /></el-icon>
+            </div>
             <span class="tag question-tag">{{ $t('preview.question') }}</span>
           </div>
           <p>{{ questionContent }}</p>
@@ -625,17 +630,15 @@
           @scroll="handleAnswerScroll"
         >
           <div class="ai-info">
-            <el-button
+            <el-icon
               v-if="parsedAnswerContent"
-              size="small"
               @click="copyAnswerContent"
-              type="primary"
-              plain
               class="copy-button"
-            >
-              <el-icon style="margin-right: 4px"><DocumentCopy /></el-icon>
-              {{ $t('preview.copy.button') }}
-            </el-button>
+              style="margin-right: 4px"
+              size="20"
+              :title="$t('preview.copy.button')"
+              ><DocumentCopy
+            /></el-icon>
             <span class="tag answer-tag">{{ $t('preview.answer') }}</span>
           </div>
           <el-button
@@ -894,13 +897,13 @@
   .copy-button {
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
   }
 
   .copy-button:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    color: #2955e7;
   }
 
   .ai-chat {
@@ -1135,6 +1138,7 @@
     z-index: 100;
     display: flex;
     justify-content: flex-end;
+    height: 22px;
   }
 
   .question-content p {
