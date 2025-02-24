@@ -220,14 +220,14 @@
       const questionData = await table.getCellValue(questionFieldId.value, recordId.value);
       const answerData = await table.getCellValue(answerFieldId.value, recordId.value);
 
-      questionContent.value = questionData?.[0]?.text || '';
-      parsedAnswerContent.value = md.render(answerData?.[0]?.text || '');
+      questionContent.value = questionData && questionData.length ? questionData.map(item => item.text.replace(/\n$/, '')).join('\n') : '';
+      parsedAnswerContent.value = md.render(answerData && answerData.length ? answerData.map(item => item.text.replace(/\n$/, '')).join('\n') : '');
     } else {
       // 普通预览模式
       const data = await table.getCellValue(fieldIdToUse, recordId.value);
-      if (data && data[0]) {
-        currentValue.value = data[0].text;
-        parsedContent.value = md.render(data[0].text || '');
+      if (data && data.length) {
+        currentValue.value = data.map(item => item.text.replace(/\n$/, '')).join('\n');
+        parsedContent.value = md.render(currentValue.value || '');
       }
     }
 
@@ -343,9 +343,9 @@
           const questionData = await table.getCellValue(questionFieldId.value, recordId.value);
           const answerData = await table.getCellValue(answerFieldId.value, recordId.value);
 
-          questionContent.value = questionData?.[0]?.text || '';
-          parsedAnswerContent.value = md.render(answerData?.[0]?.text || '');
-          currentValue.value = answerData?.[0]?.text || '';
+          questionContent.value = questionData?.map(item => item.text.replace(/\n$/, '')).join('\n') || '';
+          parsedAnswerContent.value = md.render(answerData?.map(item => item.text.replace(/\n$/, '')).join('\n') || '');
+          currentValue.value = answerData?.map(item => item.text.replace(/\n$/, '')).join('\n') || '';
 
           // 获取当前字段名称
           const field = await table.getFieldById(currentFieldId.value);
@@ -366,10 +366,10 @@
 
           // 修改当前数据
           let data = await table.getCellValue(currentFieldId.value, recordId.value);
-          if (data && data[0] && data[0].text !== currentValue.value) {
-            currentValue.value = data[0].text;
+          if (data && data.length) {
+            currentValue.value = data.map(item => item.text.replace(/\n$/, '')).join('\n');
             // 解析 Markdown 内容
-            parsedContent.value = md.render(data[0].text || '');
+            parsedContent.value = md.render(currentValue.value || '');
           }
 
           // 更新当前行号
@@ -970,6 +970,7 @@
     margin: 0;
     color: #4e5969;
     line-height: 1.6;
+    white-space: pre-wrap;
   }
 </style>
 
@@ -1140,5 +1141,6 @@
     margin: 0;
     color: #4e5969;
     line-height: 1.6;
+    white-space: pre-wrap;
   }
 </style>
