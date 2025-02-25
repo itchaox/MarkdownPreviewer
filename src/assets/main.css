@@ -59,35 +59,43 @@
 .preview-content ol {
   padding-left: 1.5em;
   margin: 12px 0;
-}
-
-.preview-content ul {
-  list-style: disc;
-}
-
-.preview-content ol {
-  list-style: decimal;
-}
-
-.preview-content ul ul,
-.preview-content ol ul {
-  list-style: circle;
-}
-
-.preview-content ul ul ul,
-.preview-content ol ul ul,
-.preview-content ul ol ul,
-.preview-content ol ol ul {
-  list-style: square;
+  list-style: none;
 }
 
 .preview-content li {
+  position: relative;
   margin: 6px 0;
   line-height: 1.6;
+  color: #1f2329;
 }
 
-.preview-content li::marker {
+/* 使用伪元素实现列表标记 */
+.preview-content ul > li::before {
+  content: '';
+  position: absolute;
+  left: -0.9em;
+  top: 0.78em;
+  width: 0.4em;
+  height: 0.4em;
+  background-color: #2955e7;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.preview-content ol {
+  counter-reset: item;
+}
+
+.preview-content ol > li::before {
+  content: counter(item) '.';
+  counter-increment: item;
+  position: absolute;
+  left: -1.29em;
+  width: 1em;
+  text-align: right;
   color: #2955e7;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 /* 代码块样式 */
@@ -161,46 +169,14 @@
   margin: 16px 0;
 }
 
-/* 设置有序列表和无序列表的标记颜色 */
-ol {
-  list-style: decimal;
-}
-
-ul {
-  list-style: disc;
-}
-
-ol ul {
-  list-style: circle;
-}
-
-ul ul {
-  list-style: circle;
-}
-
-ul ul ul {
-  list-style: square;
-}
-
-ul ul ul ul {
-  list-style: disc;
-}
-
-ul ul ul ul ul {
-  list-style: circle;
-}
-
-ul ul ul ul ul ul {
-  list-style: square;
-}
-
 /* 保持列表项内容为默认颜色 */
 ol li,
 ul li {
   color: inherit;
 }
 
-ol li::marker,
-ul li::marker {
-  color: #2955e7;
+/* 保持列表内容为默认颜色 */
+ol > li > *,
+ul > li > * {
+  color: #1f2329;
 }

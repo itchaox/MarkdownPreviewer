@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-25 10:02
+ * @LastTime   : 2025-02-25 11:08
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -291,8 +291,43 @@
 
               ol li::marker,
               ul li::marker {
-                color: #2955e7;
+                color: #2955e7 !important;
               }
+
+              ol > li,
+ul > li {
+  color: #2955e7;
+
+  ol,
+ul {
+  color: #2955e7;
+}
+}
+
+/* 使用伪元素实现列表标记 */
+.preview-content ul > li::before {
+  content: '';
+  position: absolute;
+  left: -2em;
+  top: 0.8em;
+  width: 0.4em;
+  height: 0.4em;
+  background-color: #2955e7;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.preview-content ol > li::before {
+  content: counter(item) '.';
+  counter-increment: item;
+  position: absolute;
+  left: -1.3em;
+  width: 1em;
+  text-align: right;
+  color: #2955e7;
+  font-size: 14px;
+  font-weight: 600;
+}
             `;
             clonedDoc.head.appendChild(style);
           }
