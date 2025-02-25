@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-25 13:14
+ * @LastTime   : 2025-02-25 13:27
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -504,7 +504,7 @@ ul {
         parsedContent.value = md.render(currentValue.value || '');
       } else {
         currentValue.value = '';
-        parsedContent.value = `<div class="empty-content">${t('preview.no_data')}</div>`;
+        parsedContent.value = `<div class="empty-content">❗︎${t('preview.no_data')}</div>`;
       }
     }
 
