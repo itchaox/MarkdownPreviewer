@@ -492,10 +492,11 @@ ul {
       const answerData = await table.getCellValue(answerFieldId.value, recordId.value);
 
       // 即使内容为空也设置值，以保持区域显示
-      questionContent.value = questionData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || `❗︎${t('preview.no_data')}`;
+      const questionText = questionData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '';
+      questionContent.value = questionText || `❗︎${t('preview.no_data')}`;
       const answerText = answerData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '';
       currentValue.value = answerText;
-      parsedAnswerContent.value = answerText ? md.render(answerText) : '';
+      parsedAnswerContent.value = answerText ? md.render(answerText) : `<div class="empty-content">❗︎${t('preview.no_data')}</div>`;
     } else {
       // 普通预览模式
       const data = await table.getCellValue(fieldIdToUse, recordId.value);
