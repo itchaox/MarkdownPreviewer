@@ -502,6 +502,9 @@ ul {
       if (data && data.length) {
         currentValue.value = data.map((item) => item.text.replace(/\n$/, '')).join('\n');
         parsedContent.value = md.render(currentValue.value || '');
+      } else {
+        currentValue.value = '';
+        parsedContent.value = `<div class="empty-content">${t('preview.no_data')}</div>`;
       }
     }
 

@@ -1,6 +1,7 @@
 {
   "title": "标题",
   "preview": {
+    "no_data": "暂无数据",
     "question": "问题",
     "answer": "回答",
     "empty_state": "请选择单元格预览 Markdown 内容",

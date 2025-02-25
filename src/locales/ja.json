@@ -1,6 +1,7 @@
 {
   "title": "タイトル",
   "preview": {
+    "no_data": "まだデータがありません",
     "question": "質問",
     "answer": "回答",
     "empty_state": "セルを選択して Markdown コンテンツをプレビューしてください",
