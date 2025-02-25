@@ -31,6 +31,14 @@
       "button": "テキストをコピー",
       "success": "コピーしました",
       "error": "コピーに失敗しました"
+    },
+
+    "downloadImage": {
+      "button": "画像をエクスポート"
+    },
+    "download": {
+      "success": "エクスポートに成功しました",
+      "error": "エクスポートに失敗しました"
     }
   }
 }

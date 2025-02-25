@@ -32,9 +32,13 @@
       "success": "复制成功",
       "error": "复制失败"
     },
-    "preview.copyImage.button": "复制为图片",
-    "preview.downloadImage.button": "导出图片",
-    "preview.download.success": "导出成功",
-    "preview.download.error": "导出失败"
+
+    "downloadImage": {
+      "button": "导出图片"
+    },
+    "download": {
+      "success": "导出成功",
+      "error": "导出失败"
+    }
   }
 }
