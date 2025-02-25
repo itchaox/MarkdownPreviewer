@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-25 07:16
+ * @LastTime   : 2025-02-25 10:02
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -106,6 +106,7 @@
                 font-size: 14px;
                 line-height: 1.6;
                 color: #1f2329;
+                padding: 8px 12px;
               }
 
               .preview-content h1,
@@ -295,7 +296,7 @@
             `;
             clonedDoc.head.appendChild(style);
           }
-        }
+        },
       });
       const link = document.createElement('a');
       // 设置文件名为"当前字段-当前行数"的格式
