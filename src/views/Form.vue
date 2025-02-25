@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-25 12:35
+ * @LastTime   : 2025-02-25 12:53
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -421,7 +421,7 @@ ul {
   const lastSelectedFieldId = ref();
   const lastSelectedRecordId = ref();
   const currentValue = ref();
-  const currentRecordIndex = ref(0);
+  const currentRecordIndex = ref(-1);
   const recordIds = ref([]);
 
   // AI 问答模式字段 ID
@@ -491,11 +491,11 @@ ul {
       const questionData = await table.getCellValue(questionFieldId.value, recordId.value);
       const answerData = await table.getCellValue(answerFieldId.value, recordId.value);
 
-      questionContent.value =
-        questionData && questionData.length ? questionData.map((item) => item.text.replace(/\n$/, '')).join('\n') : '';
-      const answerText = answerData && answerData.length ? answerData.map((item) => item.text.replace(/\n$/, '')).join('\n') : '';
+      // 即使内容为空也设置值，以保持区域显示
+      questionContent.value = questionData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '';
+      const answerText = answerData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '';
       currentValue.value = answerText;
-      parsedAnswerContent.value = md.render(answerText);
+      parsedAnswerContent.value = answerText ? md.render(answerText) : '';
     } else {
       // 普通预览模式
       const data = await table.getCellValue(fieldIdToUse, recordId.value);
@@ -826,7 +826,7 @@ ul {
     </div>
     <div
       class="header-container"
-      v-if="currentValue"
+      v-if="currentRecordIndex >= 0"
     >
       <div class="header-content">
         <div class="cell-info">
@@ -838,17 +838,13 @@ ul {
           >
         </div>
         <div class="navigation-buttons">
-          <el-button
-            @click="switchRecord('prev')"
-            :disabled="!currentValue"
-          >
+          <el-button @click="switchRecord('prev')">
             <el-icon style="font-size: 16px; font-weight: bold"><ArrowLeft /></el-icon>
             <span class="material-icons">{{ $t('preview.navigation.prev') }}</span>
           </el-button>
           <el-button
             type="primary"
             @click="switchRecord('next')"
-            :disabled="!currentValue"
             style="--el-button-bg-color: #2955e7; --el-button-border-color: #2955e7"
           >
             <span class="material-icons">{{ $t('preview.navigation.next') }}</span>
@@ -857,7 +853,7 @@ ul {
         </div>
       </div>
     </div>
-    <div v-if="currentValue">
+    <div v-if="currentRecordIndex >= 0">
       <div
         class="cell-preview"
         @scroll="handleScroll"
