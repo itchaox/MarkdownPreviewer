@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-25 12:53
+ * @LastTime   : 2025-02-25 13:14
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -868,9 +868,9 @@ ul {
               plain
               size="small"
               style="padding: 6px 4px"
+              @click="copyContent"
             >
               <el-icon
-                @click="copyContent"
                 class="copy-button"
                 size="20"
                 :title="$t('preview.copy.button')"
@@ -916,12 +916,12 @@ ul {
             <div>
               <el-button
                 v-if="questionContent"
+                @click="copyQuestionContent"
                 plain
                 size="small"
                 style="padding: 6px 4px"
               >
                 <el-icon
-                  @click="copyQuestionContent"
                   class="copy-button"
                   :title="$t('preview.copy.button')"
                   size="20"
@@ -943,9 +943,9 @@ ul {
               plain
               size="small"
               style="padding: 6px 4px"
+              @click="copyAnswerContent"
             >
               <el-icon
-                @click="copyAnswerContent"
                 class="copy-button"
                 size="20"
                 :title="$t('preview.copy.button')"
