@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-25 11:08
+ * @LastTime   : 2025-02-25 11:28
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -445,8 +445,10 @@ ul {
       const table = await base.getTable(selection.tableId);
       const view = await table.getViewById(selection.viewId);
       const _list = await view.getFieldMetaList();
-      // 只展示文本相关字段
-      fieldList.value = _list.filter((item) => item.type === 1);
+      console.log('🚀  _list:', _list);
+
+      // 只展示文本和公式类型字段
+      fieldList.value = _list.filter((item) => item.type === 1 || item.type === 20);
     }
   });
 
@@ -529,9 +531,10 @@ ul {
     const table = await base.getTable(databaseId.value);
     const view = await table.getViewById(newValue);
     const _list = await view.getFieldMetaList();
+    console.log('🚀  _list:', _list);
 
     // 只展示文本相关字段
-    fieldList.value = _list.filter((item) => item.type === 1);
+    fieldList.value = _list.filter((item) => item.type === 1 || item.type === 20);
   });
 
   // 监听问答字段变化
