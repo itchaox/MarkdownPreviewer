@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-25 11:41
+ * @LastTime   : 2025-02-25 12:27
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -864,16 +864,22 @@ ul {
       >
         <div class="preview-header">
           <div>
-            <el-icon
-              @click="copyContent"
-              style="margin-right: 12px"
-              class="copy-button"
-              size="20"
-              :title="$t('preview.copy.button')"
-              ><DocumentCopy
-            /></el-icon>
+            <el-button
+              plain
+              size="small"
+              style="padding: 6px 4px"
+            >
+              <el-icon
+                @click="copyContent"
+                class="copy-button"
+                size="20"
+                :title="$t('preview.copy.button')"
+                ><DocumentCopy
+              /></el-icon>
+            </el-button>
           </div>
-          <div>
+          <!-- FIXME 暂时不做 导出图片 ,样式有点问题-->
+          <!-- <div>
             <el-icon
               @click="downloadAsImage"
               style="margin-right: 12px"
@@ -882,7 +888,7 @@ ul {
               :title="$t('preview.downloadImage.button')"
               ><Download
             /></el-icon>
-          </div>
+          </div> -->
         </div>
         <el-button
           v-show="showBackToTop"
@@ -908,15 +914,20 @@ ul {
         >
           <div class="ai-info">
             <div>
-              <el-icon
-                v-if="questionContent"
-                @click="copyQuestionContent"
-                class="copy-button"
-                style="margin-right: 4px"
-                :title="$t('preview.copy.button')"
-                size="20"
-                ><DocumentCopy
-              /></el-icon>
+              <el-button
+                plain
+                size="small"
+                style="padding: 6px 4px"
+              >
+                <el-icon
+                  v-if="questionContent"
+                  @click="copyQuestionContent"
+                  class="copy-button"
+                  :title="$t('preview.copy.button')"
+                  size="20"
+                  ><DocumentCopy
+                /></el-icon>
+              </el-button>
             </div>
             <span class="tag question-tag">{{ $t('preview.question') }}</span>
           </div>
@@ -927,15 +938,21 @@ ul {
           @scroll="handleAnswerScroll"
         >
           <div class="ai-info">
-            <el-icon
-              v-if="parsedAnswerContent"
-              @click="copyAnswerContent"
-              class="copy-button"
-              style="margin-right: 4px"
-              size="20"
-              :title="$t('preview.copy.button')"
-              ><DocumentCopy
-            /></el-icon>
+            <el-button
+              plain
+              size="small"
+              style="padding: 6px 4px"
+            >
+              <el-icon
+                v-if="parsedAnswerContent"
+                @click="copyAnswerContent"
+                class="copy-button"
+                size="20"
+                :title="$t('preview.copy.button')"
+                ><DocumentCopy
+              /></el-icon>
+            </el-button>
+
             <span class="tag answer-tag">{{ $t('preview.answer') }}</span>
           </div>
           <el-button
