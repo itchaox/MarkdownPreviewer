@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-25 11:28
+ * @LastTime   : 2025-02-25 11:41
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -781,6 +781,7 @@ ul {
           :placeholder="$t('preview.ai_chat.question_field_placeholder')"
           class="field-selector"
           style="min-width: 100px"
+          filterable
         >
           <el-option
             v-for="field in fieldList.filter((field) => field.id !== answerFieldId)"
@@ -790,7 +791,7 @@ ul {
           >
             <span style="display: flex; align-items: center; gap: 4px">
               <span style="font-family: monospace; font-size: 12px; color: #8f959e">
-                {{ field.type === 1 ? 'A=' : 'fx' }}
+                {{ field.type === 1 ? 'A=' : 'ƒx' }}
               </span>
               {{ field.name }}
             </span>
@@ -804,6 +805,7 @@ ul {
           :placeholder="$t('preview.ai_chat.answer_field_placeholder')"
           class="field-selector"
           style="min-width: 100px"
+          filterable
         >
           <el-option
             v-for="field in fieldList.filter((field) => field.id !== questionFieldId)"
