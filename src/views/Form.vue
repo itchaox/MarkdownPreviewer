@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-25 12:32
+ * @LastTime   : 2025-02-25 12:35
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -493,9 +493,9 @@ ul {
 
       questionContent.value =
         questionData && questionData.length ? questionData.map((item) => item.text.replace(/\n$/, '')).join('\n') : '';
-      parsedAnswerContent.value = md.render(
-        answerData && answerData.length ? answerData.map((item) => item.text.replace(/\n$/, '')).join('\n') : '',
-      );
+      const answerText = answerData && answerData.length ? answerData.map((item) => item.text.replace(/\n$/, '')).join('\n') : '';
+      currentValue.value = answerText;
+      parsedAnswerContent.value = md.render(answerText);
     } else {
       // 普通预览模式
       const data = await table.getCellValue(fieldIdToUse, recordId.value);
