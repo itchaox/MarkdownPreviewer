@@ -787,7 +787,14 @@ ul {
             :key="field.id"
             :label="field.name"
             :value="field.id"
-          />
+          >
+            <span style="display: flex; align-items: center; gap: 4px">
+              <span style="font-family: monospace; font-size: 12px; color: #8f959e">
+                {{ field.type === 1 ? 'A=' : 'fx' }}
+              </span>
+              {{ field.name }}
+            </span>
+          </el-option>
         </el-select>
       </div>
       <div class="field-selector-group">
@@ -803,7 +810,14 @@ ul {
             :key="field.id"
             :label="field.name"
             :value="field.id"
-          />
+          >
+            <span style="display: flex; align-items: center; gap: 4px">
+              <span style="font-family: monospace; font-size: 12px; color: #8f959e">
+                {{ field.type === 1 ? 'A=' : 'fx' }}
+              </span>
+              {{ field.name }}
+            </span>
+          </el-option>
         </el-select>
       </div>
     </div>
