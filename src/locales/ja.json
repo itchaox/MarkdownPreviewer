@@ -5,8 +5,8 @@
     "question": "質問",
     "answer": "回答",
     "empty_state": "セルを選択して Markdown コンテンツをプレビューしてください",
-    "current_field": "現在のフィールド",
-    "current_row": "現在の行番号",
+    "current_field": "フィールド",
+    "current_row": "行番号",
     "navigation": {
       "prev": "前の行",
       "next": "次の行",

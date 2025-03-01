@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-01 23:08
+ * @LastTime   : 2025-03-01 23:59
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -982,6 +982,15 @@
             <div style="display: flex; justify-content: space-between; width: 100%">
               <div>
                 <span
+                  style="
+                    display: inline-block;
+                    max-width: 300px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    vertical-align: bottom;
+                  "
+                  :title="currentFieldName"
                   >{{ $t('preview.current_field') }}：<strong style="color: #2955e7">{{
                     currentFieldName
                   }}</strong></span

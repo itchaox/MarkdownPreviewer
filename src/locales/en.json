@@ -5,8 +5,8 @@
     "question": "Question",
     "answer": "Answer",
     "empty_state": "Please select  cell to preview Markdown content",
-    "current_field": "Current Field",
-    "current_row": "Current Row",
+    "current_field": "Field",
+    "current_row": "Row",
     "navigation": {
       "prev": "Previous Line",
       "next": "Next Line",
