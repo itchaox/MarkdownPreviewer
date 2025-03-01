@@ -418,8 +418,34 @@
   const recordId = ref();
 
   // 保存最后一次选中的字段ID和记录ID
-  const lastSelectedFieldId = ref();
-  const lastSelectedRecordId = ref();
+  const lastSelectedFieldId = ref('');
+  const lastSelectedRecordId = ref('');
+
+  // 切换到上一行
+  async function prevRecord() {
+    if (!lastSelectedFieldId.value || !lastSelectedRecordId.value) return;
+    const currentIndex = recordIds.value.findIndex((id) => id === lastSelectedRecordId.value);
+    if (currentIndex > 0) {
+      const table = await base.getActiveTable();
+      await table.setSelection({
+        fieldId: lastSelectedFieldId.value,
+        recordId: recordIds.value[currentIndex - 1],
+      });
+    }
+  }
+
+  // 切换到下一行
+  async function nextRecord() {
+    if (!lastSelectedFieldId.value || !lastSelectedRecordId.value) return;
+    const currentIndex = recordIds.value.findIndex((id) => id === lastSelectedRecordId.value);
+    if (currentIndex < recordIds.value.length - 1) {
+      const table = await base.getActiveTable();
+      await table.setSelection({
+        fieldId: lastSelectedFieldId.value,
+        recordId: recordIds.value[currentIndex + 1],
+      });
+    }
+  }
   const currentValue = ref();
   const currentRecordIndex = ref(-1);
   const recordIds = ref([]);
@@ -744,6 +770,11 @@
       }
     } else if (!event.data.fieldId && !event.data.recordId) {
       // 失去焦点时不清空内容，保持当前状态
+      // 更新最后一次选中的ID
+      if (currentFieldId.value && recordId.value) {
+        lastSelectedFieldId.value = currentFieldId.value;
+        lastSelectedRecordId.value = recordId.value;
+      }
       // 只更新记录 ID 列表
       await updateRecordIds();
       return;
