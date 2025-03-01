@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-01 23:02
+ * @LastTime   : 2025-03-01 23:08
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -920,7 +920,7 @@
                 @click="switchField('prev')"
                 size="small"
                 style="padding: 2px; height: 16px"
-                title="前一个字段"
+                :title="$t('preview.navigation.prev_field')"
                 :disabled="
                   !fieldList || !currentFieldId || fieldList.findIndex((field) => field.id === currentFieldId) <= 0
                 "
@@ -938,7 +938,7 @@
                   --el-button-border-color: #2955e7;
                   margin-left: 6px;
                 "
-                title="后一个字段"
+                :title="$t('preview.navigation.next_field')"
                 :disabled="
                   !fieldList ||
                   !currentFieldId ||

@@ -10,8 +10,8 @@
     "navigation": {
       "prev": "前へ",
       "next": "次へ",
-      "prev_field": "前のフィールド",
-      "next_field": "次のフィールド"
+      "prev_field": "前のセル",
+      "next_field": "次のセル"
     },
     "mode": {
       "normal": "通常プレビュー",
