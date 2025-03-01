@@ -8,8 +8,8 @@
     "current_field": "現在のフィールド",
     "current_row": "現在の行番号",
     "navigation": {
-      "prev": "前へ",
-      "next": "次へ",
+      "prev": "前の行",
+      "next": "次の行",
       "prev_field": "前のセル",
       "next_field": "次のセル"
     },

@@ -8,8 +8,8 @@
     "current_field": "当前字段",
     "current_row": "当前行号",
     "navigation": {
-      "prev": "上一个",
-      "next": "下一个",
+      "prev": "上一行",
+      "next": "下一行",
       "prev_field": "上一字段",
       "next_field": "下一字段"
     },

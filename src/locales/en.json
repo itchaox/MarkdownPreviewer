@@ -8,8 +8,8 @@
     "current_field": "Current Field",
     "current_row": "Current Row",
     "navigation": {
-      "prev": "Previous",
-      "next": "Next",
+      "prev": "Previous Line",
+      "next": "Next Line",
       "prev_field": "Prev Field",
       "next_field": "Next Field"
     },
