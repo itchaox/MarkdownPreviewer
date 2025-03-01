@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-01 22:07
+ * @LastTime   : 2025-03-01 22:17
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -524,6 +524,45 @@
     }
   }
 
+  // 更新预览内容
+  async function updatePreview() {
+    const table = await base.getActiveTable();
+    if (!table) return;
+
+    if (previewMode.value === 'ai' && questionFieldId.value && answerFieldId.value) {
+      // AI 问答模式：获取问题和回答内容
+      const questionData = await table.getCellValue(questionFieldId.value, recordId.value || lastSelectedRecordId.value);
+      const answerData = await table.getCellValue(answerFieldId.value, recordId.value || lastSelectedRecordId.value);
+
+      questionContent.value = questionData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || `❗︎${t('preview.no_data')}`;
+      parsedAnswerContent.value = md.render(
+        answerData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '',
+      );
+    } else {
+      // 普通预览模式
+      const data = await table.getCellValue(currentFieldId.value || lastSelectedFieldId.value, recordId.value || lastSelectedRecordId.value);
+      if (data && data.length) {
+        currentValue.value = data.map((item) => item.text.replace(/\n$/, '')).join('\n');
+        parsedContent.value = md.render(currentValue.value || '');
+      } else {
+        currentValue.value = '';
+        parsedContent.value = `<div class="empty-content">❗︎${t('preview.no_data')}</div>`;
+      }
+    }
+
+    // 重置预览区域的滚动位置到顶部
+    const previewContentDom = document.querySelector('.cell-preview');
+    const questionContentDom = document.querySelector('.question-content');
+    const answerContentDom = document.querySelector('.answer-content');
+
+    if (previewMode.value === 'ai') {
+      if (questionContentDom) questionContentDom.scrollTop = 0;
+      if (answerContentDom) answerContentDom.scrollTop = 0;
+    } else if (previewContentDom) {
+      previewContentDom.scrollTop = 0;
+    }
+  }
+
   // 切换字段
   async function switchField(direction) {
     if (!fieldList.value || fieldList.value.length === 0) return;
@@ -544,10 +583,8 @@
     currentFieldId.value = newField.id;
     lastSelectedFieldId.value = newField.id;
 
-    // 更新当前字段的内容
-    const table = await base.getActiveTable();
-    const cellValue = await table.getCellValue(currentFieldId.value, recordId.value || lastSelectedRecordId.value);
-    currentValue.value = cellValue?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '';
+    // 更新预览内容
+    await updatePreview();
   }
 
   // 切换数据表, 默认选择第一个视图
@@ -873,6 +910,11 @@
                 size="small"
                 style="padding: 0px; height: 16px"
                 title="前一个字段"
+                :disabled="
+                  fieldList.value &&
+                  currentFieldId.value &&
+                  fieldList.value.findIndex((field) => field.id === currentFieldId.value) === 0
+                "
               >
                 <el-icon style="font-size: 12px"><ArrowLeft /></el-icon>
               </el-button>
@@ -888,6 +930,11 @@
                   margin-left: 6px;
                 "
                 title="后一个字段"
+                :disabled="
+                  fieldList.value &&
+                  currentFieldId.value &&
+                  fieldList.value.findIndex((field) => field.id === currentFieldId.value) === fieldList.value.length - 1
+                "
               >
                 <el-icon style="font-size: 12px"><ArrowRight /></el-icon>
               </el-button>
