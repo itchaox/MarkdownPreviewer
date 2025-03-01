@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-01 22:17
+ * @LastTime   : 2025-03-01 22:54
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -531,16 +531,21 @@
 
     if (previewMode.value === 'ai' && questionFieldId.value && answerFieldId.value) {
       // AI 问答模式：获取问题和回答内容
-      const questionData = await table.getCellValue(questionFieldId.value, recordId.value || lastSelectedRecordId.value);
+      const questionData = await table.getCellValue(
+        questionFieldId.value,
+        recordId.value || lastSelectedRecordId.value,
+      );
       const answerData = await table.getCellValue(answerFieldId.value, recordId.value || lastSelectedRecordId.value);
 
-      questionContent.value = questionData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || `❗︎${t('preview.no_data')}`;
-      parsedAnswerContent.value = md.render(
-        answerData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '',
-      );
+      questionContent.value =
+        questionData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || `❗︎${t('preview.no_data')}`;
+      parsedAnswerContent.value = md.render(answerData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '');
     } else {
       // 普通预览模式
-      const data = await table.getCellValue(currentFieldId.value || lastSelectedFieldId.value, recordId.value || lastSelectedRecordId.value);
+      const data = await table.getCellValue(
+        currentFieldId.value || lastSelectedFieldId.value,
+        recordId.value || lastSelectedRecordId.value,
+      );
       if (data && data.length) {
         currentValue.value = data.map((item) => item.text.replace(/\n$/, '')).join('\n');
         parsedContent.value = md.render(currentValue.value || '');
@@ -917,9 +922,7 @@
                 style="padding: 0px; height: 16px"
                 title="前一个字段"
                 :disabled="
-                  fieldList.value &&
-                  currentFieldId.value &&
-                  fieldList.value.findIndex((field) => field.id === currentFieldId.value) === 0
+                  !fieldList || !currentFieldId || fieldList.findIndex((field) => field.id === currentFieldId) <= 0
                 "
               >
                 <el-icon style="font-size: 12px"><ArrowLeft /></el-icon>
@@ -937,9 +940,9 @@
                 "
                 title="后一个字段"
                 :disabled="
-                  fieldList.value &&
-                  currentFieldId.value &&
-                  fieldList.value.findIndex((field) => field.id === currentFieldId.value) === fieldList.value.length - 1
+                  !fieldList ||
+                  !currentFieldId ||
+                  fieldList.findIndex((field) => field.id === currentFieldId) === fieldList.length - 1
                 "
               >
                 <el-icon style="font-size: 12px"><ArrowRight /></el-icon>
