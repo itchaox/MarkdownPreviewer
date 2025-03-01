@@ -583,6 +583,12 @@
     currentFieldId.value = newField.id;
     lastSelectedFieldId.value = newField.id;
 
+    // 更新字段名称
+    const table = await base.getTable(databaseId.value);
+    const field = await table.getFieldById(newField.id);
+    const fieldMeta = await field.getMeta();
+    currentFieldName.value = fieldMeta.name;
+
     // 更新预览内容
     await updatePreview();
   }
