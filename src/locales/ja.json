@@ -9,7 +9,9 @@
     "current_row": "現在の行番号",
     "navigation": {
       "prev": "前へ",
-      "next": "次へ"
+      "next": "次へ",
+      "prev_field": "前のフィールド",
+      "next_field": "次のフィールド"
     },
     "mode": {
       "normal": "通常プレビュー",

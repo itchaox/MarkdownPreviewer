@@ -9,7 +9,9 @@
     "current_row": "当前行号",
     "navigation": {
       "prev": "上一个",
-      "next": "下一个"
+      "next": "下一个",
+      "prev_field": "上一个字段",
+      "next_field": "下一个字段"
     },
     "mode": {
       "normal": "普通预览",

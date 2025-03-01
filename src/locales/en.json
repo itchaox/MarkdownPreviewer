@@ -9,7 +9,9 @@
     "current_row": "Current Row",
     "navigation": {
       "prev": "Previous",
-      "next": "Next"
+      "next": "Next",
+      "prev_field": "Previous Field",
+      "next_field": "Next Field"
     },
     "mode": {
       "normal": "Normal Preview",

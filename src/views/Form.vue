@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-02-25 13:27
+ * @LastTime   : 2025-03-01 22:07
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -100,235 +100,235 @@
             // 添加所有必要的样式
             const style = document.createElement('style');
             style.textContent = `
-              .preview-content {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-                  'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-                font-size: 14px;
-                line-height: 1.6;
-                color: #1f2329;
-                padding: 8px 12px;
-              }
+                .preview-content {
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+                    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+                  font-size: 14px;
+                  line-height: 1.6;
+                  color: #1f2329;
+                  padding: 8px 12px;
+                }
 
-              .preview-content h1,
-              .preview-content h2,
-              .preview-content h3,
-              .preview-content h4,
-              .preview-content h5,
-              .preview-content h6 {
-                margin: 20px 0 12px;
-                font-weight: 600;
-                line-height: 1.4;
-                color: #1f2329;
-              }
+                .preview-content h1,
+                .preview-content h2,
+                .preview-content h3,
+                .preview-content h4,
+                .preview-content h5,
+                .preview-content h6 {
+                  margin: 20px 0 12px;
+                  font-weight: 600;
+                  line-height: 1.4;
+                  color: #1f2329;
+                }
 
-              .preview-content h1 {
-                font-size: 26px;
-                margin-top: 28px;
-              }
+                .preview-content h1 {
+                  font-size: 26px;
+                  margin-top: 28px;
+                }
 
-              .preview-content h2 {
-                font-size: 22px;
-              }
+                .preview-content h2 {
+                  font-size: 22px;
+                }
 
-              .preview-content h3 {
-                font-size: 18px;
-              }
+                .preview-content h3 {
+                  font-size: 18px;
+                }
 
-              .preview-content h4 {
-                font-size: 16px;
-              }
+                .preview-content h4 {
+                  font-size: 16px;
+                }
 
-              .preview-content h5 {
-                font-size: 14px;
-              }
+                .preview-content h5 {
+                  font-size: 14px;
+                }
 
-              .preview-content h6 {
-                font-size: 14px;
-                color: #646a73;
-              }
+                .preview-content h6 {
+                  font-size: 14px;
+                  color: #646a73;
+                }
 
-              .preview-content p {
-                margin: 12px 0;
-                line-height: 1.6;
-              }
+                .preview-content p {
+                  margin: 12px 0;
+                  line-height: 1.6;
+                }
 
-              .preview-content ul,
-              .preview-content ol {
-                padding-left: 1.5em;
-                margin: 12px 0;
-              }
+                .preview-content ul,
+                .preview-content ol {
+                  padding-left: 1.5em;
+                  margin: 12px 0;
+                }
 
-              .preview-content ul {
-                list-style: disc;
-              }
+                .preview-content ul {
+                  list-style: disc;
+                }
 
-              .preview-content ol {
-                list-style: decimal;
-              }
+                .preview-content ol {
+                  list-style: decimal;
+                }
 
-              .preview-content ul ul,
-              .preview-content ol ul {
-                list-style: circle;
-              }
+                .preview-content ul ul,
+                .preview-content ol ul {
+                  list-style: circle;
+                }
 
-              .preview-content ul ul ul,
-              .preview-content ol ul ul,
-              .preview-content ul ol ul,
-              .preview-content ol ol ul {
-                list-style: square;
-              }
+                .preview-content ul ul ul,
+                .preview-content ol ul ul,
+                .preview-content ul ol ul,
+                .preview-content ol ol ul {
+                  list-style: square;
+                }
 
-              .preview-content li {
-                margin: 6px 0;
-                line-height: 1.6;
-              }
+                .preview-content li {
+                  margin: 6px 0;
+                  line-height: 1.6;
+                }
 
-              .preview-content li::marker {
-                color: #2955e7;
-              }
+                .preview-content li::marker {
+                  color: #2955e7;
+                }
 
-              .preview-content pre {
-                margin: 16px 0;
-                padding: 16px;
-                background-color: #f5f6f7;
-                border-radius: 4px;
-                overflow-x: auto;
-              }
+                .preview-content pre {
+                  margin: 16px 0;
+                  padding: 16px;
+                  background-color: #f5f6f7;
+                  border-radius: 4px;
+                  overflow-x: auto;
+                }
 
-              .preview-content code {
-                font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
-                font-size: 12px;
-                padding: 2px 4px;
-                background-color: rgba(0, 0, 0, 0.06);
-                border-radius: 3px;
-              }
+                .preview-content code {
+                  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+                  font-size: 12px;
+                  padding: 2px 4px;
+                  background-color: rgba(0, 0, 0, 0.06);
+                  border-radius: 3px;
+                }
 
-              .preview-content pre code {
-                padding: 0;
-                background-color: transparent;
-              }
+                .preview-content pre code {
+                  padding: 0;
+                  background-color: transparent;
+                }
 
-              .preview-content blockquote {
-                margin: 16px 0;
-                padding: 0 16px;
-                color: #646a73;
-                border-left: 4px solid #e5e6eb;
-              }
+                .preview-content blockquote {
+                  margin: 16px 0;
+                  padding: 0 16px;
+                  color: #646a73;
+                  border-left: 4px solid #e5e6eb;
+                }
 
-              .preview-content table {
-                margin: 16px 0;
-                border-collapse: collapse;
-                width: 100%;
-              }
+                .preview-content table {
+                  margin: 16px 0;
+                  border-collapse: collapse;
+                  width: 100%;
+                }
 
-              .preview-content th,
-              .preview-content td {
-                padding: 8px 16px;
-                border: 1px solid #e5e6eb;
-              }
+                .preview-content th,
+                .preview-content td {
+                  padding: 8px 16px;
+                  border: 1px solid #e5e6eb;
+                }
 
-              .preview-content th {
-                background-color: #f5f6f7;
-                font-weight: 500;
-              }
+                .preview-content th {
+                  background-color: #f5f6f7;
+                  font-weight: 500;
+                }
 
-              .preview-content a {
-                color: #3370ff;
-                text-decoration: none;
-              }
+                .preview-content a {
+                  color: #3370ff;
+                  text-decoration: none;
+                }
 
-              .preview-content a:hover {
-                text-decoration: underline;
-              }
+                .preview-content a:hover {
+                  text-decoration: underline;
+                }
 
-              .preview-content hr {
-                margin: 16px 0;
-                border: none;
-                border-top: 1px solid #e5e6eb;
-              }
+                .preview-content hr {
+                  margin: 16px 0;
+                  border: none;
+                  border-top: 1px solid #e5e6eb;
+                }
 
-              .preview-content img {
-                max-width: 100%;
-                margin: 16px 0;
-              }
+                .preview-content img {
+                  max-width: 100%;
+                  margin: 16px 0;
+                }
 
-              ol {
-                list-style: decimal;
-              }
+                ol {
+                  list-style: decimal;
+                }
 
-              ul {
-                list-style: disc;
-              }
+                ul {
+                  list-style: disc;
+                }
 
-              ol ul {
-                list-style: circle;
-              }
+                ol ul {
+                  list-style: circle;
+                }
 
-              ul ul {
-                list-style: circle;
-              }
+                ul ul {
+                  list-style: circle;
+                }
 
-              ul ul ul {
-                list-style: square;
-              }
+                ul ul ul {
+                  list-style: square;
+                }
 
-              ul ul ul ul {
-                list-style: disc;
-              }
+                ul ul ul ul {
+                  list-style: disc;
+                }
 
-              ul ul ul ul ul {
-                list-style: circle;
-              }
+                ul ul ul ul ul {
+                  list-style: circle;
+                }
 
-              ul ul ul ul ul ul {
-                list-style: square;
-              }
+                ul ul ul ul ul ul {
+                  list-style: square;
+                }
 
-              ol li,
-              ul li {
-                color: inherit;
-              }
+                ol li,
+                ul li {
+                  color: inherit;
+                }
 
-              ol li::marker,
-              ul li::marker {
-                color: #2955e7 !important;
-              }
+                ol li::marker,
+                ul li::marker {
+                  color: #2955e7 !important;
+                }
 
-              ol > li,
-ul > li {
-  color: #2955e7;
+                ol > li,
+  ul > li {
+    color: #2955e7;
 
-  ol,
-ul {
-  color: #2955e7;
-}
-}
+    ol,
+  ul {
+    color: #2955e7;
+  }
+  }
 
-/* 使用伪元素实现列表标记 */
-.preview-content ul > li::before {
-  content: '';
-  position: absolute;
-  left: -2em;
-  top: 0.8em;
-  width: 0.4em;
-  height: 0.4em;
-  background-color: #2955e7;
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
+  /* 使用伪元素实现列表标记 */
+  .preview-content ul > li::before {
+    content: '';
+    position: absolute;
+    left: -2em;
+    top: 0.8em;
+    width: 0.4em;
+    height: 0.4em;
+    background-color: #2955e7;
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
 
-.preview-content ol > li::before {
-  content: counter(item) '.';
-  counter-increment: item;
-  position: absolute;
-  left: -1.3em;
-  width: 1em;
-  text-align: right;
-  color: #2955e7;
-  font-size: 14px;
-  font-weight: 600;
-}
-            `;
+  .preview-content ol > li::before {
+    content: counter(item) '.';
+    counter-increment: item;
+    position: absolute;
+    left: -1.3em;
+    width: 1em;
+    text-align: right;
+    color: #2955e7;
+    font-size: 14px;
+    font-weight: 600;
+  }
+              `;
             clonedDoc.head.appendChild(style);
           }
         },
@@ -496,7 +496,9 @@ ul {
       questionContent.value = questionText || `❗︎${t('preview.no_data')}`;
       const answerText = answerData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '';
       currentValue.value = answerText;
-      parsedAnswerContent.value = answerText ? md.render(answerText) : `<div class="empty-content">❗︎${t('preview.no_data')}</div>`;
+      parsedAnswerContent.value = answerText
+        ? md.render(answerText)
+        : `<div class="empty-content">❗︎${t('preview.no_data')}</div>`;
     } else {
       // 普通预览模式
       const data = await table.getCellValue(fieldIdToUse, recordId.value);
@@ -520,6 +522,32 @@ ul {
     } else if (previewContentDom) {
       previewContentDom.scrollTop = 0;
     }
+  }
+
+  // 切换字段
+  async function switchField(direction) {
+    if (!fieldList.value || fieldList.value.length === 0) return;
+
+    const currentIndex = fieldList.value.findIndex(
+      (field) => field.id === (currentFieldId.value || lastSelectedFieldId.value),
+    );
+    if (currentIndex === -1) return;
+
+    let newIndex;
+    if (direction === 'prev') {
+      newIndex = currentIndex > 0 ? currentIndex - 1 : fieldList.value.length - 1;
+    } else {
+      newIndex = currentIndex < fieldList.value.length - 1 ? currentIndex + 1 : 0;
+    }
+
+    const newField = fieldList.value[newIndex];
+    currentFieldId.value = newField.id;
+    lastSelectedFieldId.value = newField.id;
+
+    // 更新当前字段的内容
+    const table = await base.getActiveTable();
+    const cellValue = await table.getCellValue(currentFieldId.value, recordId.value || lastSelectedRecordId.value);
+    currentValue.value = cellValue?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '';
   }
 
   // 切换数据表, 默认选择第一个视图
@@ -622,7 +650,8 @@ ul {
           const questionData = await table.getCellValue(questionFieldId.value, recordId.value);
           const answerData = await table.getCellValue(answerFieldId.value, recordId.value);
 
-          questionContent.value = questionData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || `❗︎${t('preview.no_data')}`;
+          questionContent.value =
+            questionData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || `❗︎${t('preview.no_data')}`;
           parsedAnswerContent.value = md.render(
             answerData?.map((item) => item.text.replace(/\n$/, '')).join('\n') || '',
           );
@@ -833,13 +862,53 @@ ul {
       v-if="currentRecordIndex >= 0"
     >
       <div class="header-content">
-        <div class="cell-info">
-          <span
-            >{{ $t('preview.current_field') }}：<strong style="color: #2955e7">{{ currentFieldName }}</strong></span
+        <div style="background-color: #f5f7fa">
+          <div
+            class="cell-info"
+            style="display: flex; justify-content: flex-start"
           >
-          <span
-            >{{ $t('preview.current_row') }}：<strong style="color: #2955e7">{{ currentRecordIndex + 1 }}</strong></span
-          >
+            <div class="field-navigation-buttons">
+              <el-button
+                @click="switchField('prev')"
+                size="small"
+                style="padding: 0px; height: 16px"
+                title="前一个字段"
+              >
+                <el-icon style="font-size: 12px"><ArrowLeft /></el-icon>
+              </el-button>
+              <el-button
+                type="primary"
+                @click="switchField('next')"
+                size="small"
+                style="
+                  padding: 0px;
+                  height: 16px;
+                  --el-button-bg-color: #2955e7;
+                  --el-button-border-color: #2955e7;
+                  margin-left: 6px;
+                "
+                title="后一个字段"
+              >
+                <el-icon style="font-size: 12px"><ArrowRight /></el-icon>
+              </el-button>
+            </div>
+            <div style="display: flex; justify-content: space-between; width: 100%">
+              <div>
+                <span
+                  >{{ $t('preview.current_field') }}：<strong style="color: #2955e7">{{
+                    currentFieldName
+                  }}</strong></span
+                >
+              </div>
+              <div>
+                <span
+                  >{{ $t('preview.current_row') }}：<strong style="color: #2955e7">{{
+                    currentRecordIndex + 1
+                  }}</strong></span
+                >
+              </div>
+            </div>
+          </div>
         </div>
         <div class="navigation-buttons">
           <el-button @click="switchRecord('prev')">
@@ -1057,14 +1126,21 @@ ul {
 
   .cell-info {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     padding: 8px;
+    padding-top: 4px;
     background-color: #f5f7fa;
     border-radius: 4px;
     margin-bottom: 4px;
     font-size: 14px;
     color: #1f2329;
     font-weight: 600;
+  }
+
+  .field-navigation-buttons {
+    display: flex;
+    margin-right: 6px;
+    /* margin-left: 16px; */
   }
 
   .navigation-buttons {
