@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-01 23:59
+ * @LastTime   : 2025-03-02 08:20
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -14,7 +14,7 @@
 
   import opencc from 'node-opencc';
   import { ElMessage, ElButton, ElDialog } from 'element-plus';
-  import { ArrowLeft, ArrowRight, DocumentCopy, Download, Picture } from '@element-plus/icons-vue';
+  import { ArrowLeft, ArrowRight, DocumentCopy, Download, Picture, Edit } from '@element-plus/icons-vue';
 
   import MarkdownIt from 'markdown-it';
 
@@ -23,6 +23,41 @@
 
   // 赞助我弹窗控制
   const sponsorDialogVisible = ref(false);
+
+  // 编辑状态控制
+  const isEditing = ref(false);
+  const editor = ref(null);
+  const isTextField = ref(false); // 是否为文本字段
+
+  // 当前点击字段id
+  const currentFieldId = ref();
+  const recordId = ref();
+
+  // 检查字段类型
+  async function checkFieldType() {
+    try {
+      const table = await bitable.base.getActiveTable();
+      const field = await table.getField(currentFieldId.value);
+      isTextField.value = field.type === 'Text' || field.type === 1;
+    } catch (error) {
+      console.error('获取字段类型失败:', error);
+      isTextField.value = false;
+    }
+  }
+
+  // 监听字段变化
+  watchEffect(async () => {
+    if (currentFieldId.value) {
+      await checkFieldType();
+    }
+  });
+
+  // 组件挂载时初始化字段类型检查
+  onMounted(async () => {
+    if (currentFieldId.value) {
+      await checkFieldType();
+    }
+  });
 
   // 返回顶部按钮显示控制
   const showBackToTop = ref(false);
@@ -62,6 +97,38 @@
     if (answerContent) {
       answerContent.scrollTop = 0;
     }
+  }
+
+  // 开始编辑
+  function startEditing() {
+    if (!currentValue.value) return;
+    isEditing.value = true;
+    // 等待 DOM 更新后设置焦点
+    nextTick(() => {
+      if (editor.value) {
+        editor.value.focus();
+      }
+    });
+  }
+
+  // 停止编辑
+  async function stopEditing() {
+    if (!isEditing.value) return;
+    isEditing.value = false;
+    // 更新多维表格中的值
+    try {
+      const table = await bitable.base.getActiveTable();
+      await table.setCellValue(currentFieldId.value, recordId.value, [{ type: 'text', text: currentValue.value }]);
+    } catch (error) {
+      console.error('更新单元格失败:', error);
+      ElMessage.error('更新失败');
+    }
+  }
+
+  // 处理输入
+  function handleInput() {
+    // 实时更新预览内容
+    parsedContent.value = md.render(currentValue.value || '');
   }
 
   // 复制内容函数
@@ -413,10 +480,6 @@
 
   const base = bitable.base;
 
-  // 当前点击字段id
-  const currentFieldId = ref();
-  const recordId = ref();
-
   // 保存最后一次选中的字段ID和记录ID
   const lastSelectedFieldId = ref('');
   const lastSelectedRecordId = ref('');
@@ -426,7 +489,7 @@
     if (!lastSelectedFieldId.value || !lastSelectedRecordId.value) return;
     const currentIndex = recordIds.value.findIndex((id) => id === lastSelectedRecordId.value);
     if (currentIndex > 0) {
-      const table = await base.getActiveTable();
+      const table = await bitable.base.getActiveTable();
       await table.setSelection({
         fieldId: lastSelectedFieldId.value,
         recordId: recordIds.value[currentIndex - 1],
@@ -439,7 +502,7 @@
     if (!lastSelectedFieldId.value || !lastSelectedRecordId.value) return;
     const currentIndex = recordIds.value.findIndex((id) => id === lastSelectedRecordId.value);
     if (currentIndex < recordIds.value.length - 1) {
-      const table = await base.getActiveTable();
+      const table = await bitable.base.getActiveTable();
       await table.setSelection({
         fieldId: lastSelectedFieldId.value,
         recordId: recordIds.value[currentIndex + 1],
@@ -647,7 +710,7 @@
   // 监听问答字段变化
   watch([questionFieldId, answerFieldId], async () => {
     if (previewMode.value === 'ai' && questionFieldId.value && answerFieldId.value && recordId.value) {
-      const table = await base.getActiveTable();
+      const table = await bitable.base.getActiveTable();
       // 更新问答内容
       const questionData = await table.getCellValue(questionFieldId.value, recordId.value);
       const answerData = await table.getCellValue(answerFieldId.value, recordId.value);
@@ -1031,15 +1094,30 @@
         <div class="preview-header">
           <div>
             <el-button
+              v-if="isTextField && !isEditing"
+              @click="startEditing"
               plain
               size="small"
               style="padding: 6px 4px"
+            >
+              <el-icon
+                class="edit-button"
+                :title="$t('preview.edit.button')"
+                size="20"
+                ><Edit
+              /></el-icon>
+            </el-button>
+            <el-button
+              v-if="currentValue"
               @click="copyContent"
+              plain
+              size="small"
+              style="padding: 6px 4px"
             >
               <el-icon
                 class="copy-button"
-                size="20"
                 :title="$t('preview.copy.button')"
+                size="20"
                 ><DocumentCopy
               /></el-icon>
             </el-button>
@@ -1066,9 +1144,18 @@
           <el-icon size="16"><ArrowUp /></el-icon>
         </el-button>
         <div
+          v-if="!isEditing"
           class="preview-content"
           v-html="parsedContent"
         ></div>
+        <textarea
+          v-else
+          class="markdown-editor"
+          v-model="currentValue"
+          @input="handleInput"
+          @blur="stopEditing"
+          ref="editor"
+        ></textarea>
       </div>
       <div
         v-else
@@ -1373,95 +1460,44 @@
     line-height: 1.6;
   }
 
+  .markdown-editor {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    background: transparent;
+    resize: none;
+    padding: inherit;
+  }
+
   .preview-header {
     position: sticky;
     top: 0;
     z-index: 100;
     display: flex;
     justify-content: flex-end;
+    padding: 8px;
+    border-bottom: 1px solid #e5e6eb;
   }
 
+  .preview-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .edit-button,
   .copy-button {
-    display: flex;
-    align-items: center;
-    transition: all 0.2s ease;
-  }
-
-  .copy-button:hover {
-    transform: translateY(-1px);
     cursor: pointer;
-    color: #2955e7;
+    color: #646a73;
   }
 
-  .ai-chat {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .question-content,
-  .answer-content {
-    padding: 16px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border-radius: 8px;
-    position: relative;
-    overflow-y: auto;
-    margin-top: 6px;
-    scroll-behavior: smooth;
-    min-height: 30px;
-  }
-
-  .tag {
-    position: absolute;
-    top: 0px;
-    left: 16px;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 500;
-    border: 1px solid;
-    margin: 0;
-  }
-
-  .question-tag {
-    background-color: #f2f3f5;
-    color: #1f2329;
-    border-color: #e5e6eb;
-  }
-
-  .answer-tag {
-    background-color: #e8f3ff;
-    color: #2955e7;
-    border-color: #bedaff;
-  }
-
-  .question-content {
-    background-color: #f5f6f7;
-    max-height: 6vh;
-    font-size: 14px;
-  }
-
-  .answer-content {
-    background-color: #fff;
-    max-height: 61.5vh !important;
-    border: 1px solid #e5e6eb;
-  }
-
-  .ai-info {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: flex-end;
-    height: 22px;
-  }
-
-  .question-content p {
-    margin: 0;
-    color: #4e5969;
-    line-height: 1.6;
-    white-space: pre-wrap;
+  .edit-button:hover,
+  .copy-button:hover {
+    color: #3370ff;
   }
 </style>
 
