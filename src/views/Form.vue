@@ -1462,7 +1462,7 @@
 
   .markdown-editor {
     width: 100%;
-    min-height: 400px;
+    min-height: 520px;
     max-height: 600px;
     border: none;
     outline: none;
