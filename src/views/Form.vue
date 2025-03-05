@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-02 08:20
+ * @LastTime   : 2025-03-06 06:48
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1116,7 +1116,7 @@
             >
               <el-icon
                 class="edit-button editing"
-                :title="$t('preview.edit.button')"
+                :title="$t('preview.edit.exit')"
                 size="20"
                 ><Edit
               /></el-icon>
@@ -1515,9 +1515,9 @@
   .copy-button:hover {
     color: #3370ff;
   }
-.edit-button.editing {
-  color: #2955e7;
-}
+  .edit-button.editing {
+    color: #2955e7;
+  }
 </style>
 
 <style>
