@@ -1481,7 +1481,7 @@
     border: none;
     outline: none;
     font-family: inherit;
-    font-size: inherit;
+    font-size: 14px;
     line-height: inherit;
     color: inherit;
     background: transparent;
