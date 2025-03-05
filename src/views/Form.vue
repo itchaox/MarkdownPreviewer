@@ -1102,7 +1102,7 @@
             >
               <el-icon
                 class="edit-button"
-                :title="$t('preview.edit.button')"
+                :title="isEditing ? $t('preview.edit.exit') : $t('preview.edit.enter')"
                 size="20"
                 ><Edit
               /></el-icon>

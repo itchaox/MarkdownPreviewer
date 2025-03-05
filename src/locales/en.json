@@ -42,6 +42,10 @@
     "download": {
       "success": "Export successful",
       "error": "Export failed"
+    },
+    "edit": {
+      "enter": "Enter Edit Mode",
+      "exit": "Exit Edit Mode"
     }
   }
 }
