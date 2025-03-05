@@ -1112,7 +1112,7 @@
               @click="stopEditing"
               plain
               size="small"
-              style="padding: 6px 4px"
+              style="padding: 6px 4px; background-color: #f0f7ff; border-color: #2955e7"
             >
               <el-icon
                 class="edit-button editing"
