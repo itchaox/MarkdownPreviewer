@@ -1674,6 +1674,7 @@
     /* background-color: #f0f7ff; */
     background-color: #fff;
     border: 1px solid #e5e6eb;
+    max-height: 55vh;
   }
 
   .ai-info {
