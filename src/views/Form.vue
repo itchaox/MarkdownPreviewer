@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-06 06:59
+ * @LastTime   : 2025-03-06 07:30
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1135,18 +1135,22 @@
                 ><DocumentCopy
               /></el-icon>
             </el-button>
-          </div>
-          <!-- FIXME 暂时不做 导出图片 ,样式有点问题-->
-          <!-- <div>
-            <el-icon
+            <!-- FIXME 暂时不做 导出图片 ,1-2-3 高亮的样式有点问题-->
+            <el-button
+              v-if="currentValue"
               @click="downloadAsImage"
-              style="margin-right: 12px"
-              class="copy-button"
-              size="20"
-              :title="$t('preview.downloadImage.button')"
-              ><Download
-            /></el-icon>
-          </div> -->
+              plain
+              size="small"
+              style="padding: 6px 4px"
+            >
+              <el-icon
+                class="copy-button"
+                size="20"
+                :title="$t('preview.downloadImage.button')"
+                ><Download
+              /></el-icon>
+            </el-button>
+          </div>
         </div>
         <el-button
           v-show="showBackToTop"
