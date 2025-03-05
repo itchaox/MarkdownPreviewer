@@ -1108,6 +1108,20 @@
               /></el-icon>
             </el-button>
             <el-button
+              v-if="isTextField && isEditing"
+              @click="stopEditing"
+              plain
+              size="small"
+              style="padding: 6px 4px"
+            >
+              <el-icon
+                class="edit-button editing"
+                :title="$t('preview.edit.button')"
+                size="20"
+                ><Edit
+              /></el-icon>
+            </el-button>
+            <el-button
               v-if="currentValue"
               @click="copyContent"
               plain
@@ -1501,6 +1515,9 @@
   .copy-button:hover {
     color: #3370ff;
   }
+.edit-button.editing {
+  color: #2955e7;
+}
 </style>
 
 <style>
