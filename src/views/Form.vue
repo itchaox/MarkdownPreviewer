@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-06 09:48
+ * @LastTime   : 2025-03-06 09:52
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1480,7 +1480,7 @@
   }
 
   .markdown-editor {
-    width: 100%;
+    width: 95%;
     min-height: 520px;
     max-height: 600px;
     border: none;
@@ -1493,6 +1493,7 @@
     resize: none;
     padding: inherit;
     overflow-y: auto;
+    overflow-x: hidden !important;
   }
 
   .preview-header {
