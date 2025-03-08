@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-08 22:42
+ * @LastTime   : 2025-03-08 23:01
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -42,14 +42,29 @@
   // 默认配置输入值
   const defaultConfig = ref('');
 
+  // 生成后的表格地址
+  const newFormUrl = ref('');
+
   // 处理按钮 A 点击事件
   const handleButtonA = () => {
-    ElMessage.success('按钮 A 被点击');
+    window.open(newFormUrl.value, '_blank');
   };
 
   // 处理按钮 B 点击事件
   const handleButtonB = () => {
     ElMessage.success('按钮 B 被点击');
+  };
+
+  // 处理生成配置按钮点击事件
+  const handleGenerate = () => {
+    if (!defaultConfig.value) {
+      ElMessage.warning('请输入多维表格地址!');
+      return;
+    }
+    // 配置生成后的表格地址,携带插件的插件 id
+    newFormUrl.value = defaultConfig.value + '&extension_market_extension_id=replit_3f456ac5d10f23e6';
+
+    ElMessage.success('新多维表格地址已生成~');
   };
 
   // 处理加入群组点击事件
@@ -925,12 +940,22 @@
       </el-button>
 
       <div class="default-config-section">
-        <div class="config-label">配置默认打开 Markdown 插件：</div>
-        <el-input
-          v-model="defaultConfig"
-          placeholder="请输入配置"
-          class="config-input"
-        />
+        <div class="config-row">
+          <div class="config-label">默认打开</div>
+          <el-input
+            v-model="defaultConfig"
+            placeholder="请输入多维表格地址"
+            class="config-input"
+          >
+            <template #append>
+              <el-button
+                type="primary"
+                @click="handleGenerate"
+                >生成</el-button
+              >
+            </template>
+          </el-input>
+        </div>
         <div class="button-group">
           <el-button
             type="primary"
@@ -1335,9 +1360,25 @@
     display: flex;
     gap: 10px;
   }
-</style>
+  .config-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
 
-<style scoped>
+  .config-label {
+    white-space: nowrap;
+    margin-right: 8px;
+  }
+
+  .config-input {
+    flex: 1;
+    margin-right: 8px;
+  }
+
+  .generate-button {
+    white-space: nowrap;
+  }
   .header-buttons {
     margin-bottom: 0.5rem;
     /* display: flex; */
