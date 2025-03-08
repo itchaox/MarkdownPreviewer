@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-08 22:04
+ * @LastTime   : 2025-03-08 22:42
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -921,7 +921,7 @@
         >
           <ChatRound />
         </el-icon>
-        {{ $t('preview.sponsor.follow') }}
+        {{ $t('preview.sponsor.join_group') }}
       </el-button>
 
       <div class="default-config-section">
@@ -932,8 +932,16 @@
           class="config-input"
         />
         <div class="button-group">
-          <el-button type="primary" @click="handleButtonA">按钮 A</el-button>
-          <el-button type="primary" @click="handleButtonB">按钮 B</el-button>
+          <el-button
+            type="primary"
+            @click="handleButtonA"
+            >按钮 A</el-button
+          >
+          <el-button
+            type="primary"
+            @click="handleButtonB"
+            >按钮 B</el-button
+          >
         </div>
       </div>
     </div>
@@ -1313,20 +1321,20 @@
 </template>
 
 <style scoped>
-.default-config-section {
-  margin-top: 10px;
-}
-.config-label {
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-.config-input {
-  margin-bottom: 10px;
-}
-.button-group {
-  display: flex;
-  gap: 10px;
-}
+  .default-config-section {
+    margin-top: 10px;
+  }
+  .config-label {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  .config-input {
+    margin-bottom: 10px;
+  }
+  .button-group {
+    display: flex;
+    gap: 10px;
+  }
 </style>
 
 <style scoped>
