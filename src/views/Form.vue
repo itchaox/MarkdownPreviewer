@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-07 09:49
+ * @LastTime   : 2025-03-08 21:34
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -912,7 +912,7 @@
       </div>
 
       <div class="header-buttons">
-        <div>
+        <!-- <div>
           <el-button
             @click="handleJoinGroup"
             :icon="ChatRound"
@@ -920,7 +920,7 @@
             size="small"
             >加群</el-button
           >
-        </div>
+        </div> -->
         <div>
           <el-button
             type="primary"
@@ -1115,13 +1115,6 @@
       >
         <div class="preview-header">
           <div>
-            <el-button
-              :icon="ChatRound"
-              @click="handleJoinGroup"
-              plain
-              size="small"
-              style="padding: 6px 4px"
-            />
             <el-button
               v-if="isTextField && !isEditing"
               @click="startEditing"
