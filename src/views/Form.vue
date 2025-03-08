@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-08 21:34
+ * @LastTime   : 2025-03-08 21:57
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -14,7 +14,16 @@
 
   import opencc from 'node-opencc';
   import { ElMessage, ElButton, ElDialog } from 'element-plus';
-  import { ArrowLeft, ArrowRight, DocumentCopy, Download, Picture, Edit, ChatRound } from '@element-plus/icons-vue';
+  import {
+    ArrowLeft,
+    ArrowRight,
+    DocumentCopy,
+    Download,
+    Picture,
+    Edit,
+    ChatRound,
+    Setting,
+  } from '@element-plus/icons-vue';
 
   import MarkdownIt from 'markdown-it';
 
@@ -912,16 +921,16 @@
       </div>
 
       <div class="header-buttons">
-        <!-- <div>
-          <el-button
-            @click="handleJoinGroup"
-            :icon="ChatRound"
-            style="margin-left: 8px; padding: 6px 12px; font-size: 13px"
-            size="small"
-            >加群</el-button
-          >
-        </div> -->
         <div>
+          <el-button
+            class="setting-button"
+            @click="handleSetting"
+            style="padding: 0px 4px"
+          >
+            <el-icon size="18">
+              <Setting />
+            </el-icon>
+          </el-button>
           <el-button
             type="primary"
             class="sponsor-button"
@@ -1580,7 +1589,8 @@
   }
 
   .follow-button {
-    width: 85px;
+    width: 75px;
+    margin-left: 0 !important;
     transition: transform 0.2s ease;
     background-color: #f472b6 !important;
     border-color: #f472b6 !important;
@@ -1592,9 +1602,24 @@
     border-color: #f472b6 !important;
   }
 
+  .setting-button {
+    margin-right: 4px;
+    font-size: 13px;
+    transition: transform 0.2s ease;
+    color: #646a73;
+  }
+
+  .setting-button:hover {
+    transform: scale(1.1);
+    color: #3370ff !important;
+    /* background-color: transparent !important; */
+    /* border-color: transparent !important; */
+  }
+
   .sponsor-button {
-    width: 90px;
-    margin-right: -5px;
+    width: 75px;
+    margin-right: 4px;
+    margin-left: 0 !important;
     color: #ec5f59 !important;
     transition: transform 0.2s ease;
     background: linear-gradient(to right, #ffd75e, #ffcd38) !important;
