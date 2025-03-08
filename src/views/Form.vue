@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-08 23:01
+ * @LastTime   : 2025-03-08 23:03
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -52,7 +52,7 @@
 
   // 处理按钮 B 点击事件
   const handleButtonB = () => {
-    ElMessage.success('按钮 B 被点击');
+    ElMessage.success('复制地址成功');
   };
 
   // 处理生成配置按钮点击事件
@@ -956,16 +956,19 @@
             </template>
           </el-input>
         </div>
-        <div class="button-group">
+        <div
+          class="button-group"
+          v-show="newFormUrl"
+        >
           <el-button
             type="primary"
             @click="handleButtonA"
-            >按钮 A</el-button
+            >一键预览</el-button
           >
           <el-button
             type="primary"
             @click="handleButtonB"
-            >按钮 B</el-button
+            >复制地址</el-button
           >
         </div>
       </div>
