@@ -39,6 +39,19 @@
   // 编辑状态控制
   const isEditing = ref(false);
 
+  // 默认配置输入值
+  const defaultConfig = ref('');
+
+  // 处理按钮 A 点击事件
+  const handleButtonA = () => {
+    ElMessage.success('按钮 A 被点击');
+  };
+
+  // 处理按钮 B 点击事件
+  const handleButtonB = () => {
+    ElMessage.success('按钮 B 被点击');
+  };
+
   // 处理加入群组点击事件
   const handleJoinGroup = () => {
     window.open(
@@ -900,6 +913,7 @@
         type="primary"
         class="join-group-button"
         @click="handleJoinGroup"
+        style="margin-bottom: 10px"
       >
         <el-icon
           class="chat-icon"
@@ -909,6 +923,19 @@
         </el-icon>
         {{ $t('preview.sponsor.follow') }}
       </el-button>
+
+      <div class="default-config-section">
+        <div class="config-label">配置默认打开 Markdown 插件：</div>
+        <el-input
+          v-model="defaultConfig"
+          placeholder="请输入配置"
+          class="config-input"
+        />
+        <div class="button-group">
+          <el-button type="primary" @click="handleButtonA">按钮 A</el-button>
+          <el-button type="primary" @click="handleButtonB">按钮 B</el-button>
+        </div>
+      </div>
     </div>
   </el-dialog>
 
@@ -1284,6 +1311,23 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.default-config-section {
+  margin-top: 10px;
+}
+.config-label {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.config-input {
+  margin-bottom: 10px;
+}
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+</style>
 
 <style scoped>
   .header-buttons {
