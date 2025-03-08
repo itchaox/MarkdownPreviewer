@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-08 21:57
+ * @LastTime   : 2025-03-08 22:04
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -32,6 +32,9 @@
 
   // 赞助我弹窗控制
   const sponsorDialogVisible = ref(false);
+
+  // 设置弹窗控制
+  const settingDialogVisible = ref(false);
 
   // 编辑状态控制
   const isEditing = ref(false);
@@ -886,25 +889,26 @@
 </script>
 
 <template>
+  <!-- 设置弹窗 -->
   <el-dialog
-    v-model="sponsorDialogVisible"
-    title="💗赞助我"
+    v-model="settingDialogVisible"
+    :title="$t('preview.setting.title')"
     width="95%"
   >
-    <div class="sponsor-content">
-      <p>{{ $t('preview.sponsor.tip1') }} ☕️</p>
-      <p>{{ $t('preview.sponsor.tip2') }}️</p>
-      <p>{{ $t('preview.sponsor.tip3') }}️</p>
-      <div class="qr-placeholder">
-        <img
-          src="@/assets/wx.png"
-          alt=""
-        />
-        <img
-          src="@/assets/zfb.png"
-          alt=""
-        />
-      </div>
+    <div class="setting-content">
+      <el-button
+        type="primary"
+        class="join-group-button"
+        @click="handleJoinGroup"
+      >
+        <el-icon
+          class="chat-icon"
+          style="margin-right: 4px"
+        >
+          <ChatRound />
+        </el-icon>
+        {{ $t('preview.sponsor.follow') }}
+      </el-button>
     </div>
   </el-dialog>
 
@@ -924,7 +928,7 @@
         <div>
           <el-button
             class="setting-button"
-            @click="handleSetting"
+            @click="settingDialogVisible = true"
             style="padding: 0px 4px"
           >
             <el-icon size="18">
@@ -1612,8 +1616,6 @@
   .setting-button:hover {
     transform: scale(1.1);
     color: #3370ff !important;
-    /* background-color: transparent !important; */
-    /* border-color: transparent !important; */
   }
 
   .sponsor-button {

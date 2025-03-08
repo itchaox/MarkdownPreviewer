@@ -28,7 +28,7 @@
       "tip1": "If this plugin is helpful to you, feel free to buy me a coffee",
       "tip2": "Thank you for your support. The QR code is for voluntary sponsorship only and does not involve any goods or services transactions",
       "tip3": "Please scan the QR code below to sponsor",
-      "follow": "Follow Me"
+      "follow": "Join Group"
     },
     "copy": {
       "button": "Copy text",
@@ -46,6 +46,9 @@
     "edit": {
       "enter": "Enter Edit Mode",
       "exit": "Exit Edit Mode"
+    },
+    "setting": {
+      "title": "Settings"
     }
   }
 }
