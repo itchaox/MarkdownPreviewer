@@ -206,6 +206,33 @@
     parsedContent.value = md.render(currentValue.value || '');
   }
 
+  // 处理按键事件
+  function handleKeyDown(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      const text = currentValue.value;
+      const lines = text.split('\n');
+      const currentLine = lines[lines.length - 1];
+
+      // 匹配有序列表（如：1. 2. 3.）
+      const orderedMatch = currentLine.match(/^(\d+)\. /);
+      // 匹配无序列表（如：- * +）
+      const unorderedMatch = currentLine.match(/^([\-\*\+]) /);
+
+      if (orderedMatch) {
+        const num = parseInt(orderedMatch[1]);
+        lines.push(`${num + 1}. `);
+      } else if (unorderedMatch) {
+        lines.push(`${unorderedMatch[1]} `);
+      } else {
+        lines.push('');
+      }
+
+      currentValue.value = lines.join('\n');
+      handleInput();
+    }
+  }
+
   // 复制内容函数
   function copyContent() {
     try {
@@ -1324,8 +1351,7 @@
           class="markdown-editor"
           v-model="currentValue"
           @input="handleInput"
-          @blur="stopEditing"
-          ref="editor"
+          @keydown="handleKeyDown"
         ></textarea>
       </div>
       <div
