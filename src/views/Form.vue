@@ -50,10 +50,25 @@
     window.open(newFormUrl.value, '_blank');
   };
 
-  // 处理按钮 B 点击事件
-  const handleButtonB = () => {
-    ElMessage.success('复制地址成功');
-  };
+  // 复制地址按钮点击事件处理
+  async function handleButtonB() {
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = newFormUrl.value;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      ElMessage.success({
+        message: '复制地址成功',
+        offset: 120,
+        duration: 1500,
+      });
+    } catch (err) {
+      ElMessage.error('复制地址失败');
+    }
+  }
+
 
   // 处理生成配置按钮点击事件
   const handleGenerate = () => {
