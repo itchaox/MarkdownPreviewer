@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-09 09:33
+ * @LastTime   : 2025-03-09 11:00
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -170,6 +170,21 @@
     const answerContent = document.querySelector('.answer-content');
     if (answerContent) {
       answerContent.scrollTop = 0;
+    }
+  }
+
+  // 切换编辑状态
+  function toggleEditing() {
+    if (previewMode.value === 'normal') {
+      // 在双栏模式下，不需要切换编辑状态
+      // 因为左侧始终是编辑区域，右侧始终是预览区域
+      return;
+    }
+
+    if (isEditing.value) {
+      stopEditing();
+    } else {
+      startEditing();
     }
   }
 
@@ -1251,7 +1266,7 @@
         </div>
         <div class="navigation-buttons">
           <el-button @click="switchRecord('prev')">
-            <el-icon style="font-size: 16px; font-weight: bold"><ArrowLeft /></el-icon>
+            <el-icon size="16px; font-weight: bold"><ArrowLeft /></el-icon>
             <span class="material-icons">{{ $t('preview.navigation.prev') }}</span>
           </el-button>
           <el-button
@@ -1260,43 +1275,28 @@
             style="--el-button-bg-color: #2955e7; --el-button-border-color: #2955e7"
           >
             <span class="material-icons">{{ $t('preview.navigation.next') }}</span>
-            <el-icon style="font-size: 16px; font-weight: bold"><ArrowRight /></el-icon>
+            <el-icon size="16px; font-weight: bold"><ArrowRight /></el-icon>
           </el-button>
         </div>
       </div>
     </div>
     <div v-if="currentRecordIndex >= 0">
       <div
-        class="cell-preview"
-        @scroll="handleScroll"
         v-if="previewMode === 'normal'"
+        class="cell-preview split-view"
+        @scroll="handleScroll"
       >
         <div class="preview-header">
-          <div>
+          <div class="preview-actions">
             <el-button
-              v-if="isTextField && !isEditing"
-              @click="startEditing"
+              @click="toggleEditing"
               plain
               size="small"
               style="padding: 6px 4px"
             >
               <el-icon
-                class="edit-button"
-                :title="isEditing ? $t('preview.edit.exit') : $t('preview.edit.enter')"
-                size="20"
-                ><Edit
-              /></el-icon>
-            </el-button>
-            <el-button
-              v-if="isTextField && isEditing"
-              @click="stopEditing"
-              plain
-              size="small"
-              style="padding: 6px 4px; background-color: #f0f7ff; border-color: #2955e7"
-            >
-              <el-icon
-                class="edit-button editing"
-                :title="$t('preview.edit.exit')"
+                :class="['edit-button', isEditing ? 'editing' : '']"
+                :title="isEditing ? $t('preview.edit.exit') : $t('preview.edit.button')"
                 size="20"
                 ><Edit
               /></el-icon>
@@ -1341,18 +1341,22 @@
         >
           <el-icon size="16"><ArrowUp /></el-icon>
         </el-button>
-        <div
-          v-if="!isEditing"
-          class="preview-content"
-          v-html="parsedContent"
-        ></div>
-        <textarea
-          v-else
-          class="markdown-editor"
-          v-model="currentValue"
-          @input="handleInput"
-          @keydown="handleKeyDown"
-        ></textarea>
+        <div class="split-container">
+          <div class="editor-pane">
+            <textarea
+              class="markdown-editor"
+              v-model="currentValue"
+              @input="handleInput"
+              @keydown="handleKeyDown"
+            ></textarea>
+          </div>
+          <div class="preview-pane">
+            <div
+              class="preview-content"
+              v-html="parsedContent"
+            ></div>
+          </div>
+        </div>
       </div>
       <div
         v-else
@@ -1430,6 +1434,33 @@
 </template>
 
 <style scoped>
+  .split-view {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .split-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    height: calc(100% - 40px);
+    border-top: 1px solid #e5e6eb;
+    margin-top: 8px;
+  }
+
+  .editor-pane {
+    flex: 1;
+    overflow: auto;
+    border-right: 1px solid #e5e6eb;
+    padding-right: 8px;
+  }
+
+  .preview-pane {
+    flex: 1;
+    overflow: auto;
+    padding-left: 8px;
+  }
   .default-config-section {
     margin-top: 10px;
   }
@@ -1691,18 +1722,16 @@
   }
 
   .markdown-editor {
-    width: 95%;
+    width: 100%;
+    height: 100%;
     min-height: 520px;
-    max-height: 600px;
     border: none;
     outline: none;
     font-family: inherit;
     font-size: 14px;
-    line-height: inherit;
-    color: inherit;
-    background: transparent;
+    line-height: 1.6;
+    padding: 8px;
     resize: none;
-    padding: inherit;
     overflow-y: auto;
     overflow-x: hidden !important;
   }
