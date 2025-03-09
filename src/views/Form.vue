@@ -45,13 +45,13 @@
   // 生成后的表格地址
   const newFormUrl = ref('');
 
-  // 处理按钮 A 点击事件
-  const handleButtonA = () => {
+  // 处理预览按钮点击事件
+  const handlePreview = () => {
     window.open(newFormUrl.value, '_blank');
   };
 
-  // 复制地址按钮点击事件处理
-  async function handleButtonB() {
+  // 处理复制地址按钮点击事件
+  async function handleCopy() {
     try {
       const textarea = document.createElement('textarea');
       textarea.value = newFormUrl.value;
@@ -977,12 +977,12 @@
         >
           <el-button
             type="primary"
-            @click="handleButtonA"
+            @click="handlePreview"
             >一键预览</el-button
           >
           <el-button
             type="primary"
-            @click="handleButtonB"
+            @click="handleCopy"
             >复制地址</el-button
           >
         </div>
