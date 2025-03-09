@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-09 09:12
+ * @LastTime   : 2025-03-09 09:33
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -25,6 +25,7 @@
     Setting,
     View,
     CopyDocument,
+    UserFilled,
   } from '@element-plus/icons-vue';
 
   import MarkdownIt from 'markdown-it';
@@ -90,6 +91,15 @@
       '_blank',
     );
   };
+
+  // 联系开发者
+  const handleJoinUser = () => {
+    window.open(
+      'https://www.feishu.cn/invitation/page/add_contact/?token=88cn07b8-51c8-4079-aa60-55e4f9b20356&amp;unique_id=Gnsbjoqg2I2_moNlm8d5dg==',
+      '_blank',
+    );
+  };
+
   const editor = ref(null);
   const isTextField = ref(false); // 是否为文本字段
 
@@ -953,6 +963,20 @@
           <ChatRound />
         </el-icon>
         {{ $t('preview.sponsor.join_group') }}
+      </el-button>
+
+      <el-button
+        type="warning"
+        class="join-group-button"
+        @click="handleJoinUser"
+        style="margin-bottom: 10px"
+      >
+        <el-icon
+          class="chat-icon"
+          style="margin-right: 4px"
+          ><UserFilled
+        /></el-icon>
+        联系开发者
       </el-button>
 
       <div class="default-config-section">
