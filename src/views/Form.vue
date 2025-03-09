@@ -176,8 +176,8 @@
   // 切换编辑状态
   function toggleEditing() {
     if (previewMode.value === 'normal') {
-      // 在双栏模式下，不需要切换编辑状态
-      // 因为左侧始终是编辑区域，右侧始终是预览区域
+      // 在普通预览模式下，切换编辑状态
+      isEditing.value = !isEditing.value;
       return;
     }
 
@@ -1342,20 +1342,30 @@
           <el-icon size="16"><ArrowUp /></el-icon>
         </el-button>
         <div class="split-container">
-          <div class="editor-pane">
-            <textarea
-              class="markdown-editor"
-              v-model="currentValue"
-              @input="handleInput"
-              @keydown="handleKeyDown"
-            ></textarea>
-          </div>
-          <div class="preview-pane">
-            <div
-              class="preview-content"
-              v-html="parsedContent"
-            ></div>
-          </div>
+          <template v-if="isEditing">
+            <div class="editor-pane">
+              <textarea
+                class="markdown-editor"
+                v-model="currentValue"
+                @input="handleInput"
+                @keydown="handleKeyDown"
+              ></textarea>
+            </div>
+            <div class="preview-pane">
+              <div
+                class="preview-content"
+                v-html="parsedContent"
+              ></div>
+            </div>
+          </template>
+          <template v-else>
+            <div class="preview-pane full-width">
+              <div
+                class="preview-content"
+                v-html="parsedContent"
+              ></div>
+            </div>
+          </template>
         </div>
       </div>
       <div
