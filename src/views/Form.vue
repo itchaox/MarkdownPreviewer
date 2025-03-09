@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-08 23:03
+ * @LastTime   : 2025-03-09 09:12
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -23,6 +23,8 @@
     Edit,
     ChatRound,
     Setting,
+    View,
+    CopyDocument,
   } from '@element-plus/icons-vue';
 
   import MarkdownIt from 'markdown-it';
@@ -68,7 +70,6 @@
       ElMessage.error('复制地址失败');
     }
   }
-
 
   // 处理生成配置按钮点击事件
   const handleGenerate = () => {
@@ -966,6 +967,7 @@
               <el-button
                 type="primary"
                 @click="handleGenerate"
+                style="color: #2955e7; background-color: #eef5fe; border-color: #2955e790; border-radius: 2px"
                 >生成</el-button
               >
             </template>
@@ -978,12 +980,26 @@
           <el-button
             type="primary"
             @click="handlePreview"
-            >一键预览</el-button
+            plain
+          >
+            <el-icon
+              size="18"
+              style="margin-right: 5px"
+              ><View
+            /></el-icon>
+            一键预览</el-button
           >
           <el-button
             type="primary"
             @click="handleCopy"
-            >复制地址</el-button
+            plain
+          >
+            <el-icon
+              size="18"
+              style="margin-right: 5px"
+              ><CopyDocument
+            /></el-icon>
+            复制地址</el-button
           >
         </div>
       </div>
