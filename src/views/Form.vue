@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 16:55
+ * @LastTime   : 2025-03-11 16:59
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1272,7 +1272,7 @@
                 <el-icon style="font-size: 12px"><ArrowRight /></el-icon>
               </el-button>
             </div>
-            <div style="display: flex; justify-content: space-between; width: 100%">
+            <div style="display: flex; width: 100%; margin-left: 5px">
               <div>
                 <span
                   style="
@@ -1284,16 +1284,13 @@
                     vertical-align: bottom;
                   "
                   :title="currentFieldName"
-                  >{{ $t('preview.current_field') }}：<strong style="color: #2955e7">{{
-                    currentFieldName
-                  }}</strong></span
+                >
+                  <strong style="color: #2955e7">{{ currentFieldName }}</strong></span
                 >
               </div>
-              <div>
+              <div style="margin-left: 5px">
                 <span
-                  >{{ $t('preview.current_row') }}：<strong style="color: #2955e7">{{
-                    currentRecordIndex + 1
-                  }}</strong></span
+                  >第 <strong style="color: #2955e7">{{ currentRecordIndex + 1 }}</strong> 行</span
                 >
               </div>
             </div>
