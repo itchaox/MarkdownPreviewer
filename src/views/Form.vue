@@ -1352,7 +1352,7 @@
   </el-dialog>
 
   <div class="markdown-preview">
-    <div class="mode-switch">
+    <div v-if="!isFullscreen" class="mode-switch">
       <div class="preview-type-selector">
         <el-radio-group
           v-model="previewMode"
@@ -1712,7 +1712,7 @@
         >
           <el-icon size="16"><ArrowUp /></el-icon>
         </el-button>
-        <div class="split-container">
+        <div class="split-container" :style="isFullscreen ? { marginTop: 0, height: '100%' } : {}">
           <template v-if="isEditing">
             <div class="editor-pane">
               <textarea
@@ -1905,16 +1905,6 @@
     bottom: 0;
     z-index: 9999;
     background: #fff;
-  }
-
-  .fullscreen-mode .header-container,
-  .fullscreen-mode .field-selectors {
-    display: none;
-  }
-
-  .fullscreen-mode .split-container {
-    margin-top: 0;
-    height: 100%;
   }
 
   .split-container {
