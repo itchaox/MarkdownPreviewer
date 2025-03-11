@@ -1660,7 +1660,7 @@
                 @input="handleInput"
                 @keydown="handleKeyDown"
               ></textarea>
-              <div class="word-count">字数 {{ wordCount }} , 阅读大约需 {{ readingTime }} 分钟</div>
+              <div class="word-count" v-if="showWordCount">字数 {{ wordCount }} , 阅读大约需 {{ readingTime }} 分钟</div>
             </div>
             <div class="preview-pane">
               <div
@@ -1675,7 +1675,7 @@
                 class="preview-content"
                 v-html="parsedContent"
               ></div>
-              <div class="word-count">字数 {{ wordCount }} , 阅读大约需 {{ readingTime }} 分钟</div>
+              <div class="word-count" v-if="showWordCount">字数 {{ wordCount }} , 阅读大约需 {{ readingTime }} 分钟</div>
             </div>
           </template>
         </div>
