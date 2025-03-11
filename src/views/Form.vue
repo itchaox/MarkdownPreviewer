@@ -1156,6 +1156,32 @@
 </script>
 
 <template>
+  <!-- 赞助弹窗 -->
+  <el-dialog
+    v-model="sponsorDialogVisible"
+    width="400px"
+  >
+    <template #title>
+      <div style="display: flex; align-items: center; gap: 8px">
+        <el-icon
+          size="20"
+          style="color: #646a73"
+          ><CreditCard
+        /></el-icon>
+        <span>{{ $t('preview.sponsor.me') }}</span>
+      </div>
+    </template>
+    <div class="sponsor-content">
+      <p>{{ $t('preview.sponsor.tip1') }}</p>
+      <p>{{ $t('preview.sponsor.tip2') }}</p>
+      <p>{{ $t('preview.sponsor.tip3') }}</p>
+      <div style="display: flex; justify-content: center; gap: 16px; margin-top: 20px">
+        <img src="@/assets/wx.png" alt="微信赞赏码" style="width: 200px; height: 200px" />
+        <img src="@/assets/zfb.png" alt="支付宝收款码" style="width: 200px; height: 200px" />
+      </div>
+    </div>
+  </el-dialog>
+
   <!-- 设置弹窗 -->
   <el-dialog
     v-model="settingDialogVisible"
