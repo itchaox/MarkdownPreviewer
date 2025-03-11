@@ -348,10 +348,15 @@
     }
   }
 
+  // 字数统计
+  const wordCount = ref(0);
+
   // 处理输入
   function handleInput() {
     // 实时更新预览内容
     parsedContent.value = md.render(currentValue.value || '');
+    // 更新字数统计
+    wordCount.value = (currentValue.value || '').length;
   }
 
   // 处理按键事件
@@ -1617,6 +1622,12 @@
                 @input="handleInput"
                 @keydown="handleKeyDown"
               ></textarea>
+              <div
+                class="word-count"
+                v-if="isEditing"
+              >
+                {{ wordCount }} 字
+              </div>
             </div>
             <div class="preview-pane">
               <div
@@ -2072,13 +2083,27 @@
     outline: none;
     font-family: inherit;
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 2;
     padding: 8px;
     resize: none;
     overflow-y: auto;
     overflow-x: hidden !important;
     border-right: 1px solid #e5e6eb;
     background-color: #f8f9fa;
+    position: relative;
+  }
+
+  .word-count {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #8492a6;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 4px 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
   }
 
   .preview-header {
