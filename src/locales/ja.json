@@ -25,9 +25,19 @@
       "join_group": "グループに参加",
       "follow": "フォローする"
     },
+    "fullscreen": {
+      "enter": "全画面表示",
+      "exit": "全画面表示を終了"
+    },
+    "download": {
+      "success": "エクスポートに成功しました",
+      "error": "エクスポートに失敗しました",
+      "title": "エクスポート形式を選択",
+      "image": "画像をエクスポート",
+      "markdown": ".md をエクスポート"
+    },
     "copy": { "button": "テキストをコピー", "success": "コピーしました", "error": "コピーに失敗しました" },
     "downloadImage": { "button": "画像をエクスポート" },
-    "download": { "success": "エクスポートに成功しました", "error": "エクスポートに失敗しました" },
     "edit": { "enter": "編集モードに入る", "exit": "編集モードを終了" },
     "setting": { "title": "設定", "show_word_count": "文字数と読書時間を表示" }
   }

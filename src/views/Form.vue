@@ -28,6 +28,7 @@
     UserFilled,
     QuestionFilled,
     Document,
+    FullScreen,
   } from '@element-plus/icons-vue';
 
   import MarkdownIt from 'markdown-it';
@@ -107,6 +108,14 @@
 
   // 编辑状态控制
   const isEditing = ref(false);
+
+  // 全屏状态控制
+  const isFullscreen = ref(false);
+
+  // 切换全屏状态
+  const toggleFullscreen = () => {
+    isFullscreen.value = !isFullscreen.value;
+  };
 
   // 预览区域配置
   const previewConfig = ref({
@@ -1552,6 +1561,7 @@
       <div
         v-if="previewMode === 'normal'"
         class="cell-preview split-view"
+        :class="{ 'fullscreen-mode': isFullscreen }"
         @scroll="handleScroll"
       >
         <div class="preview-header">
@@ -1611,6 +1621,20 @@
                 :title="$t('preview.help.button')"
                 ><QuestionFilled
               /></el-icon>
+            </el-button>
+            <el-button
+              v-if="!isAiMode"
+              @click="toggleFullscreen"
+              plain
+              size="small"
+              style="padding: 6px 4px"
+            >
+              <el-icon
+                size="20"
+                :title="$t(isFullscreen ? 'preview.fullscreen.exit' : 'preview.fullscreen.enter')"
+              >
+                <FullScreen />
+              </el-icon>
             </el-button>
           </div>
           <el-dialog
@@ -1870,6 +1894,26 @@
   .split-view {
     display: flex;
     flex-direction: column;
+    height: 100%;
+  }
+
+  .fullscreen-mode {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background: #fff;
+  }
+
+  .fullscreen-mode .header-container,
+  .fullscreen-mode .field-selectors {
+    display: none;
+  }
+
+  .fullscreen-mode .split-container {
+    margin-top: 0;
     height: 100%;
   }
 

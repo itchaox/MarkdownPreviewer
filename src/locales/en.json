@@ -42,7 +42,6 @@
       "success": "Copied successfully",
       "error": "Copy failed"
     },
-
     "downloadImage": {
       "button": "Export Image"
     },
@@ -52,6 +51,10 @@
       "title": "Choose Export Format",
       "image": "Export Image",
       "markdown": "Export .md"
+    },
+    "fullscreen": {
+      "enter": "Enter Fullscreen",
+      "exit": "Exit Fullscreen"
     },
     "edit": {
       "enter": "Enter Edit Mode",

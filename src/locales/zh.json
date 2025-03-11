@@ -52,6 +52,10 @@
       "image": "导出图片",
       "markdown": "导出 .md"
     },
+    "fullscreen": {
+      "enter": "进入全屏",
+      "exit": "退出全屏"
+    },
     "edit": {
       "enter": "进入编辑模式",
       "exit": "退出编辑模式"
