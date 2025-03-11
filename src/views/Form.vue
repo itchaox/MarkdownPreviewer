@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 21:47
+ * @LastTime   : 2025-03-11 21:51
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -171,6 +171,28 @@
       '_blank',
     );
   };
+
+  const showMarkdownHelp = ref(false);
+
+  const markdownSyntax = ref([
+    { syntax: '# 标题', description: '一级标题 (h1)' },
+    { syntax: '## 标题', description: '二级标题 (h2)' },
+    { syntax: '### 标题', description: '三级标题 (h3)' },
+    { syntax: '**粗体**', description: '粗体文本' },
+    { syntax: '*斜体*', description: '斜体文本' },
+    { syntax: '> 引用', description: '引用文本' },
+    { syntax: '[链接描述](url)', description: '超链接' },
+    { syntax: '![alt](url "图片描述")', description: '图片' },
+    { syntax: '`代码`', description: '行内代码' },
+    { syntax: '```\n代码块\n```', description: '代码块' },
+    { syntax: '- 项目', description: '无序列表' },
+    { syntax: '1. 项目', description: '有序列表' },
+    { syntax: '---', description: '分割线' },
+    { syntax: '~~文本~~', description: '删除线' },
+    { syntax: '- [ ] 待办事项', description: '任务列表' },
+    { syntax: '$公式$', description: '行内公式' },
+    { syntax: '$$\n公式\n$$', description: '块级公式' }
+  ]);
 
   const editor = ref(null);
   const isTextField = ref(false); // 是否为文本字段
@@ -1457,7 +1479,33 @@
                 ><Download
               /></el-icon>
             </el-button>
+            <el-button
+              v-if="!isAiMode"
+              @click="showMarkdownHelp = true"
+              plain
+              size="small"
+              style="padding: 6px 4px"
+            >
+              <el-icon
+                class="help-button"
+                size="20"
+                :title="$t('preview.help.button')"
+                ><ChatRound
+              /></el-icon>
+            </el-button>
           </div>
+          <el-dialog
+            v-model="showMarkdownHelp"
+            :title="$t('preview.help.title')"
+            width="600px"
+          >
+            <div class="markdown-help">
+              <div v-for="(item, index) in markdownSyntax" :key="index" class="help-item">
+                <div class="syntax">{{ item.syntax }}</div>
+                <div class="description">{{ item.description }}</div>
+              </div>
+            </div>
+          </el-dialog>
         </div>
         <el-button
           v-show="showBackToTop"
@@ -1571,6 +1619,32 @@
 </template>
 
 <style scoped>
+  .markdown-help {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+  }
+
+  .help-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .syntax {
+    flex: 0 0 200px;
+    font-family: monospace;
+    background: #f5f7fa;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-right: 16px;
+  }
+
+  .description {
+    color: #606266;
+  }
+
   .theme-setting {
     margin-bottom: 20px;
   }

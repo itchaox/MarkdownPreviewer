@@ -1,6 +1,10 @@
 {
   "title": "Title",
   "preview": {
+    "help": {
+      "button": "Markdown Syntax Help",
+      "title": "Markdown Syntax Guide"
+    },
     "no_data": "No data",
     "question": "Question",
     "answer": "Answer",
