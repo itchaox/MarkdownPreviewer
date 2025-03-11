@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 22:35
+ * @LastTime   : 2025-03-11 22:53
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -180,7 +180,9 @@
         ElMessage.error(t('preview.download.noname'));
         return;
       }
-      const fileName = `${currentFieldName.value}_${t('preview.row_prefix')}${currentRecordIndex.value + 1}${t('preview.row_suffix')}.md`;
+      const fileName = `${currentFieldName.value}_${t('preview.row_prefix')}${currentRecordIndex.value + 1}${t(
+        'preview.row_suffix',
+      )}.md`;
       const blob = new Blob([currentValue.value], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -1262,8 +1264,6 @@
     </div>
   </el-dialog>
 
-
-
   <div class="markdown-preview">
     <div class="mode-switch">
       <div class="preview-type-selector">
@@ -1544,13 +1544,25 @@
               <el-button
                 @click="downloadAsImage"
                 size="large"
+                style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px"
               >
+                <el-icon
+                  size="20"
+                  style="margin-right: 5px"
+                  ><Picture
+                /></el-icon>
                 {{ $t('preview.download.image') }}
               </el-button>
               <el-button
                 @click="downloadAsMarkdown"
                 size="large"
+                style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px"
               >
+                <el-icon
+                  size="20"
+                  style="margin-right: 5px"
+                  ><Document
+                /></el-icon>
                 {{ $t('preview.download.markdown') }}
               </el-button>
             </div>
