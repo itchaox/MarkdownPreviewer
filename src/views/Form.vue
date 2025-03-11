@@ -83,6 +83,13 @@
 
     ElMessage.success('新多维表格地址已生成~');
   };
+  
+  // 关闭设置弹窗并清空输入框
+  const closeSettingDialog = () => {
+    settingDialogVisible.value = false;
+    defaultConfig.value = '';
+    newFormUrl.value = '';
+  };
 
   // 处理加入群组点击事件
   const handleJoinGroup = () => {
@@ -990,6 +997,7 @@
     v-model="settingDialogVisible"
     :title="$t('preview.setting.title')"
     width="95%"
+    @close="closeSettingDialog"
   >
     <div class="setting-content">
       <el-button
