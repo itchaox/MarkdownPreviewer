@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 21:51
+ * @LastTime   : 2025-03-11 22:22
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -26,6 +26,7 @@
     View,
     CopyDocument,
     UserFilled,
+    QuestionFilled,
   } from '@element-plus/icons-vue';
 
   import MarkdownIt from 'markdown-it';
@@ -175,9 +176,12 @@
   const showMarkdownHelp = ref(false);
 
   const markdownSyntax = ref([
-    { syntax: '# 标题', description: '一级标题 (h1)' },
-    { syntax: '## 标题', description: '二级标题 (h2)' },
-    { syntax: '### 标题', description: '三级标题 (h3)' },
+    { syntax: '# 标题', description: '一级标题 (H1)' },
+    { syntax: '## 标题', description: '二级标题 (H2)' },
+    { syntax: '### 标题', description: '三级标题 (H3)' },
+    { syntax: '#### 标题', description: '四级标题 (H4)' },
+    { syntax: '##### 标题', description: '五级标题 (H5)' },
+    { syntax: '###### 标题', description: '六级标题 (H6)' },
     { syntax: '**粗体**', description: '粗体文本' },
     { syntax: '*斜体*', description: '斜体文本' },
     { syntax: '> 引用', description: '引用文本' },
@@ -190,8 +194,6 @@
     { syntax: '---', description: '分割线' },
     { syntax: '~~文本~~', description: '删除线' },
     { syntax: '- [ ] 待办事项', description: '任务列表' },
-    { syntax: '$公式$', description: '行内公式' },
-    { syntax: '$$\n公式\n$$', description: '块级公式' }
   ]);
 
   const editor = ref(null);
@@ -1490,17 +1492,21 @@
                 class="help-button"
                 size="20"
                 :title="$t('preview.help.button')"
-                ><ChatRound
+                ><QuestionFilled
               /></el-icon>
             </el-button>
           </div>
           <el-dialog
             v-model="showMarkdownHelp"
             :title="$t('preview.help.title')"
-            width="600px"
+            width="400px"
           >
             <div class="markdown-help">
-              <div v-for="(item, index) in markdownSyntax" :key="index" class="help-item">
+              <div
+                v-for="(item, index) in markdownSyntax"
+                :key="index"
+                class="help-item"
+              >
                 <div class="syntax">{{ item.syntax }}</div>
                 <div class="description">{{ item.description }}</div>
               </div>
@@ -1620,7 +1626,7 @@
 
 <style scoped>
   .markdown-help {
-    max-height: 400px;
+    max-height: 750px;
     overflow-y: auto;
     padding: 10px;
   }
