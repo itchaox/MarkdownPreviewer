@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 16:59
+ * @LastTime   : 2025-03-11 17:29
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -35,12 +35,19 @@
 
   // 主题色配置
   const themeColors = [
+    { name: '薰衣紫', value: '#9d4edd', desc: '优雅神秘' },
+    { name: '天空蓝', value: '#40a9ff', desc: '清爽自由' },
+    { name: '玫瑰金', value: '#f7b1ab', desc: '奢华现代' },
+    { name: '橄榄绿', value: '#7cb305', desc: '沉稳自然' },
+    { name: '石墨黑', value: '#2c3e50', desc: '内敛极简' },
+    { name: '雾烟灰', value: '#8492a6', desc: '柔和低调' },
+    { name: '樱花粉', value: '#ffa7b9', desc: '浪漫甜美' },
     { name: '经典蓝', value: '#2955e7', desc: '沉稳大气的经典蓝调' },
     { name: '翠翠绿', value: '#18a058', desc: '清新自然的生机绿' },
     { name: '活力橙', value: '#f77234', desc: '充满活力的温暖橙' },
     { name: '优雅紫', value: '#8b5cf6', desc: '高贵优雅的梦幻紫' },
     { name: '热情红', value: '#ef4444', desc: '热情奔放的中国红' },
-    { name: '沉稳灰', value: '#64748b', desc: '稳重低调的商务灰' }
+    { name: '沉稳灰', value: '#64748b', desc: '稳重低调的商务灰' },
   ];
 
   // 当前选中的主题色
@@ -1056,25 +1063,32 @@
     width="95%"
     @close="closeSettingDialog"
   >
-      <!-- 主题色设置 -->
-      <div class="theme-setting">
-        <div class="setting-title">主题色</div>
-        <div class="theme-colors">
-          <div
-            v-for="color in themeColors"
-            :key="color.value"
-            class="theme-color-item"
-            :class="{ active: currentThemeColor === color.value }"
-            @click="currentThemeColor = color.value"
-          >
-            <div class="color-preview" :style="{ backgroundColor: color.value }"></div>
+    <!-- 主题色设置 -->
+    <div class="theme-setting">
+      <div class="setting-title">主题色</div>
+      <el-select
+        v-model="currentThemeColor"
+        class="theme-selector"
+      >
+        <el-option
+          v-for="color in themeColors"
+          :key="color.value"
+          :label="color.name"
+          :value="color.value"
+        >
+          <div class="theme-option">
+            <div
+              class="color-preview"
+              :style="{ backgroundColor: color.value }"
+            ></div>
             <div class="color-info">
               <span class="color-name">{{ color.name }}</span>
               <span class="color-desc">{{ color.desc }}</span>
             </div>
           </div>
-        </div>
-      </div>
+        </el-option>
+      </el-select>
+    </div>
 
     <div class="setting-content">
       <el-button
@@ -1361,7 +1375,8 @@
               </div>
               <div style="margin-left: 5px">
                 <span
-                  >{{ $t('preview.row_prefix') }} <strong style="color: #2955e7">{{ currentRecordIndex + 1 }}</strong> {{ $t('preview.row_suffix') }}</span
+                  >{{ $t('preview.row_prefix') }} <strong style="color: #2955e7">{{ currentRecordIndex + 1 }}</strong>
+                  {{ $t('preview.row_suffix') }}</span
                 >
               </div>
             </div>
@@ -1556,42 +1571,28 @@
     margin-bottom: 12px;
     color: #1f2329;
   }
-  .theme-colors {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px;
+  .theme-selector {
+    width: 100%;
   }
-  .theme-color-item {
+  .theme-option {
     display: flex;
     align-items: center;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  .theme-color-item:hover {
-    background-color: #f5f6f7;
-  }
-  .theme-color-item.active {
-    background-color: #f0f1f2;
+    gap: 8px;
   }
   .color-preview {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     border-radius: 4px;
-    margin-right: 12px;
   }
   .color-info {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
   .color-name {
-    display: block;
     font-size: 14px;
     color: #1f2329;
-    margin-bottom: 2px;
   }
   .color-desc {
-    display: block;
     font-size: 12px;
     color: #646a73;
   }
