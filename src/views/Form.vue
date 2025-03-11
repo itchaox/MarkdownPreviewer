@@ -364,25 +364,48 @@
     if (event.key === 'Enter') {
       event.preventDefault();
       const text = currentValue.value;
+      const cursorPosition = event.target.selectionStart;
       const lines = text.split('\n');
-      const currentLine = lines[lines.length - 1];
-
+      
+      // 计算光标所在行
+      let currentLineIndex = 0;
+      let currentPosition = 0;
+      while (currentPosition + lines[currentLineIndex].length + 1 <= cursorPosition) {
+        currentPosition += lines[currentLineIndex].length + 1;
+        currentLineIndex++;
+      }
+      
+      const currentLine = lines[currentLineIndex];
+      const positionInLine = cursorPosition - currentPosition;
+      
       // 匹配有序列表（如：1. 2. 3.）
       const orderedMatch = currentLine.match(/^(\d+)\. /);
       // 匹配无序列表（如：- * +）
       const unorderedMatch = currentLine.match(/^([\-\*\+]) /);
-
-      if (orderedMatch) {
+      
+      // 在光标位置插入换行
+      const beforeCursor = currentLine.slice(0, positionInLine);
+      const afterCursor = currentLine.slice(positionInLine);
+      
+      let newLine = '';
+      if (orderedMatch && beforeCursor.startsWith(orderedMatch[0])) {
         const num = parseInt(orderedMatch[1]);
-        lines.push(`${num + 1}. `);
-      } else if (unorderedMatch) {
-        lines.push(`${unorderedMatch[1]} `);
-      } else {
-        lines.push('');
+        newLine = `${num + 1}. `;
+      } else if (unorderedMatch && beforeCursor.startsWith(unorderedMatch[0])) {
+        newLine = `${unorderedMatch[1]} `;
       }
-
+      
+      lines[currentLineIndex] = beforeCursor;
+      lines.splice(currentLineIndex + 1, 0, newLine + afterCursor);
+      
       currentValue.value = lines.join('\n');
       handleInput();
+      
+      // 设置新的光标位置
+      nextTick(() => {
+        const newPosition = currentPosition + beforeCursor.length + 1 + newLine.length;
+        event.target.setSelectionRange(newPosition, newPosition);
+      });
     }
   }
 
