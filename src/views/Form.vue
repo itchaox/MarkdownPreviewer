@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 22:22
+ * @LastTime   : 2025-03-11 22:25
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -27,6 +27,7 @@
     CopyDocument,
     UserFilled,
     QuestionFilled,
+    Document,
   } from '@element-plus/icons-vue';
 
   import MarkdownIt from 'markdown-it';
@@ -1498,9 +1499,18 @@
           </div>
           <el-dialog
             v-model="showMarkdownHelp"
-            :title="$t('preview.help.title')"
             width="400px"
           >
+            <template #title>
+              <div style="display: flex; align-items: center; gap: 8px">
+                <el-icon
+                  size="20"
+                  style="color: #646a73"
+                  ><Document
+                /></el-icon>
+                <span>{{ $t('preview.help.title') }}</span>
+              </div>
+            </template>
             <div class="markdown-help">
               <div
                 v-for="(item, index) in markdownSyntax"
