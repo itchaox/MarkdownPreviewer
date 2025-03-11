@@ -1651,10 +1651,7 @@
                 @input="handleInput"
                 @keydown="handleKeyDown"
               ></textarea>
-              <div
-                class="word-count"
-                v-if="isEditing"
-              >
+              <div class="word-count">
                 {{ wordCount }} 字 · {{ readingTime }} 分钟阅读
               </div>
             </div>
@@ -1671,6 +1668,9 @@
                 class="preview-content"
                 v-html="parsedContent"
               ></div>
+              <div class="word-count">
+                {{ wordCount }} 字 · {{ readingTime }} 分钟阅读
+              </div>
             </div>
           </template>
         </div>
