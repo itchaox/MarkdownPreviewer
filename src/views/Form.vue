@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 23:35
+ * @LastTime   : 2025-03-12 07:02
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1168,7 +1168,7 @@
           style="color: #646a73"
           ><CreditCard
         /></el-icon>
-        <span>{{ $t('preview.sponsor.me') }}</span>
+        <span>💗 {{ $t('preview.sponsor.me') }}</span>
       </div>
     </template>
     <div class="sponsor-content">
@@ -1176,8 +1176,16 @@
       <p>{{ $t('preview.sponsor.tip2') }}</p>
       <p>{{ $t('preview.sponsor.tip3') }}</p>
       <div style="display: flex; justify-content: center; gap: 16px; margin-top: 20px">
-        <img src="@/assets/wx.png" alt="微信赞赏码" style="width: 200px; height: 200px" />
-        <img src="@/assets/zfb.png" alt="支付宝收款码" style="width: 200px; height: 200px" />
+        <img
+          src="@/assets/wx.png"
+          alt="微信赞赏码"
+          style="width: 200px; height: 200px"
+        />
+        <img
+          src="@/assets/zfb.png"
+          alt="支付宝收款码"
+          style="width: 200px; height: 200px"
+        />
       </div>
     </div>
   </el-dialog>
@@ -1322,7 +1330,10 @@
               </el-option>
             </el-select>
           </div>
-          <div class="config-item" style="margin-bottom: 15px; display: flex; align-items: center">
+          <div
+            class="config-item"
+            style="margin-bottom: 15px; display: flex; align-items: center"
+          >
             <span style="display: inline-block; width: 80px">{{ $t('preview.setting.show_word_count') }}：</span>
             <el-switch v-model="showWordCount" />
           </div>
@@ -1686,7 +1697,12 @@
                 @input="handleInput"
                 @keydown="handleKeyDown"
               ></textarea>
-              <div class="word-count" v-if="showWordCount">字数 {{ wordCount }} , 阅读大约需 {{ readingTime }} 分钟</div>
+              <div
+                class="word-count"
+                v-if="showWordCount"
+              >
+                字数 {{ wordCount }} , 阅读大约需 {{ readingTime }} 分钟
+              </div>
             </div>
             <div class="preview-pane">
               <div
@@ -1701,7 +1717,12 @@
                 class="preview-content"
                 v-html="parsedContent"
               ></div>
-              <div class="word-count" v-if="showWordCount">字数 {{ wordCount }} , 阅读大约需 {{ readingTime }} 分钟</div>
+              <div
+                class="word-count"
+                v-if="showWordCount"
+              >
+                字数 {{ wordCount }} , 阅读大约需 {{ readingTime }} 分钟
+              </div>
             </div>
           </template>
         </div>
