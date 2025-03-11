@@ -351,6 +351,12 @@
   // 字数统计
   const wordCount = ref(0);
 
+  // 计算预计阅读时间
+  const readingTime = computed(() => {
+    const wordsPerMinute = 300; // 假设阅读速度为每分钟300字
+    return Math.max(1, Math.ceil(wordCount.value / wordsPerMinute));
+  });
+
   // 处理输入
   function handleInput() {
     // 实时更新预览内容
@@ -1649,7 +1655,7 @@
                 class="word-count"
                 v-if="isEditing"
               >
-                {{ wordCount }} 字
+                {{ wordCount }} 字 · {{ readingTime }} 分钟阅读
               </div>
             </div>
             <div class="preview-pane">
