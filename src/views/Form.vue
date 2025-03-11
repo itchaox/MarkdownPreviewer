@@ -33,6 +33,57 @@
   import { useI18n } from 'vue-i18n';
   const { t } = useI18n();
 
+  // 主题色配置
+  const themeColors = [
+    { name: '经典蓝', value: '#2955e7', desc: '沉稳大气的经典蓝调' },
+    { name: '翠翠绿', value: '#18a058', desc: '清新自然的生机绿' },
+    { name: '活力橙', value: '#f77234', desc: '充满活力的温暖橙' },
+    { name: '优雅紫', value: '#8b5cf6', desc: '高贵优雅的梦幻紫' },
+    { name: '热情红', value: '#ef4444', desc: '热情奔放的中国红' },
+    { name: '沉稳灰', value: '#64748b', desc: '稳重低调的商务灰' }
+  ];
+
+  // 当前选中的主题色
+  const currentThemeColor = ref('#2955e7');
+
+  // 监听主题色变化
+  watch(currentThemeColor, (newColor) => {
+    // 更新预览区域的主题色相关样式
+    const previewContent = document.querySelector('.preview-content');
+    if (previewContent) {
+      const style = document.createElement('style');
+      style.textContent = `
+        .preview-content h1,
+        .preview-content h2,
+        .preview-content h3,
+        .preview-content h4,
+        .preview-content h5 {
+          color: ${newColor};
+        }
+
+        .preview-content strong {
+          color: ${newColor};
+        }
+
+        .preview-content li::marker {
+          color: ${newColor} !important;
+        }
+
+        .preview-content a {
+          color: ${newColor};
+        }
+      `;
+      // 移除旧的主题色样式
+      const oldStyle = document.querySelector('#theme-color-style');
+      if (oldStyle) {
+        oldStyle.remove();
+      }
+      // 添加新的主题色样式
+      style.id = 'theme-color-style';
+      document.head.appendChild(style);
+    }
+  });
+
   // 赞助我弹窗控制
   const sponsorDialogVisible = ref(false);
 
@@ -1005,6 +1056,26 @@
     width="95%"
     @close="closeSettingDialog"
   >
+      <!-- 主题色设置 -->
+      <div class="theme-setting">
+        <div class="setting-title">主题色</div>
+        <div class="theme-colors">
+          <div
+            v-for="color in themeColors"
+            :key="color.value"
+            class="theme-color-item"
+            :class="{ active: currentThemeColor === color.value }"
+            @click="currentThemeColor = color.value"
+          >
+            <div class="color-preview" :style="{ backgroundColor: color.value }"></div>
+            <div class="color-info">
+              <span class="color-name">{{ color.name }}</span>
+              <span class="color-desc">{{ color.desc }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <div class="setting-content">
       <el-button
         type="primary"
@@ -1476,6 +1547,55 @@
 </template>
 
 <style scoped>
+  .theme-setting {
+    margin-bottom: 20px;
+  }
+  .setting-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #1f2329;
+  }
+  .theme-colors {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .theme-color-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .theme-color-item:hover {
+    background-color: #f5f6f7;
+  }
+  .theme-color-item.active {
+    background-color: #f0f1f2;
+  }
+  .color-preview {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    margin-right: 12px;
+  }
+  .color-info {
+    flex: 1;
+  }
+  .color-name {
+    display: block;
+    font-size: 14px;
+    color: #1f2329;
+    margin-bottom: 2px;
+  }
+  .color-desc {
+    display: block;
+    font-size: 12px;
+    color: #646a73;
+  }
+
   .split-view {
     display: flex;
     flex-direction: column;
