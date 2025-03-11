@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 15:53
+ * @LastTime   : 2025-03-11 15:57
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1761,6 +1761,7 @@
     display: flex;
     justify-content: flex-end;
     /* padding: 8px; */
+    padding-right: 8px;
   }
 
   .preview-actions {
