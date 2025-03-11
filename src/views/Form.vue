@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-09 11:00
+ * @LastTime   : 2025-03-11 15:53
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1612,7 +1612,7 @@
   .cell-preview {
     border: 1px solid #e5e6eb;
     border-radius: 4px;
-    padding: 4px 12px;
+    padding: 4px;
     margin-top: 6px;
     flex: 1;
     overflow-y: auto;
