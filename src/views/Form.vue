@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 15:57
+ * @LastTime   : 2025-03-11 16:52
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -46,7 +46,7 @@
   const previewConfig = ref({
     fontSize: 14,
     lineHeight: 1.6,
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   });
 
   // 默认配置输入值
@@ -1054,18 +1054,6 @@
           </el-input>
         </div>
 
-        <!-- 预览区域配置 -->
-        <div class="preview-config" style="margin-top: 20px;">
-          <h3 style="margin-bottom: 15px;">预览区域配置</h3>
-          <div class="config-item" style="margin-bottom: 15px;">
-            <span style="display: inline-block; width: 80px;">字体大小：</span>
-            <el-input-number v-model="previewConfig.fontSize" :min="12" :max="24" size="small" />
-          </div>
-          <div class="config-item" style="margin-bottom: 15px;">
-            <span style="display: inline-block; width: 80px;">行高：</span>
-            <el-input-number v-model="previewConfig.lineHeight" :min="1" :max="2" :step="0.1" size="small" />
-          </div>
-        </div>
         <div
           class="button-group"
           v-show="newFormUrl"
@@ -1094,6 +1082,39 @@
             /></el-icon>
             复制地址</el-button
           >
+        </div>
+
+        <!-- 预览区域配置 -->
+        <div
+          class="preview-config"
+          style="margin-top: 20px"
+        >
+          <h3 style="margin-bottom: 15px">预览区域配置</h3>
+          <div
+            class="config-item"
+            style="margin-bottom: 15px"
+          >
+            <span style="display: inline-block; width: 80px">字体大小：</span>
+            <el-input-number
+              v-model="previewConfig.fontSize"
+              :min="12"
+              :max="24"
+              size="small"
+            />
+          </div>
+          <div
+            class="config-item"
+            style="margin-bottom: 15px"
+          >
+            <span style="display: inline-block; width: 80px">行高：</span>
+            <el-input-number
+              v-model="previewConfig.lineHeight"
+              :min="1"
+              :max="2"
+              :step="0.1"
+              size="small"
+            />
+          </div>
         </div>
       </div>
     </div>
