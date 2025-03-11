@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 23:34
+ * @LastTime   : 2025-03-11 23:35
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1653,7 +1653,7 @@
                 @input="handleInput"
                 @keydown="handleKeyDown"
               ></textarea>
-              <div class="word-count">{{ wordCount }} 字 · {{ readingTime }} 分钟阅读</div>
+              <div class="word-count">字数 {{ wordCount }} , 阅读大约需 {{ readingTime }} 分钟</div>
             </div>
             <div class="preview-pane">
               <div
@@ -1668,7 +1668,7 @@
                 class="preview-content"
                 v-html="parsedContent"
               ></div>
-              <div class="word-count">{{ wordCount }} 字 · {{ readingTime }} 分钟阅读</div>
+              <div class="word-count">字数 {{ wordCount }} , 阅读大约需 {{ readingTime }} 分钟</div>
             </div>
           </template>
         </div>
