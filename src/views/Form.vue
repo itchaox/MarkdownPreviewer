@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 21:44
+ * @LastTime   : 2025-03-11 21:47
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -35,6 +35,7 @@
 
   // 主题色配置
   const themeColors = [
+    { name: '经典蓝', value: '#2955e7', desc: '沉稳大气的经典蓝调' },
     { name: '薰衣紫', value: '#9d4edd', desc: '优雅神秘' },
     { name: '天空蓝', value: '#40a9ff', desc: '清爽自由' },
     { name: '玫瑰金', value: '#f7b1ab', desc: '奢华现代' },
@@ -42,7 +43,6 @@
     { name: '石墨黑', value: '#2c3e50', desc: '内敛极简' },
     { name: '雾烟灰', value: '#8492a6', desc: '柔和低调' },
     { name: '樱花粉', value: '#ffa7b9', desc: '浪漫甜美' },
-    { name: '经典蓝', value: '#2955e7', desc: '沉稳大气的经典蓝调' },
     { name: '翠翠绿', value: '#18a058', desc: '清新自然的生机绿' },
     { name: '活力橙', value: '#f77234', desc: '充满活力的温暖橙' },
     { name: '优雅紫', value: '#8b5cf6', desc: '高贵优雅的梦幻紫' },
@@ -1166,7 +1166,6 @@
               v-model="previewConfig.fontSize"
               :min="12"
               :max="24"
-              size="small"
             />
           </div>
           <div
@@ -1177,7 +1176,6 @@
             <el-select
               v-model="currentThemeColor"
               class="theme-selector"
-              size="small"
               style="width: 320px"
             >
               <el-option
