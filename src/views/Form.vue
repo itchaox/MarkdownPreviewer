@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-12 07:30
+ * @LastTime   : 2025-03-12 07:31
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1682,7 +1682,7 @@
           </el-dialog>
           <el-dialog
             v-model="showMarkdownHelp"
-            width="400px"
+            width="90vw"
           >
             <template #title>
               <div style="display: flex; align-items: center; gap: 8px">
@@ -1834,7 +1834,7 @@
 
 <style scoped>
   .markdown-help {
-    max-height: 750px;
+    max-height: 65vh;
     overflow-y: auto;
     padding: 10px;
   }
