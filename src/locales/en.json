@@ -48,7 +48,10 @@
     },
     "download": {
       "success": "Export successful",
-      "error": "Export failed"
+      "error": "Export failed",
+      "title": "Choose Export Format",
+      "image": "Export Image",
+      "markdown": "Export Markdown"
     },
     "edit": {
       "enter": "Enter Edit Mode",

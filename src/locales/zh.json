@@ -47,7 +47,10 @@
     },
     "download": {
       "success": "导出成功",
-      "error": "导出失败"
+      "error": "导出失败",
+      "title": "选择导出格式",
+      "image": "导出图片",
+      "markdown": "导出 Markdown"
     },
     "edit": {
       "enter": "进入编辑模式",

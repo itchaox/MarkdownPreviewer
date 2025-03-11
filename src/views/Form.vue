@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 22:25
+ * @LastTime   : 2025-03-11 22:35
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -99,6 +99,9 @@
   // 设置弹窗控制
   const settingDialogVisible = ref(false);
 
+  // 下载对话框控制
+  const showDownloadDialog = ref(false);
+
   // 编辑状态控制
   const isEditing = ref(false);
 
@@ -164,6 +167,39 @@
       'https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=41el7f3d-7b8e-4e71-920c-1e642ad191fc',
       '_blank',
     );
+  };
+
+  // 处理导出 Markdown 文件
+  const downloadAsMarkdown = () => {
+    try {
+      if (!currentValue.value) {
+        ElMessage.error(t('preview.download.empty'));
+        return;
+      }
+      if (!currentFieldName.value || currentRecordIndex.value === undefined) {
+        ElMessage.error(t('preview.download.noname'));
+        return;
+      }
+      const fileName = `${currentFieldName.value}_${t('preview.row_prefix')}${currentRecordIndex.value + 1}${t('preview.row_suffix')}.md`;
+      const blob = new Blob([currentValue.value], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      showDownloadDialog.value = false;
+      ElMessage.success({
+        message: t('preview.download.success'),
+        offset: 120,
+        duration: 1500,
+      });
+    } catch (error) {
+      console.error('Download error:', error);
+      ElMessage.error(t('preview.download.error'));
+    }
   };
 
   // 联系开发者
@@ -1226,6 +1262,8 @@
     </div>
   </el-dialog>
 
+
+
   <div class="markdown-preview">
     <div class="mode-switch">
       <div class="preview-type-selector">
@@ -1470,7 +1508,7 @@
             <!-- FIXME 暂时不做 导出图片 ,1-2-3 高亮的样式有点问题-->
             <el-button
               v-if="currentValue"
-              @click="downloadAsImage"
+              @click="showDownloadDialog = true"
               plain
               size="small"
               style="padding: 6px 4px"
@@ -1497,6 +1535,26 @@
               /></el-icon>
             </el-button>
           </div>
+          <el-dialog
+            v-model="showDownloadDialog"
+            :title="$t('preview.download.title')"
+            width="300px"
+          >
+            <div style="display: flex; flex-direction: column; gap: 16px">
+              <el-button
+                @click="downloadAsImage"
+                size="large"
+              >
+                {{ $t('preview.download.image') }}
+              </el-button>
+              <el-button
+                @click="downloadAsMarkdown"
+                size="large"
+              >
+                {{ $t('preview.download.markdown') }}
+              </el-button>
+            </div>
+          </el-dialog>
           <el-dialog
             v-model="showMarkdownHelp"
             width="400px"
