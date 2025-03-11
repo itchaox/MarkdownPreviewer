@@ -51,7 +51,7 @@
       "error": "Export failed",
       "title": "Choose Export Format",
       "image": "Export Image",
-      "markdown": "Export Markdown"
+      "markdown": "Export .md"
     },
     "edit": {
       "enter": "Enter Edit Mode",
