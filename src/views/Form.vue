@@ -83,7 +83,7 @@
 
     ElMessage.success('新多维表格地址已生成~');
   };
-  
+
   // 关闭设置弹窗并清空输入框
   const closeSettingDialog = () => {
     settingDialogVisible.value = false;
@@ -1760,7 +1760,7 @@
     z-index: 100;
     display: flex;
     justify-content: flex-end;
-    padding: 8px;
+    /* padding: 8px; */
   }
 
   .preview-actions {
