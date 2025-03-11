@@ -1585,9 +1585,10 @@
     gap: 8px;
   }
   .color-preview {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border-radius: 4px;
+    flex-shrink: 0;
   }
   .color-info {
     display: flex;
@@ -1596,10 +1597,12 @@
   .color-name {
     font-size: 14px;
     color: #1f2329;
+    line-height: 1.4;
   }
   .color-desc {
     font-size: 12px;
     color: #646a73;
+    line-height: 1.4;
   }
 
   .split-view {
