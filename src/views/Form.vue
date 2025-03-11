@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 20:57
+ * @LastTime   : 2025-03-11 21:37
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1064,11 +1064,14 @@
   >
     <template #title>
       <div style="display: flex; align-items: center; gap: 8px">
-        <el-icon size="20" style="color: #646a73"><Setting /></el-icon>
+        <el-icon
+          size="20"
+          style="color: #646a73"
+          ><Setting
+        /></el-icon>
         <span>{{ $t('preview.setting.title') }}</span>
       </div>
-    </template
-  >
+    </template>
     <div class="setting-content">
       <el-button
         type="primary"
@@ -1153,7 +1156,7 @@
           class="preview-config"
           style="margin-top: 20px"
         >
-          <h3 style="margin-bottom: 20px; font-size: 18px; font-weight: 600; color: #1f2329;">预览区域配置</h3>
+          <h3 style="margin-bottom: 20px; font-size: 18px; font-weight: 600; color: #1f2329">预览区域配置</h3>
           <div
             class="config-item"
             style="margin-bottom: 15px"
@@ -1633,7 +1636,7 @@
   .preview-pane {
     flex: 1;
     overflow: auto;
-    padding-left: 8px;
+    padding: 0 6px;
   }
   .default-config-section {
     margin-top: 10px;
