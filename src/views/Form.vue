@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 16:52
+ * @LastTime   : 2025-03-11 16:55
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1099,19 +1099,6 @@
               v-model="previewConfig.fontSize"
               :min="12"
               :max="24"
-              size="small"
-            />
-          </div>
-          <div
-            class="config-item"
-            style="margin-bottom: 15px"
-          >
-            <span style="display: inline-block; width: 80px">行高：</span>
-            <el-input-number
-              v-model="previewConfig.lineHeight"
-              :min="1"
-              :max="2"
-              :step="0.1"
               size="small"
             />
           </div>
