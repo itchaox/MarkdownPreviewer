@@ -1164,13 +1164,14 @@
           </div>
           <div
             class="config-item"
-            style="margin-bottom: 15px"
+            style="margin-bottom: 15px; display: flex; align-items: center;"
           >
             <span style="display: inline-block; width: 80px">主题色：</span>
             <el-select
               v-model="currentThemeColor"
               class="theme-selector"
               size="small"
+              style="width: 320px"
             >
               <el-option
                 v-for="color in themeColors"
