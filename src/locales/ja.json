@@ -29,6 +29,6 @@
     "downloadImage": { "button": "画像をエクスポート" },
     "download": { "success": "エクスポートに成功しました", "error": "エクスポートに失敗しました" },
     "edit": { "enter": "編集モードに入る", "exit": "編集モードを終了" },
-    "setting": { "title": "設定" }
+    "setting": { "title": "設定", "show_word_count": "文字数と読書時間を表示" }
   }
 }

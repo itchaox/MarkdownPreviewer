@@ -57,7 +57,8 @@
       "exit": "退出编辑模式"
     },
     "setting": {
-      "title": "设置"
+      "title": "设置",
+      "show_word_count": "显示字数和阅读时间"
     }
   }
 }

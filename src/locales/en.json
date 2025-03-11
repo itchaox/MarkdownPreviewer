@@ -58,7 +58,8 @@
       "exit": "Exit Edit Mode"
     },
     "setting": {
-      "title": "Settings"
+      "title": "Settings",
+      "show_word_count": "Show Word Count and Reading Time"
     }
   }
 }

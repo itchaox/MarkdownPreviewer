@@ -55,6 +55,9 @@
   // 当前选中的主题色
   const currentThemeColor = ref('#2955e7');
 
+  // 是否显示字数和阅读时间
+  const showWordCount = ref(true);
+
   // 监听主题色变化
   watch(currentThemeColor, (newColor) => {
     // 更新预览区域的主题色相关样式
@@ -1292,6 +1295,10 @@
                 </div>
               </el-option>
             </el-select>
+          </div>
+          <div class="config-item" style="margin-bottom: 15px; display: flex; align-items: center">
+            <span style="display: inline-block; width: 80px">{{ $t('preview.setting.show_word_count') }}：</span>
+            <el-switch v-model="showWordCount" />
           </div>
         </div>
       </div>
