@@ -1059,9 +1059,15 @@
   <!-- 设置弹窗 -->
   <el-dialog
     v-model="settingDialogVisible"
-    :title="$t('preview.setting.title')"
     width="95%"
     @close="closeSettingDialog"
+  >
+    <template #title>
+      <div style="display: flex; align-items: center; gap: 8px">
+        <el-icon size="20" style="color: #646a73"><Setting /></el-icon>
+        <span>{{ $t('preview.setting.title') }}</span>
+      </div>
+    </template
   >
     <div class="setting-content">
       <el-button
