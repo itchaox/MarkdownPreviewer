@@ -1063,32 +1063,7 @@
     width="95%"
     @close="closeSettingDialog"
   >
-    <!-- 主题色设置 -->
-    <div class="theme-setting">
-      <div class="setting-title">主题色</div>
-      <el-select
-        v-model="currentThemeColor"
-        class="theme-selector"
-      >
-        <el-option
-          v-for="color in themeColors"
-          :key="color.value"
-          :label="color.name"
-          :value="color.value"
-        >
-          <div class="theme-option">
-            <div
-              class="color-preview"
-              :style="{ backgroundColor: color.value }"
-            ></div>
-            <div class="color-info">
-              <span class="color-name">{{ color.name }}</span>
-              <span class="color-desc">{{ color.desc }}</span>
-            </div>
-          </div>
-        </el-option>
-      </el-select>
-    </div>
+
 
     <div class="setting-content">
       <el-button
@@ -1186,6 +1161,35 @@
               :max="24"
               size="small"
             />
+          </div>
+          <div
+            class="config-item"
+            style="margin-bottom: 15px"
+          >
+            <span style="display: inline-block; width: 80px">主题色：</span>
+            <el-select
+              v-model="currentThemeColor"
+              class="theme-selector"
+              size="small"
+            >
+              <el-option
+                v-for="color in themeColors"
+                :key="color.value"
+                :label="color.name"
+                :value="color.value"
+              >
+                <div class="theme-option">
+                  <div
+                    class="color-preview"
+                    :style="{ backgroundColor: color.value }"
+                  ></div>
+                  <div class="color-info">
+                    <span class="color-name">{{ color.name }}</span>
+                    <span class="color-desc">{{ color.desc }}</span>
+                  </div>
+                </div>
+              </el-option>
+            </el-select>
           </div>
         </div>
       </div>
