@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 17:29
+ * @LastTime   : 2025-03-11 20:57
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1063,8 +1063,6 @@
     width="95%"
     @close="closeSettingDialog"
   >
-
-
     <div class="setting-content">
       <el-button
         type="primary"
@@ -1164,7 +1162,7 @@
           </div>
           <div
             class="config-item"
-            style="margin-bottom: 15px; display: flex; align-items: center;"
+            style="margin-bottom: 15px; display: flex; align-items: center"
           >
             <span style="display: inline-block; width: 80px">主题色：</span>
             <el-select
@@ -1186,7 +1184,6 @@
                   ></div>
                   <div class="color-info">
                     <span class="color-name">{{ color.name }}</span>
-                    <span class="color-desc">{{ color.desc }}</span>
                   </div>
                 </div>
               </el-option>
