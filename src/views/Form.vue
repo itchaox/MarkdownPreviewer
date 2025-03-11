@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-11 22:56
+ * @LastTime   : 2025-03-11 23:34
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -361,8 +361,6 @@
   function handleInput() {
     // 实时更新预览内容
     parsedContent.value = md.render(currentValue.value || '');
-    // 更新字数统计
-    wordCount.value = (currentValue.value || '').length;
   }
 
   // 处理按键事件
@@ -372,7 +370,7 @@
       const text = currentValue.value;
       const cursorPosition = event.target.selectionStart;
       const lines = text.split('\n');
-      
+
       // 计算光标所在行
       let currentLineIndex = 0;
       let currentPosition = 0;
@@ -380,19 +378,19 @@
         currentPosition += lines[currentLineIndex].length + 1;
         currentLineIndex++;
       }
-      
+
       const currentLine = lines[currentLineIndex];
       const positionInLine = cursorPosition - currentPosition;
-      
+
       // 匹配有序列表（如：1. 2. 3.）
       const orderedMatch = currentLine.match(/^(\d+)\. /);
       // 匹配无序列表（如：- * +）
       const unorderedMatch = currentLine.match(/^([\-\*\+]) /);
-      
+
       // 在光标位置插入换行
       const beforeCursor = currentLine.slice(0, positionInLine);
       const afterCursor = currentLine.slice(positionInLine);
-      
+
       let newLine = '';
       if (orderedMatch && beforeCursor.startsWith(orderedMatch[0])) {
         const num = parseInt(orderedMatch[1]);
@@ -400,13 +398,13 @@
       } else if (unorderedMatch && beforeCursor.startsWith(unorderedMatch[0])) {
         newLine = `${unorderedMatch[1]} `;
       }
-      
+
       lines[currentLineIndex] = beforeCursor;
       lines.splice(currentLineIndex + 1, 0, newLine + afterCursor);
-      
+
       currentValue.value = lines.join('\n');
       handleInput();
-      
+
       // 设置新的光标位置
       nextTick(() => {
         const newPosition = currentPosition + beforeCursor.length + 1 + newLine.length;
@@ -796,17 +794,21 @@
   const currentRecordIndex = ref(-1);
   const recordIds = ref([]);
 
+  // 监听 currentValue 的变化
+  watch(
+    currentValue,
+    (newValue) => {
+      // 更新字数统计
+      wordCount.value = (newValue || '').length;
+    },
+    { immediate: true },
+  );
+
   // AI 问答模式字段 ID
   const questionFieldId = ref('');
   const answerFieldId = ref('');
   const questionFieldName = ref('');
   const answerFieldName = ref('');
-
-  // 繁体模式 1 正体繁体; 2 台湾繁体; 3 香港繁体
-  const traditionalModel = ref('1');
-
-  // 地域模式 1 不使用; 2 台湾模式
-  const localModel = ref('1');
 
   onMounted(async () => {
     databaseList.value = await base.getTableMetaList();
@@ -1651,9 +1653,7 @@
                 @input="handleInput"
                 @keydown="handleKeyDown"
               ></textarea>
-              <div class="word-count">
-                {{ wordCount }} 字 · {{ readingTime }} 分钟阅读
-              </div>
+              <div class="word-count">{{ wordCount }} 字 · {{ readingTime }} 分钟阅读</div>
             </div>
             <div class="preview-pane">
               <div
@@ -1668,9 +1668,7 @@
                 class="preview-content"
                 v-html="parsedContent"
               ></div>
-              <div class="word-count">
-                {{ wordCount }} 字 · {{ readingTime }} 分钟阅读
-              </div>
+              <div class="word-count">{{ wordCount }} 字 · {{ readingTime }} 分钟阅读</div>
             </div>
           </template>
         </div>
