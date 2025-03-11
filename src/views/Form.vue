@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-12 07:21
+ * @LastTime   : 2025-03-12 07:30
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -238,7 +238,7 @@
     { syntax: '![alt](url "图片描述")', description: '图片' },
     { syntax: '`代码`', description: '行内代码' },
     { syntax: '```\n代码块\n```', description: '代码块' },
-    { syntax: '- 项目', description: '无序列表' },
+    { syntax: '- 项目 或 * 项目', description: '无序列表' },
     { syntax: '1. 项目', description: '有序列表' },
     { syntax: '---', description: '分割线' },
     { syntax: '~~文本~~', description: '删除线' },
@@ -1352,7 +1352,10 @@
   </el-dialog>
 
   <div class="markdown-preview">
-    <div v-if="!isFullscreen" class="mode-switch">
+    <div
+      v-if="!isFullscreen"
+      class="mode-switch"
+    >
       <div class="preview-type-selector">
         <el-radio-group
           v-model="previewMode"
@@ -1697,8 +1700,8 @@
                 :key="index"
                 class="help-item"
               >
-                <div class="syntax">{{ item.syntax }}</div>
                 <div class="description">{{ item.description }}</div>
+                <div class="syntax">{{ item.syntax }}</div>
               </div>
             </div>
           </el-dialog>
@@ -1712,7 +1715,10 @@
         >
           <el-icon size="16"><ArrowUp /></el-icon>
         </el-button>
-        <div class="split-container" :style="isFullscreen ? { marginTop: 0, height: '100%' } : {}">
+        <div
+          class="split-container"
+          :style="isFullscreen ? { marginTop: 0, height: '100%' } : {}"
+        >
           <template v-if="isEditing">
             <div class="editor-pane">
               <textarea
@@ -1841,16 +1847,16 @@
   }
 
   .syntax {
-    flex: 0 0 200px;
+    flex: 0 0 180px;
     font-family: monospace;
     background: #f5f7fa;
     padding: 4px 8px;
     border-radius: 4px;
-    margin-right: 16px;
   }
 
   .description {
     color: #606266;
+    width: 110px;
   }
 
   .theme-setting {
