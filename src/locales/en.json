@@ -7,6 +7,8 @@
     "empty_state": "Please select  cell to preview Markdown content",
     "current_field": "Field",
     "current_row": "Row",
+    "row_prefix": "",
+    "row_suffix": "",
     "navigation": {
       "prev": "Previous Line",
       "next": "Next Line",

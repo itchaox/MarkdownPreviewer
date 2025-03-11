@@ -1290,7 +1290,7 @@
               </div>
               <div style="margin-left: 5px">
                 <span
-                  >第 <strong style="color: #2955e7">{{ currentRecordIndex + 1 }}</strong> 行</span
+                  >{{ $t('preview.row_prefix') }} <strong style="color: #2955e7">{{ currentRecordIndex + 1 }}</strong> {{ $t('preview.row_suffix') }}</span
                 >
               </div>
             </div>
