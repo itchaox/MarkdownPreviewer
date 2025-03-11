@@ -1468,7 +1468,7 @@
 
   .editor-pane {
     flex: 1;
-    overflow: auto;
+    /* overflow: auto; */
     border-right: 1px solid #e5e6eb;
     padding-right: 8px;
   }
@@ -1633,7 +1633,8 @@
   .preview-content {
     line-height: 1.6;
     color: #1f2329;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+      'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
   }
 
   .preview-content :deep(h1),
