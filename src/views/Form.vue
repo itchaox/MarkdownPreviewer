@@ -1153,7 +1153,7 @@
           class="preview-config"
           style="margin-top: 20px"
         >
-          <h3 style="margin-bottom: 15px">预览区域配置</h3>
+          <h3 style="margin-bottom: 20px; font-size: 18px; font-weight: 600; color: #1f2329;">预览区域配置</h3>
           <div
             class="config-item"
             style="margin-bottom: 15px"
