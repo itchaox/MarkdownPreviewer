@@ -42,6 +42,13 @@
   // 编辑状态控制
   const isEditing = ref(false);
 
+  // 预览区域配置
+  const previewConfig = ref({
+    fontSize: 14,
+    lineHeight: 1.6,
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+  });
+
   // 默认配置输入值
   const defaultConfig = ref('');
 
@@ -1046,6 +1053,19 @@
             </template>
           </el-input>
         </div>
+
+        <!-- 预览区域配置 -->
+        <div class="preview-config" style="margin-top: 20px;">
+          <h3 style="margin-bottom: 15px;">预览区域配置</h3>
+          <div class="config-item" style="margin-bottom: 15px;">
+            <span style="display: inline-block; width: 80px;">字体大小：</span>
+            <el-input-number v-model="previewConfig.fontSize" :min="12" :max="24" size="small" />
+          </div>
+          <div class="config-item" style="margin-bottom: 15px;">
+            <span style="display: inline-block; width: 80px;">行高：</span>
+            <el-input-number v-model="previewConfig.lineHeight" :min="1" :max="2" :step="0.1" size="small" />
+          </div>
+        </div>
         <div
           class="button-group"
           v-show="newFormUrl"
@@ -1631,10 +1651,10 @@
   }
 
   .preview-content {
-    line-height: 1.6;
+    line-height: v-bind(previewConfig.lineHeight);
     color: #1f2329;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-      'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    font-family: v-bind(previewConfig.fontFamily);
+    font-size: v-bind(previewConfig.fontSize + 'px');
   }
 
   .preview-content :deep(h1),
