@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-12 09:49
+ * @LastTime   : 2025-03-12 09:58
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -1352,7 +1352,7 @@
             class="config-item"
             style="margin-bottom: 15px; display: flex; align-items: center"
           >
-            <span style="display: inline-block; width: 80px">{{ $t('preview.setting.show_word_count') }}：</span>
+            <span style="display: inline-block">{{ $t('preview.setting.show_word_count') }}：</span>
             <el-switch v-model="showWordCount" />
           </div>
         </div>
