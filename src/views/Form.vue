@@ -56,10 +56,10 @@
   ];
 
   // 当前选中的主题色
-  const currentThemeColor = ref('#000');
+  const currentThemeColor = ref(localStorage.getItem('markdownPreviewThemeColor') || '#000');
 
   // 是否显示字数和阅读时间
-  const showWordCount = ref(true);
+  const showWordCount = ref(localStorage.getItem('markdownPreviewShowWordCount') !== 'false');
 
   // 监听主题色变化
   watch(currentThemeColor, (newColor) => {
@@ -121,9 +121,24 @@
 
   // 预览区域配置
   const previewConfig = ref({
-    fontSize: 14,
+    fontSize: parseInt(localStorage.getItem('markdownPreviewFontSize')) || 14,
     lineHeight: 1.6,
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+  });
+
+  // 监听配置变化并保存到 localStorage
+  watch(() => previewConfig.value.fontSize, (newSize) => {
+    localStorage.setItem('markdownPreviewFontSize', newSize.toString());
+  });
+
+  // 监听字数显示设置变化
+  watch(showWordCount, (newValue) => {
+    localStorage.setItem('markdownPreviewShowWordCount', newValue.toString());
+  });
+
+  // 监听主题色变化
+  watch(currentThemeColor, (newColor) => {
+    localStorage.setItem('markdownPreviewThemeColor', newColor);
   });
 
   // 默认配置输入值
