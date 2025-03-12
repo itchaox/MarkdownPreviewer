@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-12 07:31
+ * @LastTime   : 2025-03-12 09:37
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -28,8 +28,9 @@
     UserFilled,
     QuestionFilled,
     Document,
-    FullScreen,
   } from '@element-plus/icons-vue';
+
+  import { FullScreen, OffScreen } from '@icon-park/vue-next';
 
   import MarkdownIt from 'markdown-it';
 
@@ -1636,7 +1637,18 @@
                 size="20"
                 :title="$t(isFullscreen ? 'preview.fullscreen.exit' : 'preview.fullscreen.enter')"
               >
-                <FullScreen />
+                <!-- <FullScreen /> -->
+
+                <full-screen
+                  v-if="!isFullscreen"
+                  theme="outline"
+                  size="24"
+                />
+                <off-screen
+                  v-else
+                  theme="outline"
+                  size="24"
+                />
               </el-icon>
             </el-button>
           </div>
