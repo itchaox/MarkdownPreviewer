@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-12 09:58
+ * @LastTime   : 2025-03-12 10:03
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -39,6 +39,7 @@
 
   // 主题色配置
   const themeColors = [
+    { name: '默认', value: '#000', desc: '保持默认样式，仅列表标记使用主题色' },
     { name: '经典蓝', value: '#2955e7', desc: '沉稳大气的经典蓝调' },
     { name: '薰衣紫', value: '#9d4edd', desc: '优雅神秘' },
     { name: '天空蓝', value: '#40a9ff', desc: '清爽自由' },
@@ -55,7 +56,7 @@
   ];
 
   // 当前选中的主题色
-  const currentThemeColor = ref('#2955e7');
+  const currentThemeColor = ref('#000');
 
   // 是否显示字数和阅读时间
   const showWordCount = ref(true);
@@ -72,19 +73,19 @@
         .preview-content h3,
         .preview-content h4,
         .preview-content h5 {
-          color: ${newColor};
+          color: ${newColor || '#1f2329'};
         }
 
         .preview-content strong {
-          color: ${newColor};
+          color: ${newColor || '#1f2329'};
         }
 
         .preview-content li::marker {
-          color: ${newColor} !important;
+          color: ${newColor || '#3370ff'} !important;
         }
 
         .preview-content a {
-          color: ${newColor};
+          color: ${newColor || '#3370ff'};
         }
       `;
       // 移除旧的主题色样式
@@ -1328,7 +1329,7 @@
             <el-select
               v-model="currentThemeColor"
               class="theme-selector"
-              style="width: 320px"
+              style="width: 150px"
             >
               <el-option
                 v-for="color in themeColors"
