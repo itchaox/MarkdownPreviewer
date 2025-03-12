@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-12 09:40
+ * @LastTime   : 2025-03-12 09:49
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -247,7 +247,15 @@
   ]);
 
   const editor = ref(null);
-  const isTextField = ref(false); // 是否为文本字段
+  // 判断当前字段是否为文本类型
+  const isTextField = computed(() => {
+    console.log('🚀   fieldList.value:', fieldList.value);
+
+    const currentField = fieldList.value?.find(
+      (field) => field.id === (currentFieldId.value || lastSelectedFieldId.value),
+    );
+    return currentField?.type === 1;
+  });
 
   // 当前点击字段id
   const currentFieldId = ref();
@@ -1571,6 +1579,7 @@
         <div class="preview-header">
           <div class="preview-actions">
             <el-button
+              v-if="isTextField"
               @click="toggleEditing"
               plain
               size="small"
