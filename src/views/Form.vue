@@ -61,41 +61,51 @@
   // 是否显示字数和阅读时间
   const showWordCount = ref(localStorage.getItem('markdownPreviewShowWordCount') !== 'false');
 
+  // 监听主题色变化并应用样式
+  const applyThemeColor = (color) => {
+    const style = document.createElement('style');
+    style.textContent = `
+      .preview-content h1,
+      .preview-content h2,
+      .preview-content h3,
+      .preview-content h4,
+      .preview-content h5 {
+        color: ${color || '#1f2329'};
+      }
+
+      .preview-content strong {
+        color: ${color || '#1f2329'};
+      }
+
+      .preview-content li::marker {
+        color: ${color || '#3370ff'} !important;
+      }
+
+      .preview-content a {
+        color: ${color || '#3370ff'};
+      }
+    `;
+    // 移除旧的主题色样式
+    const oldStyle = document.querySelector('#theme-color-style');
+    if (oldStyle) {
+      oldStyle.remove();
+    }
+    // 添加新的主题色样式
+    style.id = 'theme-color-style';
+    document.head.appendChild(style);
+  };
+
   // 监听主题色变化
   watch(currentThemeColor, (newColor) => {
-    // 更新预览区域的主题色相关样式
-    const previewContent = document.querySelector('.preview-content');
-    if (previewContent) {
-      const style = document.createElement('style');
-      style.textContent = `
-        .preview-content h1,
-        .preview-content h2,
-        .preview-content h3,
-        .preview-content h4,
-        .preview-content h5 {
-          color: ${newColor || '#1f2329'};
-        }
+    applyThemeColor(newColor);
+    localStorage.setItem('markdownPreviewThemeColor', newColor);
+  });
 
-        .preview-content strong {
-          color: ${newColor || '#1f2329'};
-        }
-
-        .preview-content li::marker {
-          color: ${newColor || '#3370ff'} !important;
-        }
-
-        .preview-content a {
-          color: ${newColor || '#3370ff'};
-        }
-      `;
-      // 移除旧的主题色样式
-      const oldStyle = document.querySelector('#theme-color-style');
-      if (oldStyle) {
-        oldStyle.remove();
-      }
-      // 添加新的主题色样式
-      style.id = 'theme-color-style';
-      document.head.appendChild(style);
+  // 在组件挂载时应用保存的主题色
+  onMounted(() => {
+    const savedColor = localStorage.getItem('markdownPreviewThemeColor');
+    if (savedColor) {
+      applyThemeColor(savedColor);
     }
   });
 
