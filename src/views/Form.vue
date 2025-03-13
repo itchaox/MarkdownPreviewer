@@ -3,7 +3,7 @@
  * @Author     : itchaox
  * @Date       : 2023-09-26 15:10
  * @LastAuthor : Wang Chao
- * @LastTime   : 2025-03-12 10:03
+ * @LastTime   : 2025-03-13 22:34
  * @desc       : Markdown 预览插件
 -->
 <script setup>
@@ -137,9 +137,12 @@
   });
 
   // 监听配置变化并保存到 localStorage
-  watch(() => previewConfig.value.fontSize, (newSize) => {
-    localStorage.setItem('markdownPreviewFontSize', newSize.toString());
-  });
+  watch(
+    () => previewConfig.value.fontSize,
+    (newSize) => {
+      localStorage.setItem('markdownPreviewFontSize', newSize.toString());
+    },
+  );
 
   // 监听字数显示设置变化
   watch(showWordCount, (newValue) => {
@@ -1412,7 +1415,9 @@
               <Setting />
             </el-icon>
           </el-button>
-          <el-button
+
+          <!-- FIXME 暂时禁用-赞助和关注按钮 -->
+          <!-- <el-button
             type="primary"
             class="sponsor-button"
             @click="sponsorDialogVisible = true"
@@ -1453,7 +1458,7 @@
                 /></svg
             ></el-icon>
             {{ $t('preview.sponsor.follow') }}
-          </el-button>
+          </el-button> -->
         </div>
       </div>
     </div>
