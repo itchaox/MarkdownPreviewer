@@ -14,6 +14,7 @@
     "@mapbox/node-pre-gyp": "^1.0.11",
     "element-plus": "^2.3.6",
     "html2canvas": "^1.4.1",
+    "katex": "^0.16.21",
     "markdown-it": "^14.1.0",
     "node-opencc": "^2.0.1",
     "reset-css": "^5.0.1",
