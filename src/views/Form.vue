@@ -1094,6 +1094,10 @@
     ordered: true,
   });
 
+	// 支持公式显示
+	import mk from '../js/katex-parser.js';
+	md.use(mk);
+
   // 解析后的 HTML 内容
   const parsedContent = ref('');
 
